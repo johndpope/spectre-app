@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-DoubleTake::Application.load_tasks
+SpectreApp::Application.load_tasks

@@ -1,32 +1,36 @@
 require 'spec_helper'
 
 describe "StaticPages" do
+
+  subject { page }
   
   describe "Home page" do
+    before { visit root_path }
 
-    it "should have the default title" do
-      visit '/static_pages/home'
-      page.should have_selector('title',
-                                 text: "Double-Take")
-    end
-
-    it "should have the content 'Double-Take'" do
-      visit '/static_pages/home'
-      page.should have_content('Double-Take')
-    end
+    it { should have_selector('h1',    text: 'Spectre') }
+    it { should have_selector('title', text: full_title('')) }
+    it { should have_content('Market Surveillance System') }
   end
 
   describe "About Page" do
+    before { visit about_path }
 
-    it "should have the title 'About'" do
-      visit '/static_pages/about'
-      page.should have_selector('title',
-                                 text: "Double-Take | About")
-    end
+    it { should have_selector('title', text: full_title('About')) }
+    it { should have_content('About Spectre') }
+  end
 
-    it "should have the content 'Coming Soon'" do
-      visit '/static_pages/about'
-      page.should have_content('Coming Soon')
-    end
+  describe "Support Page" do
+    before { visit support_path }
+
+    it { should have_selector('title', text: full_title('Support')) }
+    it { should have_content('Support') }
+  end
+
+
+  describe "Contact Page" do
+    before { visit contact_path }
+
+    it { should have_selector('title', text: full_title('Contact')) }
+    it { should have_content('Contact Us') }
   end
 end
