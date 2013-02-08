@@ -1,0 +1,7 @@
+<% if @user.errors.any? %>
+  <% if @user.errors.messages.has_key?(field) %>
+    <span class="text-error"><%= @user.errors.messages[field].first %></span>
+  <% end %>
+<% end %>
+
+
