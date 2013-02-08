@@ -2,6 +2,28 @@
   <div class="navbar-inner">
     <div class="container">
       <%= link_to "SPECTRE", root_path, class: "brand" %>
+        <nav>
+          <ul class="nav pull-right">
+            <% if signed_in? %>
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Account<b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Profile", current_user %></li>
+                <li><%= link_to "Settings", '#' %></li>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "Sign Out", signout_path,
+                    method: "delete" %>
+                </li>
+              </ul>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
     </div>
   </div>
 </header>
+
+
