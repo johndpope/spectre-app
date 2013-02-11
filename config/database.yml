@@ -28,4 +28,4 @@ production:
   database: spectre_app_prod
   pool: 5
   username: nitin
-  password: nitin
+  password: 
