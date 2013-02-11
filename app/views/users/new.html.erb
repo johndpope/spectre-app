@@ -5,41 +5,7 @@
     <div class="form-horizontal well">
       <%= render 'shared/num_errors' %>
       <%= form_for(@user) do |f| %>
-            
-        <div class="control-group">
-          <%= f.label :name, class: "control-label" %>
-          <div class="controls">
-            <%= f.text_field :name, class: "input-xlarge" %>
-            <%= render 'shared/error_message', field: :name %>
-          </div>
-        </div>
-
-        <div class="control-group">
-          <%= f.label :email, class: "control-label" %>
-          <div class="controls">
-            <%= f.text_field :email, class: "input-xlarge" %>
-            <%= render 'shared/error_message', field: :email %>
-          </div>
-        </div>
-
-        <div class="control-group">
-          <%= f.label :password, class: "control-label" %>
-          <div class="controls">
-            <%= f.text_field :password, class: "input-xlarge",
-                                        type: "password" %>
-            <%= render 'shared/error_message', field: :password %>
-          </div>
-        </div>
-
-        <div class="control-group">
-          <%= f.label :password_confirmation, class: "control-label" %>
-          <div class="controls">
-            <%= f.text_field :password_confirmation, class: "input-xlarge",
-                                                     type: "password" %>
-            <%= render 'shared/error_message', field: :password_confirmation %>
-          </div>
-        </div>
-        
+      <%= render 'fields', f: f %>
         <div class="control-group">
           <div class="controls">
             <%= f.submit "Create my account", class: "btn btn-primary" %>
