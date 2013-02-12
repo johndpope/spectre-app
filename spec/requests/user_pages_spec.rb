@@ -30,22 +30,33 @@ describe "UserPages" do
       end
     end
 
-    describe "delete links" do
+    describe "activate/deactivate links" do
 
-      it { should_not have_link('delete') }
+      it { should_not have_link('activate') }
+      it { should_not have_link('deactivate') }
 
       describe "as an admin user" do
+        before(:all) { User.delete_all }
+        let(:user) { FactoryGirl.create(:user) }
         let(:admin) { FactoryGirl.create(:admin) }
+
         before do
           sign_in admin
           visit users_path
         end
 
-        it { should have_link('delete', href: user_path(User.first)) }
-        it "should be able to delete another user" do
-          expect { click_link('delete') }.to change(User, :count).by(-1)
-        end
-        it { should_not have_link('delete', href: user_path(admin)) }
+        it { should have_link('deactivate', href: user_path(User.first)) }
+        #it "should be able to deactivate another user" do
+        #  expect { click_link 'deactivate' }.to change(User.first, :activated)
+        #end
+
+        it { should have_link('activate', href: user_path(User.first)) }
+        #it "should be able to activate another user" do
+        #  expect { click_link 'activate' }.to change(User.first, :activated)
+        #end
+
+        it { should_not have_link('deactivate', href: user_path(admin)) }
+        it { should_not have_link('activate', href: user_path(admin)) }
       end
     end
   end
@@ -63,6 +74,7 @@ describe "UserPages" do
 
     it { should have_selector('h1',    text: user.name) }
     it { should have_selector('title', text: user.name) }
+
   end
 
   describe "signup" do
@@ -99,9 +111,8 @@ describe "UserPages" do
         before { click_button submit }
         let(:user) { User.find_by_email('user@example.com') }
 
-        it { should have_selector('title', text: user.name) }
         it { should have_selector('div.alert.alert-success', text: 'Welcome') }
-        it { should have_link('Sign Out') }
+        it { should have_button('Sign In') }
       end
     end
   end

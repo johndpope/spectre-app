@@ -14,9 +14,26 @@ describe "Authentication" do
   describe "signin" do
     before { visit signin_path }
 
-    describe "with valid information" do
+    describe "with valid information but not activated" do
       let(:user) { FactoryGirl.create(:user) }
-      before { sign_in user }
+
+      before do
+        user.toggle!(:activated)
+        sign_in user
+      end
+      
+      it { should have_selector('title', text: 'Sign In') }
+      it { should have_button('Sign In') }
+      it { should have_selector('div.alert.alert-error', text: 'activated') }
+    end
+
+    describe "with valid information and activated" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      before do
+        visit signin_path
+        sign_in user
+      end
 
       it { should have_selector('title', text: user.name) }
       it { should have_link('Activity', href: users_path) }

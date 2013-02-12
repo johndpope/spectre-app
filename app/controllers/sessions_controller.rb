@@ -3,9 +3,14 @@ class SessionsController < ApplicationController
   def new
   end
 
-def create
+  def create
     user = User.find_by_email(params[:session][:email].downcase)
-    if user && user.authenticate(params[:session][:password])
+    if user && !user.activated?
+      flash.now[:error] = 'Your account is not activated. Contact your 
+                           administrator.'
+      render 'new'
+    elsif user && user.authenticate(params[:session][:password]) &&
+          user.activated?
       sign_in user
       redirect_back_or user
     else

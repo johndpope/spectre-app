@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
+  before_filter :activated_user, only: [:index, :edit, :update, :destroy]
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user,     only: :destroy
 
@@ -18,9 +19,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      sign_in @user
-      flash[:success] = "Welcome to Spectre"
-      redirect_to @user
+      flash[:success] = "Welcome to Spectre. Your account will be activated
+                         shortly"
+      redirect_to signin_path
     else
       render 'new'
     end
@@ -38,19 +39,26 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end
-
+ 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "User destroyed."
+    target_user = User.find(params[:id])
+    target_user.toggle!(:activated)
+
+    if target_user.activated?
+      flash[:success] = "User Activated."
+    elsif !target_user.activated?
+      flash[:success] = "User Deactivated."
+    end
+
     redirect_to users_url
   end
 
   private
 
-    def signed_in_user
-      unless signed_in?
-        store_location
-        redirect_to signin_url, notice: "Please sign in."
+    def activated_user
+      unless activated?
+        redirect_to signin_url, notice: "Your account will be activated
+                                         shortly."
       end
     end
 
