@@ -13,13 +13,6 @@ describe "StaticPages" do
     it { should have_content('Market Surveillance System') }
   end
 
-  describe "activity page" do
-    before { visit activity_path }
-    
-    it { should have_selector('title', text: full_title('Activity')) }
-    it { should have_content('Activity') }
-  end
-
   describe "About Page" do
     before { visit about_path }
 

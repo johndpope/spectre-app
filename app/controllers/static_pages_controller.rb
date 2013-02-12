@@ -3,6 +3,7 @@ class StaticPagesController < ApplicationController
   end
 
   def activity
+    @static_pages = Action.paginate(page: params[:page])
   end
 
   def about

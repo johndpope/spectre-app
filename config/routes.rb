@@ -1,4 +1,6 @@
 SpectreApp::Application.routes.draw do
+  get "actions/activity"
+
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
 
@@ -8,7 +10,7 @@ SpectreApp::Application.routes.draw do
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
 
-  match '/activity',   to: 'static_pages#activity'
+  match '/activity',   to: 'actions#activity'
   match '/about',   to: 'static_pages#about'
   match '/support', to: 'static_pages#support'
   match '/contact', to: 'static_pages#contact'
