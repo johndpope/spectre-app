@@ -70,11 +70,18 @@ describe "UserPages" do
 
   describe "profile page" do
     let(:user) { FactoryGirl.create(:user) }
+    let!(:a1) { FactoryGirl.create(:action, user: user, desc: "Signed in") }
+    let!(:a2) { FactoryGirl.create(:action, user: user, desc: "Signed out") }
+
     before { visit user_path(user) }
 
     it { should have_selector('h1',    text: user.name) }
     it { should have_selector('title', text: user.name) }
 
+    describe "actions" do
+      it { should have_content(a1.desc) }
+      it { should have_content(a2.desc) }
+    end
   end
 
   describe "signup" do

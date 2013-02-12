@@ -8,7 +8,11 @@ FactoryGirl.define do
 
     factory :admin do
       admin true
-      activated true
     end
+  end
+
+  factory :action do
+    desc "Case opened"
+    user
   end
 end

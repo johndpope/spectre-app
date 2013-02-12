@@ -2,11 +2,15 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  email      :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  email           :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  password_digest :string(255)
+#  remember_token  :string(255)
+#  admin           :boolean          default(FALSE)
+#  activated       :boolean          default(FALSE)
 #
 
 require 'spec_helper'
@@ -30,6 +34,7 @@ describe User do
   it { should respond_to(:admin) }
   it { should respond_to(:activated) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:actions) }
 
   it { should be_valid }
   it { should_not be_admin }
@@ -148,5 +153,20 @@ describe User do
   describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
+  end
+
+  describe "action associations" do
+
+    before { @user.save }
+    let!(:older_action) do
+      FactoryGirl.create(:action, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_action) do
+      FactoryGirl.create(:action, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should list the right actions in the right order" do
+      @user.actions.should == [newer_action, older_action]
+    end
   end
 end
