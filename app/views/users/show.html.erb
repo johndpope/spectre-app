@@ -7,6 +7,7 @@
   <div class="span8">
     <h3>Activity</h3>
     <% if @user.actions.any? %>  
+      <%= will_paginate @actions %>
       <ol class="actions">
         <%= render @actions %>
       </ol>

@@ -46,9 +46,15 @@ class UsersController < ApplicationController
     target_user.toggle!(:activated)
 
     if target_user.activated?
-      flash[:success] = "User Activated."
+      current_user.actions.create!(
+        type: "Activate",
+        desc: "activated the account belonging to #{target_user.name}")
+      flash[:success] = "Account for #{target_user.name} activated."
     elsif !target_user.activated?
-      flash[:success] = "User Deactivated."
+      current_user.actions.create!(
+        type: "Deactivate",
+        desc: "deactivated the account belonging to #{target_user.name}")
+      flash[:success] = "Account for #{target_user.name} Deactivated."
     end
 
     redirect_to users_url
