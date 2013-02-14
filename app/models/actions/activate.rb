@@ -1,0 +1,2 @@
+class Activate < Action
+end

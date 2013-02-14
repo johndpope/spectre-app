@@ -1,0 +1,7 @@
+<li>
+  <span class="content"><%= tranferred.user.name %> <%= sign_in.desc %> case 1 to user 1.</span>
+  <blockquote>Comment: <%= transfer.content %></blockquote>
+  <span class="timestamp">
+    Occured <%= time_ago_in_words(transfer.created_at) %> ago.
+  </span>
+</li>

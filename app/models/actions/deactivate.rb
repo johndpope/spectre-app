@@ -1,0 +1,2 @@
+class Deactivate < Action
+end
