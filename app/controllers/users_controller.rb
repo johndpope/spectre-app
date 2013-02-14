@@ -20,6 +20,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
+      @user.actions.create!(
+        type: "SignUp",
+        desc: "signed up for Spectre and is waiting for account approval")
       flash[:success] = "Welcome to Spectre. Your account will be activated
                          by your administrator within two hours."
       redirect_to signin_path

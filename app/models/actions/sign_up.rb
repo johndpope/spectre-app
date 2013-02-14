@@ -1,0 +1,2 @@
+class SignUp < Action
+end
