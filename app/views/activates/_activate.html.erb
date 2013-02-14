@@ -1,5 +1,8 @@
 <li>
-  <span class="content"><%= activate.user.name %> <%= activate.desc %> user 1.</span>
+  <span class="content">
+    <%= activate.user.name %> <%= activate.desc %> 
+    <%= User.offset(1).sample.name %>.
+  </span>
   <span class="timestamp">
     Occured <%= time_ago_in_words(activate.created_at) %> ago.
   </span>

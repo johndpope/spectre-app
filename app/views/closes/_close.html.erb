@@ -1,5 +1,6 @@
 <li>
-  <span class="content"><%= close.user.name %> <%= close.desc %> case 1.</span>
+  <span class="content"><%= close.user.name %> <%= close.desc %> case 
+    <%= rand(100) %>.</span>
   <span class="timestamp">
     Occured <%= time_ago_in_words(close.created_at) %> ago.
   </span>

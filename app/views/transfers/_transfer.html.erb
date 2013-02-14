@@ -1,5 +1,6 @@
 <li>
-  <span class="content"><%= tranferred.user.name %> <%= sign_in.desc %> case 1 to user 1.</span>
+  <span class="content"><%= transfer.user.name %> <%= transfer.desc %> 
+    case <%= rand(100) %> to <%= User.offset(1).sample.name %>.</span>
   <blockquote>Comment: <%= transfer.content %></blockquote>
   <span class="timestamp">
     Occured <%= time_ago_in_words(transfer.created_at) %> ago.

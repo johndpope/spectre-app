@@ -1,13 +1,13 @@
 namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
-    admin = User.create!(name: "Admin User",
-                         email: "admin@spectre.com",
+    admin = User.create!(name: "Oliver Szep",
+                         email: "szep@quotemtf.com",
                          password: "foobar",
                          password_confirmation: "foobar")
     admin.toggle!(:admin)
     admin.toggle!(:activated)
-    4.times do |n|
+    7.times do |n|
       name = Faker::Name.name
       email = "user-#{n+1}@spectre.com"
       password = "password"
@@ -18,12 +18,20 @@ namespace :db do
       user.toggle!(:activated)
     end
 
-    users = User.all(limit: 3)
+    users = User.all(limit: 4)
+    comment = Faker::Lorem.sentence(25)
+    request = "Please take a look at this and confirm the close request."
+    acts = [
+      { type: "Comment", desc: "commented on", content: comment },
+      { type: "Open", desc: "opened"},
+      { type: "Close", desc: "closed" },
+      { type: "Activate", desc: "activated the account belonging to"},
+      { type: "Deactivate", desc: "deactivated the account belonging to"},
+      { type: "Transfer", desc: "transferred", content: request},
+      { type: "SignIn", desc: "signed-in. "},
+      { type: "SignOut", desc: "signed-out. "}]
     50.times do
-      desc = Faker::Lorem.sentence(25)
-      users.each { |user| user.actions.create!(desc: "commented on",
-                                               type: "Comment",
-                                               content: desc) }
+      users.each { |user| user.actions.create!(acts.sample) }
     end
   end
 end
