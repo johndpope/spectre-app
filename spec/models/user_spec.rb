@@ -159,10 +159,10 @@ describe User do
 
     before { @user.save }
     let!(:older_action) do
-      FactoryGirl.create(:action, user: @user, created_at: 1.day.ago)
+      FactoryGirl.create(:sign_in, user: @user, created_at: 1.day.ago)
     end
     let!(:newer_action) do
-      FactoryGirl.create(:action, user: @user, created_at: 1.hour.ago)
+      FactoryGirl.create(:sign_in, user: @user, created_at: 1.hour.ago)
     end
 
     it "should list the right actions in the right order" do

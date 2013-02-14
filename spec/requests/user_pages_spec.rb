@@ -70,8 +70,8 @@ describe "UserPages" do
 
   describe "profile page" do
     let(:user) { FactoryGirl.create(:user) }
-    let!(:a1) { FactoryGirl.create(:action, user: user, desc: "Signed in") }
-    let!(:a2) { FactoryGirl.create(:action, user: user, desc: "Signed out") }
+    let!(:a1) { FactoryGirl.create(:sign_in, user: user) }
+    let!(:a2) { FactoryGirl.create(:sign_in, user: user) }
 
     before { visit user_path(user) }
 

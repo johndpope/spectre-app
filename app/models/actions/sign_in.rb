@@ -1,0 +1,2 @@
+class SignIn < Action
+end

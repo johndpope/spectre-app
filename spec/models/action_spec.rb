@@ -7,6 +7,7 @@
 #  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  type       :string(255)
 #
 
 require 'spec_helper'
@@ -14,12 +15,13 @@ require 'spec_helper'
 describe Action do
 
   let(:user) { FactoryGirl.create(:user) }
-  before { @action = user.actions.build(desc: "Signed-in") }
+  before { @action = user.actions.build(desc: "Signed-in", type: "SignIn") }
   
   subject { @action }
 
   it { should respond_to(:desc) }
   it { should respond_to(:user_id) }
+  it { should respond_to(:type) }
 
   it { should be_valid }
 
@@ -43,6 +45,11 @@ describe Action do
 
   describe "when user id is not present" do
     before { @action.user_id = nil }
+    it { should_not be_valid }
+  end
+
+  describe "when type is not present" do
+    before { @action.type = nil }
     it { should_not be_valid }
   end
 end

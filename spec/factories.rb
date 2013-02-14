@@ -11,8 +11,9 @@ FactoryGirl.define do
     end
   end
 
-  factory :action do
-    desc "Case opened"
+  factory :sign_in do
+    desc "signed in"
+    type "SignIn"
     user
   end
 end
