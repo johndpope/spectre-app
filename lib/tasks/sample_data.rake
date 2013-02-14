@@ -20,9 +20,10 @@ namespace :db do
 
     users = User.all(limit: 3)
     50.times do
-      # desc = Faker::Lorem.sentence(5)
-      users.each { |user| user.actions.create!(desc: "signed out",
-                                               type: "SignOut") }
+      desc = Faker::Lorem.sentence(25)
+      users.each { |user| user.actions.create!(desc: "commented on",
+                                               type: "Comment",
+                                               content: desc) }
     end
   end
 end

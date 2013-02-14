@@ -11,7 +11,7 @@
 #
 
 class Action < ActiveRecord::Base
-  attr_accessible :desc, :type
+  attr_accessible :desc, :type, :content
   belongs_to :user
 
   validates :user_id, presence: true

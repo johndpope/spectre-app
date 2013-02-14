@@ -22,6 +22,7 @@ describe Action do
   it { should respond_to(:desc) }
   it { should respond_to(:user_id) }
   it { should respond_to(:type) }
+  it { should respond_to(:content) }
 
   it { should be_valid }
 

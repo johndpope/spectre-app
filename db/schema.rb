@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(:version => 20130214092426) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "type"
-    t.string   "content"
+    t.text     "content"
   end
 
   add_index "actions", ["type"], :name => "index_actions_on_type"
