@@ -56,13 +56,6 @@ class UsersController < ApplicationController
 
   private
 
-    def activated_user
-      unless activated?
-        redirect_to signin_url, notice: "Your account will be activated
-                                         shortly."
-      end
-    end
-
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)

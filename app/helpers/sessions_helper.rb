@@ -13,6 +13,13 @@ module SessionsHelper
     current_user.activated?
   end
 
+  def activated_user
+    unless activated?
+      redirect_to signin_url, notice: "Your account will be activated
+                                       shortly."
+    end
+  end
+
   def current_user=(user)
     @current_user = user
   end

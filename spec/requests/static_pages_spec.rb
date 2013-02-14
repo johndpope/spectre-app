@@ -4,13 +4,29 @@ describe "StaticPages" do
 
   subject { page }
   
-  describe "Home page" do
-    before { visit root_path }
+  describe "home page" do
 
-    it { should have_selector('h1',    text: 'Spectre') }
-    it { should have_selector('title', text: full_title('')) }
-    it { should_not have_selector 'title', text: '| Home' }
-    it { should have_content('Market Surveillance System') }
+    describe "when not signed in" do
+      before { visit root_path }
+
+      it { should have_selector('h1',    text: 'Spectre') }
+      it { should have_selector('title', text: full_title('')) }
+      it { should_not have_selector 'title', text: '| Home' }
+      it { should have_content('Market Surveillance System') }
+    end
+
+    describe "when signed in" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      before do
+        sign_in user
+        visit root_path
+      end
+
+      it { should have_selector('h1',    text: 'Activity') }
+      it { should have_selector('title', text: full_title('Activity')) }
+
+    end
   end
 
   describe "About Page" do

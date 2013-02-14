@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by_email(params[:session][:email].downcase)
     if user && !user.activated?
-      flash.now[:error] = 'Your account is not activated. Contact your 
+      flash.now[:error] = 'Your account is not activated. Please contact your 
                            administrator.'
       render 'new'
     elsif user && user.authenticate(params[:session][:password]) &&

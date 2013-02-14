@@ -3,10 +3,14 @@
     <div class="container">
       <%= link_to "SPECTRE", root_path, class: "brand" %>
         <nav>
-          <ul class="nav pull-right">
-            <% if signed_in? %>
+          <% if signed_in? %>
+            <ul class="nav pull-left">
+              <li><%= link_to "My Cases", '#' %></li>
+              <li><%= link_to "Incident Monitors", '#' %></li>
+            </ul>
+            <ul class="nav pull-right">
               <li><%= link_to "Users", users_path %></li>
-              <li><%= link_to "Activity", activity_path %></li>
+              <li><%= link_to "Case Archive", '#' %></li>
               <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Account<b class="caret"></b>
@@ -21,8 +25,8 @@
                 </li>
               </ul>
             </li>
-          <% end %>
-        </ul>
+          </ul>
+        <% end %>
       </nav>
     </div>
   </div>

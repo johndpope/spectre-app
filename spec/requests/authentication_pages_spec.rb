@@ -36,8 +36,10 @@ describe "Authentication" do
       end
 
       it { should have_selector('title', text: user.name) }
+      it { should have_link('My Cases', href: '#') }
+      it { should have_link('Incident Monitors', href: '#') }
       it { should have_link('Users', href: users_path) }
-      it { should have_link('Activity', href: activity_path) }
+      it { should have_link('Case Archive', href: '#') }
       it { should have_link('Profile', href: user_path(user)) }
       it { should have_link('Settings', href: edit_user_path(user)) }
       it { should have_link('Sign Out', href: signout_path) }

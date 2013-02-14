@@ -1,9 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
-  end
-
-  def activity
-    @static_pages = Action.paginate(page: params[:page])
+    redirect_to activity_path unless !signed_in?
   end
 
   def about
