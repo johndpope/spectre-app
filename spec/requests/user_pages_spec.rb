@@ -46,14 +46,14 @@ describe "UserPages" do
         end
 
         it { should have_link('deactivate', href: user_path(User.first)) }
-        #it "should be able to deactivate another user" do
-        #  expect { click_link 'deactivate' }.to change(User.first, :activated)
-        #end
+        it "should be able to deactivate another user" do
+          expect { click_link 'deactivate' }.to change(Action, :count).by(1)
+        end
 
         it { should have_link('activate', href: user_path(User.first)) }
-        #it "should be able to activate another user" do
-        #  expect { click_link 'activate' }.to change(User.first, :activated)
-        #end
+        it "should be able to activate another user" do
+          expect { click_link 'activate' }.to change(Action, :count).by(1)
+        end
 
         it { should_not have_link('deactivate', href: user_path(admin)) }
         it { should_not have_link('activate', href: user_path(admin)) }
