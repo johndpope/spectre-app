@@ -1,0 +1,2 @@
+class SignOut < Action
+end
