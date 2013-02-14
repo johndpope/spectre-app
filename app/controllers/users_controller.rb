@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       flash[:success] = "Welcome to Spectre. Your account will be activated
-                         shortly"
+                         by your administrator within two hours."
       redirect_to signin_path
     else
       render 'new'
