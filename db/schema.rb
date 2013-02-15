@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130214092426) do
+ActiveRecord::Schema.define(:version => 20130215100601) do
 
   create_table "actions", :force => true do |t|
     t.string   "desc"
@@ -20,10 +20,32 @@ ActiveRecord::Schema.define(:version => 20130214092426) do
     t.datetime "updated_at", :null => false
     t.string   "type"
     t.text     "content"
+    t.integer  "case_id"
   end
 
+  add_index "actions", ["case_id"], :name => "index_actions_on_case_id"
   add_index "actions", ["type"], :name => "index_actions_on_type"
   add_index "actions", ["user_id", "created_at"], :name => "index_actions_on_user_id_and_created_at"
+
+  create_table "cases", :force => true do |t|
+    t.integer  "incident_id"
+    t.integer  "user_id"
+    t.boolean  "open"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "cases", ["incident_id"], :name => "index_cases_on_incident_id"
+  add_index "cases", ["user_id", "incident_id", "created_at"], :name => "index_cases_on_user_id_and_incident_id_and_created_at"
+  add_index "cases", ["user_id"], :name => "index_cases_on_user_id"
+
+  create_table "incidents", :force => true do |t|
+    t.string   "type"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "incidents", ["created_at"], :name => "index_incidents_on_created_at"
 
   create_table "users", :force => true do |t|
     t.string   "name"

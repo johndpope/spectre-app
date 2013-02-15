@@ -9,10 +9,10 @@
 #  updated_at :datetime         not null
 #  type       :string(255)
 #
-
 class Action < ActiveRecord::Base
   attr_accessible :desc, :type, :content
   belongs_to :user
+  belongs_to :case
 
   validates :user_id, presence: true
   validates :desc, presence: true

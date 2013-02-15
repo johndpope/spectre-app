@@ -16,4 +16,8 @@ FactoryGirl.define do
     type "SignIn"
     user
   end
+
+  factory :layering do
+    type "Layering"
+  end
 end
