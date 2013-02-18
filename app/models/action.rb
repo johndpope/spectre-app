@@ -10,7 +10,7 @@
 #  type       :string(255)
 #
 class Action < ActiveRecord::Base
-  attr_accessible :desc, :type, :content
+  attr_accessible :desc, :type, :content, :case_id
   belongs_to :user
   belongs_to :case
 

@@ -1,6 +1,6 @@
 <li>
   <span class="content"><%= comment.user.name %> <%= comment.desc %> case 
-    <%= rand(100) %>.</span>
+    <%= comment.case_id %>.</span><br>
   <blockquote><%= comment.content %></blockquote>
   <span class="timestamp">
     Occured <%= time_ago_in_words(comment.created_at) %> ago.
