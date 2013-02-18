@@ -217,6 +217,7 @@ DEPENDENCIES
   guard-rspec (= 1.2.1)
   guard-spork!
   jquery-rails (= 2.0.2)
+  json
   launchy (= 2.1.0)
   libnotify (= 0.5.9)
   mongrel

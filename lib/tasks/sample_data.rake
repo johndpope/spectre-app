@@ -9,9 +9,9 @@ namespace :db do
     admin.toggle!(:activated)
 
     user = User.create!(name: "Nitin Punjabi",
-                         email: "punjabi@quotemtf.com",
-                         password: "foobar",
-                         password_confirmation: "foobar")
+                        email: "punjabi@quotemtf.com",
+                        password: "foobar",
+                        password_confirmation: "foobar")
     user.toggle!(:activated)
 
     7.times do |n|
@@ -24,6 +24,33 @@ namespace :db do
                           password_confirmation: password)
       user.toggle!(:activated)
     end
+
+    layering = { type: "Layering",
+                 detection_time: Time.now.utc.iso8601,
+                 content: {
+                   customer: "Acme Trading",
+                   orders: [
+                     { client_order_id: "001", symbol: "NESNz", price: "1.00",
+                       side: "buy", status: "new"},
+                     { client_order_id: "002", symbol: "NESNz", price: "1.01",
+                       side: "buy", status: "new" },
+                     { client_order_id: "003", symbol: "NESNz", price: "1.02",
+                       side: "buy", status: "new" },
+                     { client_order_id: "004", symbol: "NESNz", price: "1.04",
+                       side: "sell", status: "filled" },
+                     { client_order_id: "003", symbol: "NESNz", price: "1.02",
+                       side: "buy", status: "canceled" },
+                     { client_order_id: "002", symbol: "NESNz", price: "1.01",
+                       side: "buy", status: "canceled" },
+                     { client_order_id: "001", symbol: "NESNz", price: "1.00",
+                       side: "buy", status: "canceled" }
+                   ]
+                }.to_json()
+              }
+
+    incident = Incident.create!(layering)
+    incident_case = incident.create_case!(user_id: User.find(2)[:id], open: true)
+
 
     # users = User.all(limit: 4)
     # comment = Faker::Lorem.sentence(25)
