@@ -49,8 +49,8 @@ namespace :db do
               }
 
     incident = Incident.create!(layering)
-    incident_case = incident.create_case!(user_id: User.find(2)[:id],
-                                          open: true)
+    incident_case = incident.create_case_file!(user_id: User.find(2)[:id],
+                                               open: true)
 
     # users = User.all(limit: 4)
     # comment = Faker::Lorem.sentence(25)

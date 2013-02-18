@@ -16,18 +16,18 @@ ActiveRecord::Schema.define(:version => 20130218111502) do
   create_table "actions", :force => true do |t|
     t.string   "desc"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.string   "type",       :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "type",         :null => false
     t.text     "content"
-    t.integer  "case_id"
+    t.integer  "case_file_id"
   end
 
-  add_index "actions", ["case_id"], :name => "index_actions_on_case_id"
+  add_index "actions", ["case_file_id"], :name => "index_actions_on_case_file_id"
   add_index "actions", ["type"], :name => "index_actions_on_type"
   add_index "actions", ["user_id", "created_at"], :name => "index_actions_on_user_id_and_created_at"
 
-  create_table "cases", :force => true do |t|
+  create_table "case_files", :force => true do |t|
     t.integer  "incident_id"
     t.integer  "user_id"
     t.boolean  "open"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20130218111502) do
     t.datetime "updated_at",  :null => false
   end
 
-  add_index "cases", ["user_id", "incident_id", "created_at"], :name => "index_cases_on_user_id_and_incident_id_and_created_at"
+  add_index "case_files", ["user_id", "incident_id", "created_at"], :name => "index_case_files_on_user_id_and_incident_id_and_created_at"
 
   create_table "incidents", :force => true do |t|
     t.string   "type"

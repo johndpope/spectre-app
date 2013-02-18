@@ -10,9 +10,9 @@
 #  type       :string(255)
 #
 class Action < ActiveRecord::Base
-  attr_accessible :desc, :type, :content, :case_id
+  attr_accessible :desc, :type, :content, :case_file_id
   belongs_to :user
-  belongs_to :case
+  belongs_to :case_file
 
   validates :user_id, presence: true
   validates :desc, presence: true

@@ -1,0 +1,10 @@
+<% provide(:title, 'Open Cases') %>
+<h1>All Open Cases</h1>
+
+<%= will_paginate %>
+
+<ul>
+  <%= render @case_files %>
+</ul>
+
+<%= will_paginate %>

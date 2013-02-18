@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "CasePages" do
+describe "CaseFilePages" do
 
   subject { page }
 
@@ -10,7 +10,7 @@ describe "CasePages" do
 
     before do
       sign_in user
-      visit cases_path
+      visit case_files_path
     end
 
     it { should have_selector('title', text: 'Open Cases') }

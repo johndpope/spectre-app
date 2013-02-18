@@ -1,4 +1,4 @@
-class Case < ActiveRecord::Base
+class CaseFile < ActiveRecord::Base
   attr_accessible :open, :user_id
   belongs_to :user
   belongs_to :incident
@@ -8,5 +8,5 @@ class Case < ActiveRecord::Base
   validates :user_id, presence: true
   validates :incident_id, presence: true
 
-  default_scope order: 'cases.created_at DESC'
+  default_scope order: 'case_files.created_at DESC'
 end
