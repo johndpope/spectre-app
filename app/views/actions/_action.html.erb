@@ -1,7 +1,12 @@
 <span class="content">
-  <strong>Last Action</strong>: <%= action.user.name %> <%= action.desc %>.
+  <% if action %>
+    <strong>Last Action</strong>: <%= action.user.name %> <%= action.desc %>.
+    <blockquote><%= action.content %></blockquote>
+    <span class="timestamp">
+      Occured <%= time_ago_in_words(action.created_at) %> ago.
+    </span>
+  <% else %>
+    <strong>No Actions Found</strong>
+  <% end %>
 </span>
-<blockquote><%= action.content %></blockquote>
-<span class="timestamp">
-    Occured <%= time_ago_in_words(action.created_at) %> ago.
-</span>
+

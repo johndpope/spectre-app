@@ -38,13 +38,13 @@ namespace :db do
               }
 
     case_file = CaseFile.create!(
-      user_id: User.find(2)[:id],
+      user_id: User.find(1)[:id],
       open: true,
       type: layering[:type],
       content: layering[:content],
       detection_time: layering[:detection_time])
 
-    user.actions.create!(type: "Open", desc: "opened case #{case_file.id}", 
+    user.actions.create!(type: "Open", desc: "generated case #{case_file.id}", 
                          case_file_id: case_file.id)
 
     user.actions.create!(type: "Comment",
