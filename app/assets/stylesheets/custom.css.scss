@@ -1681,7 +1681,7 @@ table {
 }
 .table th,
 .table td {
-  padding: 8px;
+  padding: 2px;
   line-height: 21px;
   text-align: left;
   vertical-align: top;
@@ -5989,3 +5989,8 @@ footer ul li {
 .timestamp {
   color: #7a8288;
 }
+
+.table th, .table td { 
+     border-top: none; 
+     width: 50%;
+ }

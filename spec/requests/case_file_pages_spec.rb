@@ -7,7 +7,7 @@ describe "CaseFilePages" do
   describe "index" do
 
     let(:user) { FactoryGirl.create(:user) }
-    let(:case_file) { FactoryGirl.create(:layering, user: user) }
+    let!(:case_file) { FactoryGirl.create(:layering, user: user) }
 
     before do
       sign_in user
@@ -16,7 +16,7 @@ describe "CaseFilePages" do
 
     it { should have_selector('title', text: 'Open Cases') }
     it { should have_selector('h1', text: 'All Open Cases') }
-    #it { should have_content('h1', text: 'Status: ') }
-    #it { should have_content('h1', text: 'Open') }
+    #it { should have_content(text: 'Case Id:') }
+    #it { should have_content(text: 'Incident Type: #{case_file.type}') }
   end
 end

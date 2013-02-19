@@ -1,0 +1,28 @@
+<li>
+<table class="table">
+    <tbody>
+      <tr>
+        <td>
+          <strong>Case Id</strong>: <%= case_file.id %><br>
+          <strong>Incident Type</strong>: <%= case_file.type %><br>
+          <strong>Incident Participants</strong>: <%= content[:participants] %><br>
+          <strong>Case Officer</strong>: <%= User.find(case_file.user_id).name %><br>
+          <strong>Detection Time</strong>: <%= case_file.detection_time %><br>
+        </td>
+        <td>
+          <div class="well">
+            <%= render "actions/action", action: case_file.actions.first %>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <span class="pull-right">
+            <%= link_to "View Case", case_file_path(case_file), class: "btn btn-primary btn-small" %>
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</li>

@@ -14,21 +14,10 @@ namespace :db do
                         password_confirmation: "foobar")
     user.toggle!(:activated)
 
-    7.times do |n|
-      name = Faker::Name.name
-      email = "user-#{n+1}@spectre.com"
-      password = "password"
-      user = User.create!(name: name,
-                          email: email,
-                          password: password,
-                          password_confirmation: password)
-      user.toggle!(:activated)
-    end
-
     layering = { type: "Layering",
                  detection_time: Time.now.utc.iso8601,
                  content: {
-                   customer: "Acme Trading",
+                   participants: "Acme Trading, Swindle Financial",
                    orders: [
                      { client_order_id: "001", symbol: "NESNz", price: "1.00",
                        side: "buy", status: "new"},
@@ -54,6 +43,36 @@ namespace :db do
       type: layering[:type],
       content: layering[:content],
       detection_time: layering[:detection_time])
+
+    user.actions.create!(type: "Open", desc: "opened case #{case_file.id}", 
+                         case_file_id: case_file.id)
+
+    user.actions.create!(type: "Comment",
+                         desc: "commented on case #{case_file.id}",
+                         content: "Participants emailed. Awaiting reply.",
+                         case_file_id: case_file.id)
+
+    case_file = CaseFile.create!(
+      user_id: admin.id,
+      open: true,
+      type: layering[:type],
+      content: layering[:content],
+      detection_time: layering[:detection_time])
+
+    admin.actions.create!(type: "Open", desc: "opened case #{case_file.id}", 
+                         case_file_id: case_file.id)
+
+
+    7.times do |n|
+      name = Faker::Name.name
+      email = "user-#{n+1}@spectre.com"
+      password = "password"
+      user = User.create!(name: name,
+                          email: email,
+                          password: password,
+                          password_confirmation: password)
+      user.toggle!(:activated)
+    end
     
     # users = User.all(limit: 4)
     # comment = Faker::Lorem.sentence(25)

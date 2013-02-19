@@ -1,6 +1,7 @@
-<li>
-  <span class="content"><%= action.user.name %> <%= action.desc %></span>
-  <span class="timestamp">
+<span class="content">
+  <strong>Last Action</strong>: <%= action.user.name %> <%= action.desc %>.
+</span>
+<blockquote><%= action.content %></blockquote>
+<span class="timestamp">
     Occured <%= time_ago_in_words(action.created_at) %> ago.
-  </span>
-</li>
+</span>

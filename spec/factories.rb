@@ -19,9 +19,9 @@ FactoryGirl.define do
 
   factory :layering do
     type "Layering"
-    content "Layering details"
     detection_time Time.now.utc.iso8601
     open true
+    content { { participants: "Acme Trading, Swindle Financial" }.to_json() }
     user
   end
 end
