@@ -19,7 +19,7 @@ FactoryGirl.define do
 
   factory :layering do
     type "Layering"
-    content "Violations!"
+    content "Layering details"
     detection_time Time.now.utc.iso8601
   end
 end

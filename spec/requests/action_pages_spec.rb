@@ -6,6 +6,7 @@ describe "ActionPages" do
   
   describe "activity page" do
     let(:user) { FactoryGirl.create(:user) }
+    let!(:action) { FactoryGirl.create(:sign_in, user: user) }
 
     before do
       sign_in user
@@ -14,5 +15,7 @@ describe "ActionPages" do
     
     it { should have_selector('title', text: full_title('Activity')) }
     it { should have_content('Activity') }
+    it { should have_content('signed in') }
+
   end
 end

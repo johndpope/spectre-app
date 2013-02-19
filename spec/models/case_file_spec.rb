@@ -5,7 +5,6 @@ describe CaseFile do
   let(:user) { FactoryGirl.create(:user) }
   let(:incident) { FactoryGirl.create(:layering) }
 
-
   before do
     @case_file = incident.create_case_file(user_id: user.id, open: true)
   end
