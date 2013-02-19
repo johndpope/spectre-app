@@ -44,7 +44,7 @@ namespace :db do
       content: layering[:content],
       detection_time: layering[:detection_time])
 
-    user.actions.create!(type: "Open", desc: "generated case #{case_file.id}", 
+    user.actions.create!(type: "Open", desc: "opened case #{case_file.id}", 
                          case_file_id: case_file.id)
 
     user.actions.create!(type: "Comment",

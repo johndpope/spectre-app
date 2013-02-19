@@ -1,15 +1,19 @@
 <% provide(:title, 'Open Cases') %>
 <h1>All Open Cases</h1>
-<%= will_paginate %>
-<div class="row">
-  <div class="span12">
-    <%= will_paginate %>
-    <ol class="actions">
-      <%= render @case_files, locals: { summarize: true } %>
-    </ol>
-    <%= will_paginate %>
+<% if @case_files.empty? %>
+  <h4>None Found</h4>
+<% else %>
+  <%= will_paginate %>
+  <div class="row">
+    <div class="span12">
+      <%= will_paginate %>
+      <ol class="actions">
+        <%= render @case_files, locals: { summarize: true } %>
+      </ol>
+      <%= will_paginate %>
+    </div>
   </div>
-</div>
+<% end %>
 
 
 

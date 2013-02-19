@@ -3,7 +3,7 @@ class CaseFilesController < ApplicationController
   before_filter :correct_user,   only: [:update]
 
   def index
-    @case_files = CaseFile.paginate(page: params[:page])
+    @case_files = CaseFile.where(open: true).paginate(page: params[:page])
   end
 
   # def show

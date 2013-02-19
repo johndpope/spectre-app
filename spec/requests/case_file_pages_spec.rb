@@ -34,5 +34,14 @@ describe "CaseFilePages" do
       before { visit case_files_path }
       it { should have_selector('strong', text: 'Last Action') }
     end
+
+    describe "when there are no open cases" do
+      before do
+        case_file.update_attribute(:open, false)
+        visit case_files_path
+      end
+      
+      it { should have_selector('h4', text: 'None Found') }
+    end
   end
 end
