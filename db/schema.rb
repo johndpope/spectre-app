@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130218111502) do
+ActiveRecord::Schema.define(:version => 20130219074211) do
 
   create_table "actions", :force => true do |t|
     t.string   "desc"
@@ -28,25 +28,17 @@ ActiveRecord::Schema.define(:version => 20130218111502) do
   add_index "actions", ["user_id", "created_at"], :name => "index_actions_on_user_id_and_created_at"
 
   create_table "case_files", :force => true do |t|
-    t.integer  "incident_id"
     t.integer  "user_id"
     t.boolean  "open"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "case_files", ["user_id", "incident_id", "created_at"], :name => "index_case_files_on_user_id_and_incident_id_and_created_at"
-
-  create_table "incidents", :force => true do |t|
-    t.string   "type"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.string   "type"
     t.text     "content"
     t.datetime "detection_time"
   end
 
-  add_index "incidents", ["created_at"], :name => "index_incidents_on_created_at"
-  add_index "incidents", ["detection_time"], :name => "index_incidents_on_detection_time"
+  add_index "case_files", ["type"], :name => "index_case_files_on_type"
+  add_index "case_files", ["user_id", "created_at"], :name => "index_case_files_on_user_id_and_created_at"
 
   create_table "users", :force => true do |t|
     t.string   "name"

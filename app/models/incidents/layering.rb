@@ -1,2 +1,0 @@
-class Layering < Incident
-end

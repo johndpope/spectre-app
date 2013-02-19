@@ -21,5 +21,7 @@ FactoryGirl.define do
     type "Layering"
     content "Layering details"
     detection_time Time.now.utc.iso8601
+    open true
+    user
   end
 end

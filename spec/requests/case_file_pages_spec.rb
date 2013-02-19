@@ -7,8 +7,7 @@ describe "CaseFilePages" do
   describe "index" do
 
     let(:user) { FactoryGirl.create(:user) }
-    let(:incident) { FactoryGirl.create(:layering) }
-    let(:case_file) { incident.create_case_file(user_id: user.id, open: true) }
+    let(:case_file) { FactoryGirl.create(:layering, user: user) }
 
     before do
       sign_in user

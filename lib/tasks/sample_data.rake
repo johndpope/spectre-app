@@ -48,10 +48,13 @@ namespace :db do
                 }.to_json()
               }
 
-    incident = Incident.create!(layering)
-    incident_case = incident.create_case_file!(user_id: User.find(2)[:id],
-                                               open: true)
-
+    case_file = CaseFile.create!(
+      user_id: User.find(2)[:id],
+      open: true,
+      type: layering[:type],
+      content: layering[:content],
+      detection_time: layering[:detection_time])
+    
     # users = User.all(limit: 4)
     # comment = Faker::Lorem.sentence(25)
     # request = "Please take a look at this and confirm the close request."
