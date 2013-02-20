@@ -16,6 +16,8 @@ SpectreApp::Application.routes.draw do
   match '/support', to: 'static_pages#support'
   match '/contact', to: 'static_pages#contact'
 
+  match '/my_cases', to: 'case_files#my_cases'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

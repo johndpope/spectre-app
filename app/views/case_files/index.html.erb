@@ -1,5 +1,11 @@
-<% provide(:title, 'Open Cases') %>
-<h1>All Open Cases</h1>
+<% if @only_my_cases %>
+  <% provide(:title, 'My Cases') %>
+  <h1>My Open Cases</h1>
+<% else %>
+  <% provide(:title, 'Open Cases') %>
+  <h1>All Open Cases</h1>
+<% end %>
+
 <% if @case_files.empty? %>
   <h4>None Found</h4>
 <% else %>
