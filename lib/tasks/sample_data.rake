@@ -38,7 +38,7 @@ namespace :db do
               }
 
     case_file = CaseFile.create!(
-      user_id: User.find(1)[:id],
+      user_id: User.find(2)[:id],
       open: true,
       type: layering[:type],
       content: layering[:content],

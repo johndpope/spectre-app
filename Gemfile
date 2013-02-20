@@ -17,6 +17,7 @@ group :development, :test do
   gem 'guard-rspec', '1.2.1'
   gem 'guard-spork', :github => 'guard/guard-spork'
   gem 'spork', '0.9.2'
+  gem 'rails-dev-tweaks', '~> 0.6.1'
 end
 
 # Gems used only for assets and not required
