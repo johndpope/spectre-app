@@ -47,17 +47,16 @@
       </ol>
     </div>
     <div class="tab-pane" id="details">
-      <div class = "span12">
-        <p><%= render @case_file, locals: { summarize: false },
+      <p><%= render @case_file, locals: { summarize: false },
                                   content: @case_content %></p>
-      </div>
     </div>
     <div class="tab-pane" id="history">
       <div class = "span8">
         <ol class="actions">
-          <h1>Case History</h1>
+          <h4>Case History</h4>
           <%= render @actions %>
         </ol>
+        <%= will_paginate @actions %>
       </div>
     </div>
   </div>
