@@ -1,6 +1,40 @@
 <% if locals[:summarize] %>
   <%= render "case_files/summarize", case_file: layering,
                                      content: JSON.parse(layering.content,
-                                                symbolize_names: true)  %>
+                                                symbolize_names: true),
+                                     extended_actions: locals[:extended_actions] %>
 <% else %>
+  <strong>Layering Orders</strong>
+  <% if content.has_key?(:orders) %>
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Participant</th>
+          <th>Order State</th>
+          <th>Side</th>
+          <th>Size</th>
+          <th>Symbol</th>
+          <th>Price</th>
+          <th>Transact Time</th>
+          <th>Client Order Id</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% content[:orders].each do |o| %>
+          <tr>
+            <td><%= o[:participant] %></td>
+            <td><%= o[:status] %></td>
+            <td><%= o[:side] %></td>
+            <td><%= o[:size] %></td>          
+            <td><%= o[:symbol] %></td>
+            <td><%= o[:price] %></td>
+            <td><%= o[:transact_time] %></td>
+            <td><%= o[:client_order_id] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <strong>No Orders Found</strong>
+  <% end %>
 <% end %>
