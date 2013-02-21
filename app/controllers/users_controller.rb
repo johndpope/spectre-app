@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_filter :activated_user, only: [:index, :edit, :update, :destroy]
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user,     only: :destroy
+  rescue_from ActiveRecord::RecordNotFound, :with => :user_not_found
 
   def new
     @user = User.new
@@ -72,5 +73,10 @@ class UsersController < ApplicationController
 
     def admin_user
       redirect_to(root_path) unless current_user.admin?
+    end
+
+    def user_not_found
+      flash[:error] = 'User not found'
+      redirect_to users_path
     end
 end

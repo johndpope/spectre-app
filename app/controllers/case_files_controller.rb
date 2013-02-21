@@ -1,6 +1,7 @@
 class CaseFilesController < ApplicationController
   before_filter :signed_in_user, only: [:index, :show, :my_cases]
   before_filter :correct_user,   only: [:update]
+  rescue_from ActiveRecord::RecordNotFound, :with => :case_not_found
 
   def index
     @case_files = CaseFile.where(open: true).paginate(page: params[:page])
@@ -25,4 +26,10 @@ class CaseFilesController < ApplicationController
     render 'index'
   end
 
+  private
+
+    def case_not_found
+      flash[:error] = 'Case not found'
+      redirect_to case_files_path
+    end
 end

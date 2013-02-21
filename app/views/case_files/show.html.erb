@@ -2,14 +2,19 @@
   <%= javascript_include_tag "case_manager.js" %>
 <% end %>
 
-<% provide(:title, @case_file.id.to_s) %>
-<span class="content well">
-  <strong>Case id</strong>: <%= @case_file.id.to_s %> | 
-  <strong>Incident Type</strong>: <%= @case_file.type %>
+<% provide(:title, 'Case ' + @case_file.id.to_s) %>
+<span class="content well-small">
+  <strong>You are viewing Case </strong><%= @case_file.id.to_s %>
   <span class="pull-right">
-    <strong>Current Case Officer</strong>: <%= @case_officer.name %>
+    <strong>Current Case Officer</strong>: 
+    <% if @case_officer.id == current_user.id %>
+      You 
+    <% else %>
+      <%= @case_officer.name %>
+    <% end %>
   </span>
 </span>
+
 <ul class="nav nav-pills">
   <li id="summary_tab" class="active">
     <a href="#summary" data-toggle="tab">Summary</a>

@@ -1,8 +1,7 @@
 <% if locals[:summarize] %>
   <%= render "case_files/summarize", case_file: layering,
                                      content: JSON.parse(layering.content,
-                                                symbolize_names: true),
-                                     extended_actions: locals[:extended_actions] %>
+                                                symbolize_names: true) %>
 <% else %>
   <strong>Layering Orders</strong>
   <% if content.has_key?(:orders) %>
