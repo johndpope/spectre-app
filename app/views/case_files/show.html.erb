@@ -3,17 +3,7 @@
 <% end %>
 
 <% provide(:title, 'Case ' + @case_file.id.to_s) %>
-<span class="content well-small">
-  <strong>You are viewing Case </strong><%= @case_file.id.to_s %>
-  <span class="pull-right">
-    <strong>Current Case Officer</strong>: 
-    <% if @case_officer.id == current_user.id %>
-      You 
-    <% else %>
-      <%= @case_officer.name %>
-    <% end %>
-  </span>
-</span>
+<%= render 'case_header' %>
 
 <ul class="nav nav-pills">
   <li id="summary_tab" class="active">
@@ -28,37 +18,37 @@
 </ul>
 
 <div class="row tabbable">
-  <div class="tab-content">
-    <div class="tab-pane active" id="summary">
-      <ol class="actions">
-        <div class="span6">
-          <p><%= render "case_profile", case_file: @case_file,
-                                        content: @case_content %></p>
-        </div>
-        <div class="span6">
-          <strong>Case History</strong>
-          <%= render @actions.take(3) %>
-          <span class="pull-right">
-            <a href="#history" data-toggle="tab" id="case_manager_tabs">
-              View whole history...
-            </a>
-          </span>
-        </div>
-      </ol>
-    </div>
-    <div class="tab-pane" id="details">
-      <p><%= render @case_file, locals: { summarize: false },
-                                  content: @case_content %></p>
-    </div>
-    <div class="tab-pane" id="history">
-      <div class = "span8">
+    <div class="tab-content">
+      <div class="tab-pane active" id="summary">
         <ol class="actions">
-          <h4>Case History</h4>
-          <%= render @actions %>
+          <div class="span6">
+            <p><%= render "case_profile", case_file: @case_file,
+                                          content: @case_content %></p>
+          </div>
+          <div class="span6">
+            <strong>Case History</strong>
+            <%= render @actions.take(3) %>
+            <span class="pull-right">
+              <a href="#history" data-toggle="tab" id="case_manager_tabs">
+                View whole history...
+              </a>
+            </span>
+          </div>
         </ol>
-        <%= will_paginate @actions %>
+      </div>
+      <div class="tab-pane" id="details">
+        <p><%= render @case_file, locals: { summarize: false },
+                                    content: @case_content %></p>
+      </div>
+      <div class="tab-pane" id="history">
+        <div class = "span8">
+          <ol class="actions">
+            <h4>Case History</h4>
+            <%= render @actions %>
+          </ol>
+          <%= will_paginate @actions %>
+        </div>
       </div>
     </div>
-  </div>
 </div>
 
