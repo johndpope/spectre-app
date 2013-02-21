@@ -38,6 +38,7 @@ describe "CaseFilePages" do
     describe "when there are no open cases" do
       before do
         case_file.update_attribute(:open, false)
+        case_file.update_attribute(:pending_close, true)
         visit case_files_path
       end
       
@@ -89,6 +90,27 @@ describe "CaseFilePages" do
 
     it { should have_content(case_file.id.to_s) }
     it { should have_content(user.name) }
+    it { should have_content('Open') }
+
+    describe "when a case goes into pending close state" do
+      before do
+        case_file.update_attribute(:open, true)
+        case_file.update_attribute(:pending_close, true)
+        visit case_file_path(case_file)
+      end
+
+      it { should have_content('Awaiting close confirmation') }
+    end
+
+    describe "when a case goes into closed state" do
+      before do
+        case_file.update_attribute(:open, false)
+        case_file.update_attribute(:pending_close, true)
+        visit case_file_path(case_file)
+      end
+
+      it { should have_content('Closed') }
+    end
 
   end
 end

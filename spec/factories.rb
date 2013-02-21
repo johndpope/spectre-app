@@ -21,6 +21,7 @@ FactoryGirl.define do
     type "Layering"
     detection_time Time.now.utc.iso8601
     open true
+    pending_close false
     content { { participants: "Acme Trading, Swindle Financial" }.to_json() }
     user
   end

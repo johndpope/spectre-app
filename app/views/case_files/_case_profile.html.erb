@@ -1,4 +1,13 @@
 <strong>Case Id</strong>: <%= case_file.id %><br>
+<strong>Status</strong>: 
+<% if case_file.open and case_file.pending_close %>
+  <span style="color:GoldenRod">Awaiting close confirmation</span>
+<% elsif case_file.open %>
+  <span style="color:YellowGreen">Open</span>
+<% else %>
+  <span style="color:Red">Closed</span>
+<% end %>
+<br>
 <strong>Incident Type</strong>: <%= case_file.type %><br>
 <strong>Incident Participants</strong>: <%= content[:participants] %><br>
 <strong>Case Officer</strong>: <%= User.find(case_file.user_id).name %><br>
