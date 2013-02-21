@@ -1,0 +1,60 @@
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag "case_manager.js" %>
+<% end %>
+
+<% provide(:title, @case_file.id.to_s) %>
+<span class="content well">
+  <strong>Case id</strong>: <%= @case_file.id.to_s %> | 
+  <strong>Incident Type</strong>: <%= @case_file.type %>
+  <span class="pull-right">
+    <strong>Current Case Officer</strong>: <%= @case_officer.name %>
+  </span>
+</span>
+<ul class="nav nav-pills">
+  <li id="summary_tab" class="active">
+    <a href="#summary" data-toggle="tab">Summary</a>
+  </li>
+  <li id="details_tab">
+    <a href="#details" data-toggle="tab">Details</a>
+  </li>
+  <li id="history_tab">
+    <a href="#history" data-toggle="tab">History</a>
+  </li>
+</ul>
+
+<div class="row tabbable">
+  <div class="tab-content">
+    <div class="tab-pane active" id="summary">
+      <ol class="actions">
+        <div class="span6">
+          <p><%= render "case_profile", case_file: @case_file,
+                                        content: @case_content %></p>
+        </div>
+        <div class="span6">
+          <strong>Case History</strong>
+          <%= render @actions.take(3) %>
+          <span class="pull-right">
+            <a href="#history" data-toggle="tab" id="case_manager_tabs">
+              View whole history...
+            </a>
+          </span>
+        </div>
+      </ol>
+    </div>
+    <div class="tab-pane" id="details">
+      <div class = "span12">
+        <p><%= render @case_file, locals: { summarize: false },
+                                  content: @case_content %></p>
+      </div>
+    </div>
+    <div class="tab-pane" id="history">
+      <div class = "span8">
+        <ol class="actions">
+          <h1>Case History</h1>
+          <%= render @actions %>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+

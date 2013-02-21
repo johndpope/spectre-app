@@ -76,4 +76,19 @@ describe "CaseFilePages" do
       it { should have_selector('h4', text: 'None Found') }
     end
   end
+
+  describe "show" do
+
+    let(:user) { FactoryGirl.create(:user) }
+    let!(:case_file) { FactoryGirl.create(:layering, user: user) }
+
+    before do
+      sign_in user
+      visit case_file_path(case_file)
+    end
+
+    it { should have_content(case_file.id.to_s) }
+    it { should have_content(user.name) }
+
+  end
 end

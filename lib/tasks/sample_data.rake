@@ -17,22 +17,52 @@ namespace :db do
     layering = { type: "Layering",
                  detection_time: Time.now.utc.iso8601,
                  content: {
-                   participants: "Acme Trading, Swindle Financial",
-                   orders: [
-                     { client_order_id: "001", symbol: "NESNz", price: "1.00",
-                       side: "buy", status: "new"},
-                     { client_order_id: "002", symbol: "NESNz", price: "1.01",
-                       side: "buy", status: "new" },
-                     { client_order_id: "003", symbol: "NESNz", price: "1.02",
-                       side: "buy", status: "new" },
-                     { client_order_id: "004", symbol: "NESNz", price: "1.04",
-                       side: "sell", status: "filled" },
-                     { client_order_id: "003", symbol: "NESNz", price: "1.02",
-                       side: "buy", status: "canceled" },
-                     { client_order_id: "002", symbol: "NESNz", price: "1.01",
-                       side: "buy", status: "canceled" },
-                     { client_order_id: "001", symbol: "NESNz", price: "1.00",
-                       side: "buy", status: "canceled" }
+                   participants: "Acme Trading",
+                   orders: [                   
+                     { client_order_id: "002", symbol: "NESNz", price: "1.00",
+                       side: "buy", status: "new", size: 100,
+                       transact_time: Time.now.utc.to_s,
+                       participant: "Acme Trading" },
+
+                     { client_order_id: "003", symbol: "NESNz", price: "1.01",
+                       side: "buy", status: "new", size: 200,
+                       transact_time: Time.now.utc.to_s,
+                       participant: "Acme Trading" },
+
+                     { client_order_id: "004", symbol: "NESNz", price: "1.02",
+                       side: "buy", status: "new", size: 300,
+                       transact_time: Time.now.utc.to_s,
+                       participant: "Acme Trading" },
+
+                     { client_order_id: "005", symbol: "NESNz", price: "1.03",
+                       side: "buy", status: "new", size: 300,
+                       transact_time: Time.now.utc.to_s,
+                       participant: "Acme Trading" },
+
+                     { client_order_id: "001", symbol: "NESNz", price: "1.04",
+                       side: "sell", status: "filled", size: 200,
+                       transact_time: Time.now.utc.to_s,
+                       participant: "Acme Trading" },
+
+                     { client_order_id: "005", symbol: "NESNz", price: "1.03",
+                       side: "buy", status: "canceled", size: 300,
+                       transact_time: Time.now.utc.to_s,
+                       participant: "Acme Trading" },
+
+                     { client_order_id: "004", symbol: "NESNz", price: "1.02",
+                       side: "buy", status: "canceled", size: 300,
+                       transact_time: Time.now.utc.to_s,
+                       participant: "Acme Trading" },
+
+                     { client_order_id: "003", symbol: "NESNz", price: "1.01",
+                       side: "buy", status: "canceled", size: 200,
+                       transact_time: Time.now.utc.to_s,
+                       participant: "Acme Trading" },       
+
+                     { client_order_id: "002", symbol: "NESNz", price: "1.00",
+                       side: "buy", status: "canceled", size: 100,
+                       transact_time: Time.now.utc.to_s,
+                       participant: "Acme Trading" }
                    ]
                 }.to_json()
               }
@@ -49,7 +79,7 @@ namespace :db do
 
     user.actions.create!(type: "Comment",
                          desc: "commented on case #{case_file.id}",
-                         content: "Participants emailed. Awaiting reply.",
+                         content: "Emailed compliance at Acme. Awaiting reply.",
                          case_file_id: case_file.id)
 
     case_file = CaseFile.create!(

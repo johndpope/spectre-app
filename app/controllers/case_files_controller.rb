@@ -7,8 +7,12 @@ class CaseFilesController < ApplicationController
     @only_my_cases = false
   end
 
-  # def show
-  # end
+  def show
+    @case_file = CaseFile.find(params[:id])
+    @actions = @case_file.actions
+    @case_content = JSON.parse(@case_file.content, symbolize_names: true)
+    @case_officer = User.find(@case_file.user_id)
+  end
 
   # def update
   # end

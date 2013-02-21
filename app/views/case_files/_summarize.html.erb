@@ -1,13 +1,9 @@
 <li>
-<table class="table">
+  <table class="table summary">
     <tbody>
       <tr>
         <td>
-          <strong>Case Id</strong>: <%= case_file.id %><br>
-          <strong>Incident Type</strong>: <%= case_file.type %><br>
-          <strong>Incident Participants</strong>: <%= content[:participants] %><br>
-          <strong>Case Officer</strong>: <%= User.find(case_file.user_id).name %><br>
-          <strong>Detection Time</strong>: <%= case_file.detection_time %><br>
+          <%= render "case_profile", case_file: case_file, content: content %>
         </td>
         <td>
           <div class="well">
