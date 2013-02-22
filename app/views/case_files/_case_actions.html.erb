@@ -1,0 +1,126 @@
+<strong>Available Case Actions</strong>: 
+<small>
+  <a href="#view_summary" data-toggle="tab">View Summary</a> 
+
+  <% if @case_officer.id == current_user.id %>
+    <% if @case_file.open and @case_file.pending_close %>
+      | <a href="#confirm_close" data-toggle="tab">Confirm Close</a> 
+      | <a href="#reject_close" data-toggle="tab">Reject Close</a>
+    <% elsif @case_file.open %>
+      | <a href="#comment" action-toggle-"tab" data-toggle="tab">Comment</a> 
+      | <a href="#transfer" data-toggle="tab">Transfer</a> 
+      | <a href="#close_case" data-toggle="tab">Close</a>
+    <% end %>
+  <% end %>
+  
+  <% if !@case_file.open %>
+    | <a href="#reopen" data-toggle="tab">Reopen</a> 
+  <% end %>
+</small>
+
+<div class="row tabbable">
+  <div class="tab-content">
+    <div class="tab-pane active" id="view_summary">
+      <div class="span5" style="margin-top:10px">
+        Case Summary
+        <div class="well-small" style="margin-top:5px">
+            <p><%= render "case_profile", case_file: @case_file,
+                                          content: @case_content %></p>
+        </div>
+      </div>
+    </div>
+    <% if @case_officer.id == current_user.id %>
+      <% if @case_file.open and @case_file.pending_close %>
+        <div class="tab-pane" id="confirm_close">
+          <div class="span7">
+            <div class="well-small">
+              Confirm close
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="reject_close">
+          <div class="span7">
+            <div class="well-small" style="margin-top:10px">
+              Reject close
+            </div>
+          </div>
+        </div>
+      <% elsif @case_file.open %>
+        
+
+        <div class="tab-pane" id="comment">
+          <div class="span5">
+            <form class="form" style="margin-top:10px">
+              <div class="control-group">
+                <label class="control-label" for="textarea">Comment:</label>
+                <div class="controls">
+                  <textarea class="input-xlarge" id="textarea" type="text" rows="5" style="color:DarkSlateGrey;width:300px"></textarea>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" style="margin-top:
+              -15px">Add Comment</button>
+            </form>
+          </div>
+        </div>
+
+
+        <div class="tab-pane" id="transfer">
+          <div class="span5">
+            <form class="form" style="margin-top:10px;">
+              <div class="control-group">
+                <label class="control-label" for="select01">Transfer Case to:</label>
+                <div class="controls">
+                  <select id="select01" style="color:DarkSlateGrey;">
+                    <option>something</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="textarea">Comment:</label>
+                <div class="controls">
+                  <textarea class="input-xlarge" id="textarea" type="text" rows="5" style="color:DarkSlateGrey;width:300px"></textarea>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-warning" style="margin-top:
+              -15px;">Transfer Case</button>
+            </form>
+          </div>
+        </div>
+
+
+
+
+        <div class="tab-pane" id="close_case">
+          <div class="span5">
+            <form class="form" style="margin-top:10px">
+              <div class="control-group">
+                <label class="control-label" for="textarea">Closing Comment:</label>
+                <div class="controls">
+                  <textarea class="input-xlarge" id="textarea" type="text" rows="5" style="color:DarkSlateGrey;width:300px"></textarea>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-danger" style="margin-top:
+              -15px">Close Case</button>
+            </form>
+          </div>
+        </div>
+
+      <% end %>
+    <% end %>
+    <% if !@case_file.open %>
+      <div class="tab-pane" id="reopen">
+        <div class="span7">
+          <div class="well-small" style="margin-top:10px">
+            Reopen here
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+

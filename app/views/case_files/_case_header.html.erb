@@ -1,22 +1,9 @@
 <span class="content well-actions">
   You are viewing Case <%= @case_file.id.to_s %> |
-  Current Case Officer: 
-    <% if @case_officer.id == current_user.id %>
-      You 
-    <% else %>
-      <%= @case_officer.name %>
-    <% end %>
-  <span class="pull-right">
-    <% if @case_officer.id == current_user.id %>
-    <strong>Available Case Actions</strong>: 
-      <% if @case_file.open and @case_file.pending_close %>
-        <a href="#">Confirm Close</a> | <a href="#">Reject Close</a>
-      <% elsif @case_file.open %>
-        <a href="#" id="comment">Comment</a> | <a href="#">Transfer</a> | 
-        <a href="#">Close</a>
-      <% else %>
-        <a href="#">Reopen</a>
-      <% end %>    
-    <% end %>
-  </span>
+  Case Officer: 
+  <% if @case_officer.id == current_user.id %>
+    You 
+  <% else %>
+    <%= @case_officer.name %>
+  <% end %>
 </span>

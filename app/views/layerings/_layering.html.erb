@@ -3,14 +3,8 @@
                                      content: JSON.parse(layering.content,
                                                 symbolize_names: true) %>
 <% else %>
-  <div class = "span8">
+  <div class = "span12">
       <h3>Graph goes here</h3>
-  </div>
-  <div class = "span4">
-    <div class = "well-small">
-      <p><%= render "case_profile", case_file: @case_file,
-                                    content: @case_content %></p> 
-    </div>
   </div>
   <div class = "span12">
     <% if content.has_key?(:orders) %>
@@ -60,10 +54,5 @@
     <% else %>
       <strong>No Orders Found</strong>
     <% end %>
-    <h4>Case History</h4>
-    <ol class="actions">
-      <%= render @actions %>
-    </ol>
-    <%= will_paginate @actions %>
   </div>
 <% end %>

@@ -2,7 +2,11 @@ $(document).ready(function() {
   $("#orders").unbind("show");
   $("#orders").unbind("hide");
 
-  $("#case_manager_tabs").click(function(e) {
+  $("#summary_history").click(function(e) {
+    $('a[href=#history]').tab('show');
+  });
+
+  $("#details_history").click(function(e) {
     $('a[href=#history]').tab('show');
   });
 
@@ -13,13 +17,18 @@ $(document).ready(function() {
   $('#orders').on('hide', function () {
     $("#toggle").text("Show Orders");
   })
-
-  if (location.hash !== '') $('a[href="' + location.hash + '"]').tab('show');
+  
+  /*
+  if (location.hash != '') $('a[href="' + location.hash + '"]').tab('show');
   return $('a[data-toggle="tab"]').click(function(e) {
     return location.hash = $(e.target).attr('href').substr(1);
-  });
+  });*/
 
+  $('a[data-toggle="tab"]').live('click', function(e){
+    e.preventDefault();
+  });
 });
+
 
 
 

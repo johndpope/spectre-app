@@ -132,6 +132,7 @@ describe "CaseFilePages" do
     end
 
     describe "when viewing another user's case" do
+      
       before { visit case_file_path(case_file2) }
 
         it { should_not have_link('Reopen') }      
