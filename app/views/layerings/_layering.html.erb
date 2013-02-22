@@ -13,36 +13,50 @@
     </div>
   </div>
   <div class = "span12">
-    <h4>Layering Orders</h4>
     <% if content.has_key?(:orders) %>
-      <table class="table table-bordered table-striped table-hover">
-        <thead>
-          <tr>
-            <th>Participant</th>
-            <th>Order State</th>
-            <th>Side</th>
-            <th>Size</th>
-            <th>Symbol</th>
-            <th>Price</th>
-            <th>Transact Time</th>
-            <th>Client Order Id</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% content[:orders].each do |o| %>
-            <tr>
-              <td><%= o[:participant] %></td>
-              <td><%= o[:status] %></td>
-              <td><%= o[:side] %></td>
-              <td><%= o[:size] %></td>          
-              <td><%= o[:symbol] %></td>
-              <td><%= o[:price] %></td>
-              <td><%= o[:transact_time] %></td>
-              <td><%= o[:client_order_id] %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+    <div class="accordion" id="orders">
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse"
+          data-parent="#orders" href="#order_list" id="toggle"
+          style="font-weight:bold">
+            Hide Orders
+          </a>
+        </div>
+        <div id="order_list" class="accordion-body collapse in">
+          <div class="accordion-inner">
+            <table class="table table-bordered table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>Participant</th>
+                  <th>Order State</th>
+                  <th>Side</th>
+                  <th>Size</th>
+                  <th>Symbol</th>
+                  <th>Price</th>
+                  <th>Transact Time</th>
+                  <th>Client Order Id</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% content[:orders].each do |o| %>
+                  <tr>
+                    <td><%= o[:participant] %></td>
+                    <td><%= o[:status] %></td>
+                    <td><%= o[:side] %></td>
+                    <td><%= o[:size] %></td>          
+                    <td><%= o[:symbol] %></td>
+                    <td><%= o[:price] %></td>
+                    <td><%= o[:transact_time] %></td>
+                    <td><%= o[:client_order_id] %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
     <% else %>
       <strong>No Orders Found</strong>
     <% end %>

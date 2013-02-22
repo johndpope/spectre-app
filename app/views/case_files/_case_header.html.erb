@@ -12,7 +12,7 @@
       <% if @case_file.open and @case_file.pending_close %>
         <a href="#">Confirm Close</a> | <a href="#">Reject Close</a>
       <% elsif @case_file.open %>
-        <a href="#">Comment</a> | <a href="#">Transfer</a> | 
+        <a href="#" id="comment">Comment</a> | <a href="#">Transfer</a> | 
         <a href="#">Close</a>
       <% else %>
         <a href="#">Reopen</a>
