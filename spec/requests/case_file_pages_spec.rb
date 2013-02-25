@@ -29,6 +29,7 @@ describe "CaseFilePages" do
     describe "when someone takes action on a case" do
       let!(:action) { user.actions.create!(type: "Open",
                                            desc: "opened case #{case_file.id}",
+                                           content: "Open action",
                                            case_file_id: case_file.id) }
 
       before { visit case_files_path }

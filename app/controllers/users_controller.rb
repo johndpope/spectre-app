@@ -23,7 +23,8 @@ class UsersController < ApplicationController
     if @user.save
       @user.actions.create!(
         type: "SignUp",
-        desc: "signed up for Spectre and is waiting for account approval")
+        desc: "signed up for Spectre and is waiting for account approval",
+        content: "SignUp action")
       flash[:success] = "Welcome to Spectre. Your account will be activated
                          by your administrator within two hours."
       redirect_to signin_path
@@ -52,12 +53,14 @@ class UsersController < ApplicationController
     if target_user.activated?
       current_user.actions.create!(
         type: "Activate",
-        desc: "activated the account belonging to #{target_user.name}")
+        desc: "activated the account belonging to #{target_user.name}",
+        content: "Activate action")
       flash[:success] = "Account for #{target_user.name} activated."
     elsif !target_user.activated?
       current_user.actions.create!(
         type: "Deactivate",
-        desc: "deactivated the account belonging to #{target_user.name}")
+        desc: "deactivated the account belonging to #{target_user.name}",
+        content: "Deactivate action")
       flash[:success] = "Account for #{target_user.name} Deactivated."
     end
 

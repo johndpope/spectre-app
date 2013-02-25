@@ -17,7 +17,8 @@ require 'spec_helper'
 describe Action do
 
   let(:user) { FactoryGirl.create(:user) }
-  before { @action = user.actions.build(desc: "Signed-in", type: "SignIn") }
+  before { @action = user.actions.build(desc: "Signed-in", type: "SignIn",
+                                        content: "SignIn Action") }
   
   subject { @action }
 

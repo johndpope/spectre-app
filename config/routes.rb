@@ -4,6 +4,7 @@ SpectreApp::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :case_files, only: [:index, :show, :update]
+  resources :actions, only: [:create]
 
   root to: 'static_pages#home'
 

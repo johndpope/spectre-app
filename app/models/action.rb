@@ -20,6 +20,7 @@ class Action < ActiveRecord::Base
   validates :user_id, presence: true
   validates :desc, presence: true
   validates :type, presence: true
+  validates :content, presence: true
 
   default_scope order: 'actions.created_at DESC'
 end

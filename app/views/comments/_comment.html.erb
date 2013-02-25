@@ -1,6 +1,6 @@
 <li>
   <span class="content"><%= comment.user.name %> <%= comment.desc %>.</span>
-  <blockquote><%= comment.content %></blockquote>
+  <blockquote><%= comment.content.gsub("\n",'<br />').html_safe %></blockquote>
   <span class="timestamp">
     Occured <%= time_ago_in_words(comment.created_at) %> ago.
   </span>

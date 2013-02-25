@@ -14,6 +14,7 @@ FactoryGirl.define do
   factory :sign_in do
     desc "signed in"
     type "SignIn"
+    content "SignIn action"
     user
   end
 

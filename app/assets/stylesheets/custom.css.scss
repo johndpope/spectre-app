@@ -3280,6 +3280,7 @@ input[type="submit"].btn.btn-mini {
   background-color: #f2dede;
   border-color: #eed3d7;
   color: #b94a48;
+  
 }
 .alert-danger h4,
 .alert-error h4 {
@@ -6032,4 +6033,9 @@ footer ul li {
   *padding-left: 20px;
   margin-left: -100px;
   *margin-left: 0;
+}
+
+#comment-box {
+  color: DarkSlateGrey;
+  width: 300px;
 }

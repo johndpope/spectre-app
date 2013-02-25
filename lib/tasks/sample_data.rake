@@ -74,8 +74,8 @@ namespace :db do
       content: layering[:content],
       detection_time: layering[:detection_time])
 
-    user.actions.create!(type: "Open", desc: "opened case #{case_file.id}", 
-                         case_file_id: case_file.id)
+    user.actions.create!(type: "Open", desc: "opened case #{case_file.id}",
+                         content: "Open action", case_file_id: case_file.id)
 
     user.actions.create!(type: "Comment",
                          desc: "commented on case #{case_file.id}",
@@ -89,8 +89,8 @@ namespace :db do
       content: layering[:content],
       detection_time: layering[:detection_time])
 
-    admin.actions.create!(type: "Open", desc: "opened case #{case_file.id}", 
-                         case_file_id: case_file.id)
+    admin.actions.create!(type: "Open", desc: "opened case #{case_file.id}",
+                          content: "Open action", case_file_id: case_file.id)
 
 
     7.times do |n|
