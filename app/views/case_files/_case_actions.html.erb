@@ -9,7 +9,7 @@
     <% elsif @case_file.open %>
       | <a href="#comment" action-toggle-"tab" data-toggle="tab">Comment</a> 
       | <a href="#transfer" data-toggle="tab">Transfer</a> 
-      | <a href="#close_case" data-toggle="tab">Close</a>
+      | <a href="#close_case" data-toggle="tab">Request Close</a>
     <% end %>
   <% end %>
   
@@ -31,22 +31,47 @@
     </div>
     <% if @case_officer.id == current_user.id %>
       <% if @case_file.open and @case_file.pending_close %>
+        
+        <!--CLOSE CONFIRMATION-->
         <div class="tab-pane" id="confirm_close">
-          <div class="span7">
-            <div class="well-small">
-              Confirm close
-            </div>
+          <div class="span5">
+            <%= form_for @case_action, url: { controller: "actions", action: "confirm_close" }, html: { style: "margin-top:10px" } do |f| %>
+              <div class="control-group">
+                <label class="control-label" for="textarea">Closing Comment:</label>
+                <div class="controls">
+                  <textarea id="comment-box" name="content" class="input-xlarge" type="text" rows="5"></textarea>
+                </div>
+              </div>
+              <%= hidden_field_tag 'type', 'Close'  %>
+              <%= hidden_field_tag 'case_file_id', @case_file.id  %>
+              <%= f.submit "Confirm Close", class: "btn btn-danger", style:"margin-top:-15px" %>
+            <% end %>
+            </form>
           </div>
         </div>
+        
+        <!--CLOSE REQUEST REJECTION-->
         <div class="tab-pane" id="reject_close">
-          <div class="span7">
-            <div class="well-small" style="margin-top:10px">
-              Reject close
-            </div>
+          <div class="span5">
+            <%= form_for @case_action, url: { controller: "actions", action: "reject_close" }, html: { style: "margin-top:10px" } do |f| %>
+              <div class="control-group">
+                <label class="control-label" for="textarea">Reason for Rejection:</label>
+                <div class="controls">
+                  <textarea id="comment-box" name="content" class="input-xlarge" type="text" rows="5"></textarea>
+                </div>
+              </div>
+              <%= hidden_field_tag 'type', 'RejectClose'  %>
+              <%= hidden_field_tag 'case_file_id', @case_file.id  %>
+              <%= f.submit "Restore Case to Open Status", class: "btn btn-warning", style:"margin-top:-15px" %>
+            <% end %>
+            </form>
           </div>
         </div>
+      
+
       <% elsif @case_file.open %>    
 
+        <!--COMMENT ON CASE-->
         <div class="tab-pane" id="comment">
           <div class="span5">
             <%= form_for @case_action, url: { controller: "actions", action: "create" }, html: { style: "margin-top:10px" } do |f| %>
@@ -64,6 +89,7 @@
           </div>
         </div>
 
+        <!--TRANSFER CASE-->
         <div class="tab-pane" id="transfer">
           <div class="span5">
             <%= form_for @case_action, url: { controller: "actions", action: "transfer" }, html: { style: "margin-top:10px" } do |f| %>
@@ -85,23 +111,36 @@
               </div>
               <%= hidden_field_tag 'type', 'Transfer'  %>
               <%= hidden_field_tag 'case_file_id', @case_file.id  %>
-              <%= f.submit "Transfer", class: "btn btn-warning", style:"margin-top:-15px" %>
+              <%= f.submit "Transfer", class: "btn btn-info", style:"margin-top:-15px" %>
               <% end %>
             </form>
           </div>
         </div>
 
+        <!--REQUEST CLOSE CONFIRMATION ON CASE-->
         <div class="tab-pane" id="close_case">
           <div class="span5">
-            <form class="form" style="margin-top:10px">
+            <%= form_for @case_action, url: { controller: "actions", action: "pending_close" }, html: { style: "margin-top:10px" } do |f| %>
+              <div class="control-group">
+                <label class="control-label" for="select01">Confirm Close With:</label>
+                <div class="controls">
+                  <select id="officer-list" name="officer">
+                    <% @officers.each do |x| %>
+                      <option><%= x.email %></option>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
               <div class="control-group">
                 <label class="control-label" for="textarea">Closing Comment:</label>
                 <div class="controls">
-                  <textarea class="input-xlarge" id="textarea" type="text" rows="5" style="color:DarkSlateGrey;width:300px"></textarea>
+                  <textarea id="comment-box" name="content" class="input-xlarge" type="text" rows="5"></textarea>
                 </div>
               </div>
-              <button type="submit" class="btn btn-danger" style="margin-top:
-              -15px">Close Case</button>
+              <%= hidden_field_tag 'type', 'PendingClose'  %>
+              <%= hidden_field_tag 'case_file_id', @case_file.id  %>
+              <%= f.submit "Request Close Confirmation", class: "btn btn-warning", style:"margin-top:-15px" %>
+              <% end %>
             </form>
           </div>
         </div>

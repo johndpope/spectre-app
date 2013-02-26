@@ -1,0 +1,2 @@
+class RejectClose < Action
+end

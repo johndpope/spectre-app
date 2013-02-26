@@ -1,8 +1,10 @@
 <span class="content">
   <% if action %>
     <strong>Last Action</strong>: <%= action.user.name %> <%= action.desc %>.
-    <% if ['Comment', 'Transfer', 'Close'].include? action.type %>
-      <blockquote><%= action.content.gsub("\n",'<br />').html_safe %></blockquote>
+    <% if ['Comment', 'Transfer', 'PendingClose', 'Close'].include? action.type %>
+      <blockquote>Comment: <%= action.content.gsub("\n",'<br />').html_safe %></blockquote>
+    <% elsif ['RejectClose'].include? action.type %>
+      <blockquote>Reason: <%= action.content.gsub("\n",'<br />').html_safe %></blockquote>
     <% else %>
       <blockquote></blockquote>
     <% end %>

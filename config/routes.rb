@@ -20,6 +20,9 @@ SpectreApp::Application.routes.draw do
   match '/my_cases', to: 'case_files#my_cases'
 
   match 'transfer', to: 'actions#transfer'
+  match 'pending_close', to: 'actions#pending_close'
+  match 'confirm_close', to: 'actions#confirm_close'
+  match 'reject_close', to: 'actions#reject_close'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
