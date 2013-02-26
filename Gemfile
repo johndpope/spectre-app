@@ -10,6 +10,7 @@ gem 'jquery-rails', '2.0.2'
 gem 'pg'
 gem 'mongrel'
 gem 'json'
+gem 'lazy_high_charts'
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'
