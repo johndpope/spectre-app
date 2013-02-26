@@ -47,9 +47,4 @@ describe CaseFile do
     before { case_file.user_id = nil }
     it { should_not be_valid }
   end
-
-  describe "when open is not present" do
-    before { case_file.open = nil }
-    it { should_not be_valid }
-  end
 end

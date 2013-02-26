@@ -1,0 +1,2 @@
+class Reopen < Action
+end

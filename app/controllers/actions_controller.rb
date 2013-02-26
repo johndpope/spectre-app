@@ -81,6 +81,22 @@ class ActionsController < ApplicationController
     redirect_to my_cases_path    
   end
 
+  def reopen
+    @new_action = current_user.actions.new(
+                    type: params[:type],
+                    desc: 'reopened case ' + params[:case_file_id],
+                    content: action_comment(params[:content], "No reason for reopening provided."),
+                    case_file_id: params[:case_file_id])
+    if @new_action.save
+      flash[:success] = "Case reopened and assigned to you."
+      CaseFile.find(params[:case_file_id]).update_attributes!(open: true, user_id: current_user.id)
+    else
+      flash[:error] = "Reopen attempt failed."
+    end
+    redirect_to my_cases_path    
+
+  end
+
   private
 
     def action_comment(note, default)

@@ -1,0 +1,7 @@
+<li>
+  <span class="content"><%= reopen.user.name %> <%= reopen.desc %>.</span>
+  <blockquote>Reason: <%= reopen.content %></blockquote>
+  <span class="timestamp">
+    Occured <%= time_ago_in_words(reopen.created_at) %> ago.
+  </span>
+</li>

@@ -148,11 +148,22 @@
       <% end %>
     <% end %>
     <% if !@case_file.open %>
+      
+      <!--REOPEN CASE-->
       <div class="tab-pane" id="reopen">
-        <div class="span7">
-          <div class="well-small" style="margin-top:10px">
-            Reopen here
-          </div>
+        <div class="span5">
+          <%= form_for @case_action, url: { controller: "actions", action: "reopen" }, html: { style: "margin-top:10px" } do |f| %>
+            <div class="control-group">
+              <label class="control-label" for="textarea">Reason:</label>
+              <div class="controls">
+                <textarea id="comment-box" name="content" class="input-xlarge" type="text" rows="5"></textarea>
+              </div>
+            </div>
+            <%= hidden_field_tag 'type', 'Reopen'  %>
+            <%= hidden_field_tag 'case_file_id', @case_file.id  %>
+            <%= f.submit "Reopen Case", class: "btn btn-success", style:"margin-top:-15px" %>
+          <% end %>
+          </form>
         </div>
       </div>
     <% end %>

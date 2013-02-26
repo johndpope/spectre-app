@@ -29,6 +29,11 @@ class CaseFilesController < ApplicationController
     render 'index'
   end
 
+  def closed_cases
+    @case_files = CaseFile.where(open: false).paginate(page: params[:page])
+    @only_my_cases = false
+  end
+
   private
 
     def case_not_found
