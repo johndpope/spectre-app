@@ -22,7 +22,7 @@
       <div class="tab-pane active" id="summary">
         <ol class="actions">
           <div class="span6">
-            <p><%= render "case_profile", case_file: @case_file,
+            <p><%= render "case_profile", case_file: @case_file.reload,
                                           content: @case_content %></p>
           </div>
           <div class="span6">

@@ -13,4 +13,6 @@
 #
 
 class Transfer < Action
+
+
 end

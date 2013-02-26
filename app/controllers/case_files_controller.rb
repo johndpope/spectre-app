@@ -14,11 +14,12 @@ class CaseFilesController < ApplicationController
     @actions = @case_file.actions.paginate(page: params[:page])
     @case_content = JSON.parse(@case_file.content, symbolize_names: true)
     @case_officer = User.find(@case_file.user_id)
-    @case_action = Action.new
-  end
 
-  # def update
-  # end
+    if @case_file.user_id = current_user.id
+      @case_action = Action.new
+      @officers = User.select("email").where("id != ? AND activated = ?", current_user.id, true)
+    end
+  end
 
   def my_cases
     @case_files = CaseFile.where(open: true,

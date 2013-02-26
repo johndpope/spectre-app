@@ -54,8 +54,7 @@
                 <label class="control-label" for="textarea">Comment:</label>
                 <div class="controls">
                   <textarea id="comment-box" name="content" class="input-xlarge" type="text" rows="5"></textarea>
-                  <%= render 'shared/new_action_error_message', field: :content %>
-              </div>
+                </div>
               </div>
               <%= hidden_field_tag 'type', 'Comment'  %>
               <%= hidden_field_tag 'case_file_id', @case_file.id  %>
@@ -67,33 +66,30 @@
 
         <div class="tab-pane" id="transfer">
           <div class="span5">
-            <form class="form" style="margin-top:10px;">
+            <%= form_for @case_action, url: { controller: "actions", action: "transfer" }, html: { style: "margin-top:10px" } do |f| %>
               <div class="control-group">
                 <label class="control-label" for="select01">Transfer Case to:</label>
                 <div class="controls">
-                  <select id="select01" style="color:DarkSlateGrey;">
-                    <option>something</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                  <select id="officer-list" name="officer">
+                    <% @officers.each do |x| %>
+                      <option><%= x.email %></option>
+                    <% end %>
                   </select>
                 </div>
               </div>
               <div class="control-group">
                 <label class="control-label" for="textarea">Comment:</label>
                 <div class="controls">
-                  <textarea class="input-xlarge" id="textarea" type="text" rows="5" style="color:DarkSlateGrey;width:300px"></textarea>
+                  <textarea id="comment-box" name="content" class="input-xlarge" type="text" rows="5"></textarea>
                 </div>
               </div>
-              <button type="submit" class="btn btn-warning" style="margin-top:
-              -15px;">Transfer Case</button>
+              <%= hidden_field_tag 'type', 'Transfer'  %>
+              <%= hidden_field_tag 'case_file_id', @case_file.id  %>
+              <%= f.submit "Transfer", class: "btn btn-warning", style:"margin-top:-15px" %>
+              <% end %>
             </form>
           </div>
         </div>
-
-
-
 
         <div class="tab-pane" id="close_case">
           <div class="span5">
