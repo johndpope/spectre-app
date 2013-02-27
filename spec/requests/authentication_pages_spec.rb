@@ -40,7 +40,7 @@ describe "Authentication" do
       it { should have_link('All Cases', href: case_files_path) }
       it { should have_link('Incident Monitors', href: '#') }
       it { should have_link('Users', href: users_path) }
-      it { should have_link('Case Archive', href: '#') }
+      it { should have_link('Case Archive', href: closed_cases_path) }
       it { should have_link('Profile', href: user_path(user)) }
       it { should have_link('Settings', href: edit_user_path(user)) }
       it { should have_link('Sign Out', href: signout_path) }
