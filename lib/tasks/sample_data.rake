@@ -18,7 +18,7 @@ namespace :db do
                  detection_time: Time.now.utc.iso8601,
                  content: {
                    participants: "Acme Trading",
-                   orders: [                   
+                   events: [                   
                      { client_order_id: "002", symbol: "NESNz", price: "1.00",
                        side: "buy", status: "new", size: 100,
                        transact_time: Time.now.utc.to_s,

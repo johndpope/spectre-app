@@ -8,6 +8,7 @@ SpectreApp::Application.routes.draw do
 
   root to: 'static_pages#home'
 
+  match '/create', to: 'case_files#create'
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
@@ -25,6 +26,7 @@ SpectreApp::Application.routes.draw do
   match 'confirm_close', to: 'actions#confirm_close'
   match 'reject_close', to: 'actions#reject_close'
   match 'reopen', to: 'actions#reopen'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

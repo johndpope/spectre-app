@@ -12,13 +12,13 @@
             fontFamily: 'monospace',
             color: "#f00"
         },
-        renderTo: "orders_chart", backgroundColor: null
+        renderTo: "events_chart", backgroundColor: null
       },
       title: {
         style: {
           color: "#FFF"
         },
-        text: "Layering Orders"
+        text: "Layering Events"
       },
       xAxis: {
         title: {
@@ -37,7 +37,7 @@
       series : [{
         name: "<%= @case_content[:participants] %> activity",
         pointInterval: <%= 1.second * 1000 %>,
-        pointStart: <%= 3.weeks.ago.to_i * 1000 %>,
+        pointStart: <%= "1361955206000"[0..-4].to_i * 1000 %>,
         data: [1.0, 1.01, 1.02, 1.03, 1.04, 1.03, 1.02, 1.01, 1.00],
         marker: {
                 lineWidth: 0,
@@ -47,20 +47,20 @@
     });
   });
 </script>
-<div id="orders_chart" style="width:940px; height:425px;"></div>
+<div id="events_chart" style="width:940px; height:425px;"></div>
   </div>
   <div class = "span12">
-    <% if content.has_key?(:orders) %>
-    <div class="accordion" id="orders">
+    <% if content.has_key?(:events) %>
+    <div class="accordion" id="events">
       <div class="accordion-group">
         <div class="accordion-heading">
           <a class="accordion-toggle" data-toggle="collapse"
-          data-parent="#orders" href="#order_list" id="toggle"
+          data-parent="#events" href="#event_list" id="toggle"
           style="font-weight:bold">
-            Hide Orders
+            Hide Events
           </a>
         </div>
-        <div id="order_list" class="accordion-body collapse in">
+        <div id="event_list" class="accordion-body collapse in">
           <div class="accordion-inner">
             <table class="table table-bordered table-striped table-hover">
               <thead>
@@ -76,7 +76,7 @@
                 </tr>
               </thead>
               <tbody>
-                <% content[:orders].each do |o| %>
+                <% content[:events].each do |o| %>
                   <tr>
                     <td><%= o[:participant] %></td>
                     <td><%= o[:status] %></td>
@@ -95,7 +95,9 @@
       </div>
     </div>
     <% else %>
-      <strong>No Orders Found</strong>
+      <div class="well-small">
+        <span style="color:red">No Events Found</span>
+      </div>
     <% end %>
   </div>
 <% end %>

@@ -1,0 +1,2 @@
+class Generate < Action
+end

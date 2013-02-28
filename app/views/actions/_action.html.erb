@@ -1,5 +1,9 @@
 <span class="content">
-  <% if action %>
+  <% if ['Generate'].include? action.type %>
+    <strong>Last Action</strong>: <%= action.desc %>.
+  <% elsif action.type.empty? %>
+    <strong>No Actions Found</strong>
+  <% else %>
     <strong>Last Action</strong>: <%= action.user.name %> <%= action.desc %>.
     <% if ['Comment', 'Transfer', 'PendingClose', 'Close'].include? action.type %>
       <blockquote>Comment: <%= action.content.gsub("\n",'<br />').html_safe %></blockquote>
@@ -11,8 +15,6 @@
     <span class="timestamp">
       Occured <%= time_ago_in_words(action.created_at) %> ago.
     </span>
-  <% else %>
-    <strong>No Actions Found</strong>
   <% end %>
 </span>
 

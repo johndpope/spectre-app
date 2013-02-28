@@ -1,7 +1,8 @@
 class ActionsController < ApplicationController
   
   before_filter :signed_in_user, only: [:activity, :create, :transfer,
-                                        :pending_close, :confirm_close]
+                                        :pending_close, :confirm_close,
+                                        :reject_close, :reopen]
 
   def activity
     @actions = Action.paginate(page: params[:page])
@@ -24,7 +25,7 @@ class ActionsController < ApplicationController
   def transfer
     @new_action = current_user.actions.new(
                     type: params[:type],
-                    desc: 'transferred case ' + params[:case_file_id] + ' to ' + User.find_by_email(params[:officer]).name,
+                    desc: "transferred case #{ params[:case_file_id] }  to #{ User.find_by_email(params[:officer]).name }",
                     content: action_comment(params[:content], "No transfer comment provided."),
                     case_file_id: params[:case_file_id])
     if @new_action.save
@@ -100,11 +101,7 @@ class ActionsController < ApplicationController
   private
 
     def action_comment(note, default)
-      if note.empty?
-        default
-      else
-        note
-      end
+      note.empty? ? default : note
     end
 
 end

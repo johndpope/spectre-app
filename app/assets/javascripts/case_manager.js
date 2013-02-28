@@ -10,12 +10,12 @@ $(document).ready(function() {
     $('a[href=#history]').tab('show');
   });
 
-  $('#orders').on('show', function () {
-    $("#toggle").text("Hide Orders");
+  $('#events').on('show', function () {
+    $("#toggle").text("Hide Events");
   })
 
-  $('#orders').on('hide', function () {
-    $("#toggle").text("Show Orders");
+  $('#events').on('hide', function () {
+    $("#toggle").text("Show Events");
   })
   
   /*

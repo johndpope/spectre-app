@@ -1,8 +1,29 @@
 class CaseFilesController < ApplicationController
-  before_filter :signed_in_user, only: [:index, :show, :my_cases]
-  before_filter :correct_user,   only: [:update]
+  before_filter :signed_in_user, only: [:index, :show, :my_cases, :closed_cases]
+  before_filter :verify_ip, only: [:create]
 
   rescue_from ActiveRecord::RecordNotFound, :with => :case_not_found
+
+  def create
+    user = User.find_by_email("punjabi@quotemtf.com")
+    incident = params["incident"]
+    new_case = user.case_files.new(
+                 open: true,
+                 type: incident["incident-type"],
+                 content: incident["events"].to_json,
+                 detection_time: incident["detection-time"])
+    new_case.save
+    
+    new_action = user.actions.new(
+      type: "Generate",
+      desc: "Spectre generated case #{ new_case.id } and assigned it to "\
+             "#{ user.name }",
+      content: "Generate action",
+      case_file_id: new_case.id)
+    new_action.save
+
+    redirect_to root_url
+  end
 
   def index
     @case_files = CaseFile.where(open: true).paginate(page: params[:page])
@@ -39,5 +60,12 @@ class CaseFilesController < ApplicationController
     def case_not_found
       flash[:error] = 'Case not found'
       redirect_to case_files_path
+    end
+
+    def verify_ip
+      @ips = ['10.35.10.116']
+      if not @ips.include? request.remote_ip
+        redirect_to root_url
+      end
     end
 end
