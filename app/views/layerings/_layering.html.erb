@@ -35,7 +35,7 @@
             enabled: false
       },
       series : [{
-        name: "<%= @case_content[:participants] %> activity",
+        name: "<%= @case_file["participants"] %> activity",
         pointInterval: <%= 1.second * 1000 %>,
         pointStart: <%= "1361955206000"[0..-4].to_i * 1000 %>,
         data: [1.0, 1.01, 1.02, 1.03, 1.04, 1.03, 1.02, 1.01, 1.00],
@@ -50,7 +50,7 @@
 <div id="events_chart" style="width:940px; height:425px;"></div>
   </div>
   <div class = "span12">
-    <% if content.has_key?(:events) %>
+    <% if content %>
     <div class="accordion" id="events">
       <div class="accordion-group">
         <div class="accordion-heading">
@@ -76,16 +76,26 @@
                 </tr>
               </thead>
               <tbody>
-                <% content[:events].each do |o| %>
+                <% content.each do |o| %>
                   <tr>
-                    <td><%= o[:participant] %></td>
-                    <td><%= o[:status] %></td>
-                    <td><%= o[:side] %></td>
-                    <td><%= o[:size] %></td>          
-                    <td><%= o[:symbol] %></td>
-                    <td><%= o[:price] %></td>
-                    <td><%= o[:transact_time] %></td>
-                    <td><%= o[:client_order_id] %></td>
+                    <td><%= o[:'customer-name'] %></td>
+                    <td><%= o[:'order-status'] %></td>
+                    <td><%= o[:'side'] %></td>
+                    <% if o[:'order-status'] == "new" %>
+                      <td><%= o[:'order-qty'] %></td>
+                    <% elsif o[:'order-status'] == "canceled" %>
+                      <td><%= "#{ o[:'order-qty'] - o[:'cumulative-qty'] }" %></td>
+                    <% elsif ['filled', 'partial-fill'].include? o[:'order-status'] %>
+                      <td><%= "#{ o[:'last-share'] }" %></td>
+                    <% end %>
+                    <td><%= o[:'symbol'] %></td>
+                    <% if ['new', 'canceled'].include? o[:'order-status'] %>
+                      <td><%= o[:'price'] %></td>
+                    <% elsif ['filled', 'partial-fill'].include? o[:'order-status'] %>
+                      <td><%= o[:'last-price'] %></td>
+                    <% end %>
+                    <td><%= o[:'transact-time'] %></td>
+                    <td><%= o[:'client-order-id'] %></td>
                   </tr>
                 <% end %>
               </tbody>

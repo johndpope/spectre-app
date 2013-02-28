@@ -8,10 +8,10 @@ class CaseFilesController < ApplicationController
     user = User.find_by_email("punjabi@quotemtf.com")
     incident = params["incident"]
     new_case = user.case_files.new(
-                 open: true,
                  type: incident["incident-type"],
                  content: incident["events"].to_json,
-                 detection_time: incident["detection-time"])
+                 detection_time: incident["detection-time"],
+                 participants: incident["participants"])
     new_case.save
     
     new_action = user.actions.new(

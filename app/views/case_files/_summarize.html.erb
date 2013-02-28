@@ -7,7 +7,11 @@
         </td>
         <td>
           <div class="well">
-            <%= render "actions/action", action: case_file.actions.first %>
+            <% if case_file.actions.first  %>
+              <%= render "actions/action", action: case_file.actions.first %>
+            <% else %>
+              <strong>No Actions Found</strong>
+            <% end %>
           </div>
         </td>
       </tr>

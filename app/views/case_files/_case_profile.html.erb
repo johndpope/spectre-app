@@ -9,6 +9,6 @@
 <% end %>
 <br>
 <strong>Incident Type</strong>: <%= case_file.type %><br>
-<strong>Incident Participants</strong>: <%= content[:participants] %><br>
+<strong>Incident Participants</strong>: <%= case_file.participants %><br>
 <strong>Case Officer</strong>: <%= User.find(case_file.user_id).name %><br>
 <strong>Detection Time</strong>: <%= case_file.detection_time %><br>

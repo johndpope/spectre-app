@@ -13,7 +13,8 @@
 #
 
 class CaseFile < ActiveRecord::Base
-  attr_accessible :type, :content, :detection_time, :open, :user_id, :pending_close
+  attr_accessible :type, :content, :detection_time, :open, :user_id,
+                  :pending_close, :participants
   belongs_to :user
   has_many :actions
 
