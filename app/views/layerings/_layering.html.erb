@@ -1,7 +1,7 @@
 <% if locals[:summarize] %>
   <%= render "case_files/summarize", case_file: layering,
                                      content: JSON.parse(layering.content,
-                                                symbolize_names: true) %>
+                                              symbolize_names: true) %>
 <% else %>
   <div class = "span12">
   <script type="text/javascript" charset="utf-8">
@@ -32,7 +32,7 @@
         }
       },
       credits: {
-            enabled: false
+        enabled: false
       },
       series : [{
         name: "<%= @case_file["participants"] %> activity",

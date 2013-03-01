@@ -17,8 +17,6 @@ class Action < ActiveRecord::Base
   belongs_to :user
   belongs_to :case_file
 
-
-
   validates :user_id, presence: true
   validates :desc, presence: true
   validates :type, presence: true

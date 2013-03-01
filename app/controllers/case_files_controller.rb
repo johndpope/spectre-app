@@ -4,6 +4,7 @@ class CaseFilesController < ApplicationController
 
   rescue_from ActiveRecord::RecordNotFound, :with => :case_not_found
 
+  # This should be called only by the incident listener app.
   def create
     user = User.find_by_email("punjabi@quotemtf.com")
     incident = params["incident"]
@@ -22,7 +23,7 @@ class CaseFilesController < ApplicationController
       case_file_id: new_case.id)
     new_action.save
 
-    redirect_to root_url
+    render nothing: true, status: :ok
   end
 
   def index
@@ -36,9 +37,11 @@ class CaseFilesController < ApplicationController
     @case_content = JSON.parse(@case_file.content, symbolize_names: true)
     @case_officer = User.find(@case_file.user_id)
 
+    # If the user is viewing his own case.
     if @case_file.user_id = current_user.id
       @case_action = Action.new
-      @officers = User.select("email").where("id != ? AND activated = ?", current_user.id, true)
+      @officers = User.select("email").where("id != ? AND activated = ?",
+                                             current_user.id, true)
     end
   end
 

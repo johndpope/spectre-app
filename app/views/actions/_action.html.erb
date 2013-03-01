@@ -4,10 +4,15 @@
     <blockquote></blockquote>
   <% else %>
     <strong>Last Action</strong>: <%= action.user.name %> <%= action.desc %>.
-    <% if ['Comment', 'Transfer', 'PendingClose', 'Close'].include? action.type %>
-      <blockquote>Comment: <%= action.content.gsub("\n",'<br />').html_safe %></blockquote>
+    <% if ['Comment', 'Transfer', 'PendingClose', 'Close'].include?(
+        action.type) %>
+      <blockquote>
+        Comment: <%= action.content.gsub("\n",'<br />').html_safe %>
+      </blockquote>
     <% elsif ['RejectClose', 'Reopen'].include? action.type %>
-      <blockquote>Reason: <%= action.content.gsub("\n",'<br />').html_safe %></blockquote>
+      <blockquote>
+        Reason: <%= action.content.gsub("\n",'<br />').html_safe %>
+      </blockquote>
     <% else %>
       <blockquote></blockquote>
     <% end %>

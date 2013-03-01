@@ -9,17 +9,6 @@ module SessionsHelper
     !current_user.nil?
   end
 
-  def activated?
-    current_user.activated?
-  end
-
-  def activated_user
-    unless activated?
-      redirect_to signin_url, notice: "Your account will be activated
-                                       shortly."
-    end
-  end
-
   def current_user=(user)
     @current_user = user
   end
@@ -33,11 +22,11 @@ module SessionsHelper
   end
 
   def signed_in_user
-      unless signed_in?
-        store_location
-        redirect_to signin_url, notice: "Please sign in."
-      end
+    unless signed_in?
+      store_location
+      redirect_to signin_url, notice: "Please sign in."
     end
+  end
 
   def sign_out
     self.current_user = nil
