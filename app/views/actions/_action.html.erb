@@ -1,6 +1,7 @@
 <span class="content">
   <% if ['Generate'].include? action.type %>
     <strong>Last Action</strong>: <%= action.desc %>.
+    <blockquote></blockquote>
   <% else %>
     <strong>Last Action</strong>: <%= action.user.name %> <%= action.desc %>.
     <% if ['Comment', 'Transfer', 'PendingClose', 'Close'].include? action.type %>
@@ -10,9 +11,9 @@
     <% else %>
       <blockquote></blockquote>
     <% end %>
-    <span class="timestamp">
-      Occured <%= time_ago_in_words(action.created_at) %> ago.
-    </span>
   <% end %>
+  <span class="timestamp">
+    Occured <%= time_ago_in_words(action.created_at) %> ago.
+  </span>
 </span>
 

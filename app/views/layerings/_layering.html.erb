@@ -94,7 +94,7 @@
                     <% elsif ['filled', 'partial-fill'].include? o[:'order-status'] %>
                       <td><%= o[:'last-price'] %></td>
                     <% end %>
-                    <td><%= o[:'transact-time'] %></td>
+                    <td><%= Time.parse(o[:'transact-time']) %></td>
                     <td><%= o[:'client-order-id'] %></td>
                   </tr>
                 <% end %>

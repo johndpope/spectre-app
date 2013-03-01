@@ -22,6 +22,7 @@ class CaseFile < ActiveRecord::Base
   validates :content, presence: true
   validates :detection_time, presence: true
   validates :user_id, presence: true
+  validates :participants, presence: true
 
   default_scope order: 'case_files.created_at DESC'
 end
