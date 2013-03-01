@@ -1,20 +1,21 @@
 class ActionsController < ApplicationController
+  include ActionsHelper
   
   before_filter :signed_in_user, only: [:activity, :create, :transfer,
                                         :pending_close, :confirm_close,
                                         :reject_close, :reopen]
 
+  # Equivalent to the index action.
   def activity
     @actions = Action.paginate(page: params[:page])
   end
 
-  def create
+  # 
+  # The following actions are triggered by the user administering a case file.
+  # 
+  def comment
     session[:return_to] = request.referer
-    @new_action = current_user.actions.new(
-                    type: params[:type],
-                    desc: params[:desc],
-                    content: params[:content],
-                    case_file_id: params[:case_file_id])
+    @new_action = current_user.actions.new(comment_action(params))
     if @new_action.save
       redirect_to case_file_path(CaseFile.find(params[:case_file_id]))
     else
@@ -23,14 +24,11 @@ class ActionsController < ApplicationController
   end
 
   def transfer
-    @new_action = current_user.actions.new(
-                    type: params[:type],
-                    desc: "transferred case #{ params[:case_file_id] }  to #{ User.find_by_email(params[:officer]).name }",
-                    content: action_comment(params[:content], "No transfer comment provided."),
-                    case_file_id: params[:case_file_id])
+    @new_action = current_user.actions.new(transfer_action(params))
     if @new_action.save
       flash[:success] = "Case transferred."
-      CaseFile.find(params[:case_file_id]).update_attributes!(user_id: User.find_by_email(params[:officer]).id)
+      CaseFile.find(params[:case_file_id]).update_attributes!(
+        user_id: User.find_by_email(params[:officer]).id)
     else
       flash[:error] = "Transfer failed."
     end
@@ -38,14 +36,11 @@ class ActionsController < ApplicationController
   end
 
   def pending_close
-    @new_action = current_user.actions.new(
-                    type: params[:type],
-                    desc: 'requested close confirmation on case ' + params[:case_file_id] + ' from ' + User.find_by_email(params[:officer]).name,
-                    content: action_comment(params[:content], "No closing comment provided."),
-                    case_file_id: params[:case_file_id])
+    @new_action = current_user.actions.new(pending_close_action(params))
     if @new_action.save
       flash[:success] = "Case transferred to confirm close."
-      CaseFile.find(params[:case_file_id]).update_attributes!(user_id: User.find_by_email(params[:officer]).id, pending_close: true)
+      CaseFile.find(params[:case_file_id]).update_attributes!(
+        user_id: User.find_by_email(params[:officer]).id, pending_close: true)
     else
       flash[:error] = "Transfer for close confirmation failed."
     end
@@ -53,14 +48,11 @@ class ActionsController < ApplicationController
   end
 
   def confirm_close
-    @new_action = current_user.actions.new(
-                    type: params[:type],
-                    desc: 'confirmed close on case ' + params[:case_file_id],
-                    content: action_comment(params[:content], "No closing comment provided."),
-                    case_file_id: params[:case_file_id])
+    @new_action = current_user.actions.new(confirm_close_action(params))
     if @new_action.save
       flash[:success] = "Case closed and moved to archive."
-      CaseFile.find(params[:case_file_id]).update_attributes!(open: false, pending_close: false)
+      CaseFile.find(params[:case_file_id]).update_attributes!(
+        open: false, pending_close: false)
     else
       flash[:error] = "Close confirmation failed."
     end
@@ -68,14 +60,11 @@ class ActionsController < ApplicationController
   end
 
   def reject_close
-    @new_action = current_user.actions.new(
-                    type: params[:type],
-                    desc: 'rejected close confirmation on case ' + params[:case_file_id],
-                    content: action_comment(params[:content], "No rejection reason provided."),
-                    case_file_id: params[:case_file_id])
+    @new_action = current_user.actions.new(reject_close_action(params))
     if @new_action.save
       flash[:success] = "Case restored to open state."
-      CaseFile.find(params[:case_file_id]).update_attributes!(pending_close: false)
+      CaseFile.find(params[:case_file_id]).update_attributes!(
+        pending_close: false)
     else
       flash[:error] = "Close rejection failed."
     end
@@ -83,25 +72,14 @@ class ActionsController < ApplicationController
   end
 
   def reopen
-    @new_action = current_user.actions.new(
-                    type: params[:type],
-                    desc: 'reopened case ' + params[:case_file_id],
-                    content: action_comment(params[:content], "No reason for reopening provided."),
-                    case_file_id: params[:case_file_id])
+    @new_action = current_user.actions.new(reopen_action(params))
     if @new_action.save
       flash[:success] = "Case reopened and assigned to you."
-      CaseFile.find(params[:case_file_id]).update_attributes!(open: true, user_id: current_user.id)
+      CaseFile.find(params[:case_file_id]).update_attributes!(
+        open: true, user_id: current_user.id)
     else
       flash[:error] = "Reopen attempt failed."
     end
     redirect_to my_cases_path    
-
   end
-
-  private
-
-    def action_comment(note, default)
-      note.empty? ? default : note
-    end
-
 end

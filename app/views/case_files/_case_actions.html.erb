@@ -74,7 +74,7 @@
         <!--COMMENT ON CASE-->
         <div class="tab-pane" id="comment">
           <div class="span5">
-            <%= form_for @case_action, url: { controller: "actions", action: "create" }, html: { style: "margin-top:10px" } do |f| %>
+            <%= form_for @case_action, url: { controller: "actions", action: "comment" }, html: { style: "margin-top:10px" } do |f| %>
              <div class="control-group">
                 <label class="control-label" for="textarea">Comment:</label>
                 <div class="controls">
