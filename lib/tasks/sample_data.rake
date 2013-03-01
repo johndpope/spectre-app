@@ -22,7 +22,7 @@ namespace :db do
     admin.toggle!(:activated)
 
     user = User.create!(name: "Julie Anderson",
-                        email: "anderson@quotemtf.com",
+                        email: "anderson@yourcompany.com",
                         password: "foobar",
                         password_confirmation: "foobar")
     user.toggle!(:activated)

@@ -95,40 +95,119 @@ describe "CaseFilePages" do
       it { should_not have_link('Reject Close') }
       it { should_not have_link('Reopen') }
 
-      describe "when a case goes into pending close state" do
-        before do
-          case_file1.update_attribute(:open, true)
-          case_file1.update_attribute(:pending_close, true)
-          visit case_file_path(case_file1)
+      describe "after submitting comment" do
+
+        let(:submit) { "Add Comment" }
+
+        describe "with no text" do
+          before { click_button submit }
+          
+            it { should have_link('Comment') }
         end
 
-        it { should have_content('Awaiting close confirmation') }
+        describe "with text" do
+          before do
+            fill_in "content", with: "My comment"
+            click_button submit
+          end
 
-        it { should have_link('Confirm Close') }
-        it { should have_link('Reject Close') }
-
-        it { should_not have_link('Comment') }
-        it { should_not have_link('Transfer') }
-        it { should_not have_link('Reopen') }
+          it { should have_link('Comment') }
+        end
       end
 
-      describe "when a case goes into closed state" do
+      describe "looking at available case officers for case transfer" do
+        it { should_not have_content("#{ user1.email }") }
+        it { should have_content("#{ user2.email }") }
+      end
+
+      describe "after transferring a case" do
+
+        let(:submit) { "Transfer" }
+        let(:assigned_user) { case_file1.user_id }
+        
         before do
-          case_file1.update_attribute(:open, false)
-          case_file1.update_attribute(:pending_close, true)
-          visit case_file_path(case_file1)
+          click_link "Transfer"
+          fill_in "content", with: "Transferring"
+          click_button submit
         end
 
-        it { should have_content('Closed') }
+        it { should have_content('Case transferred') }
+        specify { case_file1.reload.user_id != assigned_user }
 
-        it { should have_link('Reopen') }
+        describe "the new case owner should see transfer note" do
+          before do
+            sign_in user2
+            visit my_cases_path
+          end
+
+          it { should have_content('transferred') }
+          it { should have_content('Status: Open') }
+          it { should have_content("Case Officer: #{ user2.name }") }
+
+          describe "and correct available actions" do
+            before { visit case_file_path(case_file1) }
+
+            it { should have_link('Comment') }
+            it { should have_link('Transfer') }
+            it { should have_link('Close') }
+          end
+        end
+      end
+
+      describe "after a case goes into pending close state" do
+
+        let(:submit) { "Request Close Confirmation" }
+        let(:assigned_user) { case_file1.user_id }
         
-        it { should_not have_link('Comment') }
-        it { should_not have_link('Transfer') }
-        it { should_not have_link('Close') }
-        it { should_not have_link('Confirm Close') }
-        it { should_not have_link('Reject Close') }
+        before do
+          click_link "Request Close"
+          fill_in "content", with: "Requesting close"
+          click_button submit
+        end
 
+        it { should have_content('confirm close') }
+        specify { case_file1.reload.user_id != assigned_user }
+
+        describe "the new case owner should see a request close note" do
+          before do
+            sign_in user2
+            visit my_cases_path
+          end
+
+          it { should have_content('requested close') }
+          it { should have_content('Status: Awaiting close confirmation') }
+          it { should have_content("Case Officer: #{ user2.name }") }
+
+          describe "and correct available actions" do
+            before { visit case_file_path(case_file1) }
+            let(:confirm_button) { "Confirm Close" }
+            let(:reject_button) { "Restore Case to Open Status" }
+
+            it { should have_link('Confirm Close') }
+            it { should have_link('Reject Close') }
+
+            describe "and if the close is rejected" do
+              before { click_button reject_button }
+            
+              it { should have_content('Case restored') }
+              it { should have_content('rejected close') }
+              it { should have_content('Status: Open') }
+              it { should have_content("Case Officer: #{ user2.name }") }
+            end
+
+            describe "and if the close is confirmed" do
+              before { click_button confirm_button }
+
+              it { should have_content('closed') }
+           
+              describe "the case should be in the archive" do
+                before { visit closed_cases_path }
+
+                it { should have_content('Status: Closed') }
+              end
+            end
+          end
+        end
       end
     end
 
