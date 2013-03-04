@@ -63,9 +63,10 @@
         </div>
         <div id="event_list" class="accordion-body collapse in">
           <div class="accordion-inner">
-            <table class="table table-bordered table-striped table-hover">
+            <table class="table table-bordered">
               <thead>
                 <tr>
+                  <th></th>
                   <th>Participant</th>
                   <th>Order State</th>
                   <th>Side</th>
@@ -78,8 +79,14 @@
               </thead>
               <tbody>
                 <% content.each do |o| %>
-                  <tr>
-                    <td><%= o[:'customer-name'] %></td>
+                  <tr class="main">
+                    <td>
+                      <span class = "expand" style="font-weight:bold">
+                        <a href='#' onclick="return false;">+</a></span>
+                    </td>
+                    <td>
+                      <%= o[:'customer-name'] %>
+                    </td>
                     <td><%= o[:'order-status'] %></td>
                     <td><%= o[:'side'] %></td>
 
@@ -105,6 +112,24 @@
                   
                     <td><%= Time.parse(o[:'transact-time']) %></td>
                     <td><%= o[:'client-order-id'] %></td>
+                  </tr>
+                  <tr class="hidden">
+                    <td colspan="2" style="vertical-align:middle">
+                      Order Details
+                    </td>
+                    <td colspan="5">
+                      <table class="table table-bordered table-striped
+                                    table-hover">
+                        <tbody>
+                          <% o.each do |k, v| %>
+                          <tr>
+                            <td><%= k.to_s.gsub('-', ' ').capitalize %></td>
+                            <td><%= v.to_s %></td>
+                          </tr>
+                          <% end %>
+                        </tbody>
+                      </table>
+                    </td>
                   </tr>
                 <% end %>
               </tbody>

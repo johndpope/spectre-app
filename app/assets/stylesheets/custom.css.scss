@@ -1796,6 +1796,11 @@ table {
 .table-hover tbody tr:hover th {
   background-color: #3a3f44;
 }
+
+tr.main:hover td { 
+  background: #3a3f44;
+}
+
 table td[class*="span"],
 table th[class*="span"],
 .row-fluid table td[class*="span"],
@@ -6042,4 +6047,8 @@ footer ul li {
 
 #officer-list{
   color: DarkSlateGrey;
+}
+
+.hidden{
+    display:none;
 }

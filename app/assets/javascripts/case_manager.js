@@ -27,6 +27,10 @@ $(document).ready(function() {
   $('a[data-toggle="tab"]').live('click', function(e){
     e.preventDefault();
   });
+
+  $("tr span.expand").click(function() {
+    $(this).parents("tr.main").nextUntil("tr.main").toggle();
+  });
 });
 
 
