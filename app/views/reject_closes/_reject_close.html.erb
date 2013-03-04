@@ -1,5 +1,7 @@
 <li>
-  <span class="content"><%= reject_close.user.name %> <%= reject_close.desc %>.</span>
+  <span class="content">
+    <%= reject_close.user.name %> <%= reject_close.desc %>.
+  </span>
   <blockquote>Reason: <%= reject_close.content %></blockquote>
   <span class="timestamp">
     Occured <%= time_ago_in_words(reject_close.created_at) %> ago.

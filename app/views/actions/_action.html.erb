@@ -4,7 +4,7 @@
     <blockquote></blockquote>
   <% else %>
     <strong>Last Action</strong>: <%= action.user.name %> <%= action.desc %>.
-    <% if ['Comment', 'Transfer', 'PendingClose', 'Close'].include?(
+    <% if ['Comment', 'Transfer', 'RequestClose', 'Close'].include?(
         action.type) %>
       <blockquote>
         Comment: <%= action.content.gsub("\n",'<br />').html_safe %>

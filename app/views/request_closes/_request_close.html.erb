@@ -1,0 +1,9 @@
+<li>
+  <span class="content">
+    <%= request_close.user.name %> <%= request_close.desc %>.
+  </span>
+  <blockquote>Comment: <%= request_close.content %></blockquote>
+  <span class="timestamp">
+    Occured <%= time_ago_in_words(request_close.created_at) %> ago.
+  </span>
+</li>

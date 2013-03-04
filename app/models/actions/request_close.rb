@@ -12,5 +12,5 @@
 #  case_file_id :integer
 #
 
-class PendingClose < Action
+class RequestClose < Action
 end

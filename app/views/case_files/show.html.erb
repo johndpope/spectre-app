@@ -5,6 +5,7 @@
 <% provide(:title, 'Case ' + @case_file.id.to_s) %>
 <%= render 'case_header' %>
 
+<!-- Each case is viewed across three tabs -->
 <ul class="nav nav-pills">
   <li id="summary_tab" class="active">
     <a href="#summary" data-toggle="tab">Summary</a>
@@ -18,54 +19,60 @@
 </ul>
 
 <div class="row tabbable">
-    <div class="tab-content">
-      <div class="tab-pane active" id="summary">
-        <ol class="actions">
-          <div class="span6">
-            <p><%= render "case_profile", case_file: @case_file.reload,
-                                          content: @case_content %></p>
-          </div>
-          <div class="span6">
-            <strong>Case History</strong>
-            <%= render @actions.take(3) %>
-            <span class="pull-right">
-              <a href="#history" cur-ref="#history" data-toggle="tab"
-                 id="summary_history">
-                View whole history...
-              </a>
-            </span>
-          </div>
-        </ol>
-      </div>
-      <div class="tab-pane" id="details">
-        <p><%= render @case_file, locals: { summarize: false },
-                                    content: @case_content %></p>
-        <div class = "span4">
+  <div class="tab-content">
+    
+    <!-- The Summary tab -->
+    <div class="tab-pane active" id="summary">
+      <ol class="actions">
+        <div class="span6">
+          <p><%= render "case_profile", case_file: @case_file.reload,
+                                        content: @case_content %></p>
+        </div>
+        <div class="span6">
           <strong>Case History</strong>
-          <ol class="actions">
-            <%= render @actions.take(3) %>
-          </ol>
+          <%= render @actions.take(3) %>
           <span class="pull-right">
-            <a href="#history" data-toggle="tab" id="details_history">
+            <a href="#history" cur-ref="#history" data-toggle="tab"
+               id="summary_history">
               View whole history...
             </a>
           </span>
         </div>
-        <div class = "span1"></div>
-          <div class = "span7">
-            <%= render 'case_actions' %>
-          </div>
+      </ol>
+    </div>
+
+    <!-- The Case Details and Administration tab -->
+    <div class="tab-pane" id="details">
+      <p><%= render @case_file, locals: { summarize: false },
+                                  content: @case_content %></p>
+      <div class = "span4">
+        <strong>Case History</strong>
+        <ol class="actions">
+          <%= render @actions.take(3) %>
+        </ol>
+        <span class="pull-right">
+          <a href="#history" data-toggle="tab" id="details_history">
+            View whole history...
+          </a>
+        </span>
       </div>
-      <div class="tab-pane" id="history">
-        <div class = "span8">
-          <ol class="actions">
-            <h4>Case History</h4>
-            <%= render @actions %>
-          </ol>
-          <%= will_paginate @actions %>
+      <div class = "span1"></div>
+        <div class = "span7">
+          <%= render 'case_actions' %>
         </div>
+    </div>
+
+    <!-- The History tab -->
+    <div class="tab-pane" id="history">
+      <div class = "span8">
+        <ol class="actions">
+          <h4>Case History</h4>
+          <%= render @actions %>
+        </ol>
+        <%= will_paginate @actions %>
       </div>
     </div>
+  </div>
 </div>
 
 

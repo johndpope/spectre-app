@@ -22,7 +22,7 @@ SpectreApp::Application.routes.draw do
 
   match 'comment', to: 'actions#comment'
   match 'transfer', to: 'actions#transfer'
-  match 'pending_close', to: 'actions#pending_close'
+  match 'pending_close', to: 'actions#request_close'
   match 'confirm_close', to: 'actions#confirm_close'
   match 'reject_close', to: 'actions#reject_close'
   match 'reopen', to: 'actions#reopen'

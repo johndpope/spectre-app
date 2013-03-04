@@ -2,7 +2,7 @@ module ActionsHelper
 
   def comment_action(params)
     { type: params[:type],
-      desc: params[:desc],
+      desc: "commented on case #{ params[:case_file_id] }",
       content: params[:content],
       case_file_id: params[:case_file_id] }
   end
@@ -16,7 +16,7 @@ module ActionsHelper
       case_file_id: params[:case_file_id] }
   end
 
-  def pending_close_action(params)
+  def request_close_action(params)
     { type: params[:type],
       desc: "requested close confirmation on case #{ params[:case_file_id] } " +
             "from #{ User.find_by_email(params[:officer]).name }",

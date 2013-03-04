@@ -35,8 +35,8 @@ class ActionsController < ApplicationController
     redirect_to my_cases_path
   end
 
-  def pending_close
-    @new_action = current_user.actions.new(pending_close_action(params))
+  def request_close
+    @new_action = current_user.actions.new(request_close_action(params))
     if @new_action.save
       flash[:success] = "Case transferred to confirm close."
       CaseFile.find(params[:case_file_id]).update_attributes!(
