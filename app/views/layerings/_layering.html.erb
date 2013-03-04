@@ -37,7 +37,8 @@
       series : [{
         name: "<%= @case_file["participants"] %> activity",
         pointInterval: <%= 1.second * 1000 %>,
-        pointStart: <%= "1361955206000"[0..-4].to_i * 1000 %>,
+        pointStart: <%= Time.parse(content.first[:'transact-time']).to_i *
+                          1000 + 3600000 %>,
         data: [1.0, 1.01, 1.02, 1.03, 1.04, 1.03, 1.02, 1.01, 1.00],
         marker: {
                 lineWidth: 0,
@@ -81,19 +82,27 @@
                     <td><%= o[:'customer-name'] %></td>
                     <td><%= o[:'order-status'] %></td>
                     <td><%= o[:'side'] %></td>
+
                     <% if o[:'order-status'] == "new" %>
                       <td><%= o[:'order-qty'] %></td>
                     <% elsif o[:'order-status'] == "canceled" %>
-                      <td><%= "#{ o[:'order-qty'] - o[:'cumulative-qty'] }" %></td>
-                    <% elsif ['filled', 'partial-fill'].include? o[:'order-status'] %>
+                      <td>
+                        <%= "#{ o[:'order-qty'] - o[:'cumulative-qty'] }" %>
+                      </td>
+                    <% elsif ['filled', 'partial-fill'].include?(
+                                                          o[:'order-status']) %>
                       <td><%= "#{ o[:'last-share'] }" %></td>
                     <% end %>
+
                     <td><%= o[:'symbol'] %></td>
+
                     <% if ['new', 'canceled'].include? o[:'order-status'] %>
                       <td><%= o[:'price'] %></td>
-                    <% elsif ['filled', 'partial-fill'].include? o[:'order-status'] %>
+                    <% elsif ['filled', 'partial-fill'].include?(
+                                                          o[:'order-status']) %>
                       <td><%= o[:'last-price'] %></td>
                     <% end %>
+                  
                     <td><%= Time.parse(o[:'transact-time']) %></td>
                     <td><%= o[:'client-order-id'] %></td>
                   </tr>
