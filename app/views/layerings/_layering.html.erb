@@ -21,12 +21,29 @@
         text: "Layering Events"
       },
       xAxis: {
+        dateTimeLabelFormats: {
+          hour: '%H:%M',
+          second: '%H:%M:%S',
+          millisecond: '%H:%M:%S',
+          day: '%e. %b',
+          week: '%e. %b',
+          month: '%b \'%y',
+          year: '%Y'
+        },
+        type: "datetime",
         title: {
           text: "Time",
         },
-        type: "datetime"
+        labels: {
+            step: 3
+        }
       },
       yAxis: {
+        lineWidth: 0,
+        gridLineWidth: 0.5,
+        gridLineDashStyle: 'dot',
+        minorGridLineWidth: 0,
+        lineColor: 'transparent',
         title: {
           text: "Price"
         }
@@ -37,13 +54,19 @@
       series : [{
         name: "<%= @case_file["participants"] %> activity",
         pointInterval: <%= 1.second * 1000 %>,
-        pointStart: <%= Time.parse(content.first[:'transact-time']).to_i *
-                          1000 + 3600000 %>,
-        data: [1.0, 1.01, 1.02, 1.03, 1.04, 1.03, 1.02, 1.01, 1.00],
-        marker: {
-                lineWidth: 0,
-                fillColor: '#FFF'
-            }
+        pointStart: Date.UTC(2013, 2, 28, 10, 47, 3),
+        data: [ [ <%=  Time.zone.parse("20130228-10:47:03").to_i  *
+                          1000 %>, 1.01 ],
+                [ <%=  Time.zone.parse("20130228-10:47:04").to_i  *
+                          1000 %>, 1.02 ],
+                [ <%=  Time.zone.parse("20130228-10:47:05").to_i  *
+                          1000 %>, 1.03 ] ],
+        lineWidth : 0,
+        marker : {
+          enabled : true,
+          radius : 4,
+          symbol: 'triangle'
+        },
       }]
     });
   });
@@ -110,7 +133,7 @@
                       <td><%= o[:'last-price'] %></td>
                     <% end %>
                   
-                    <td><%= Time.parse(o[:'transact-time']) %></td>
+                    <td><%= Time.zone.parse(o[:'transact-time']) %></td>
                     <td><%= o[:'client-order-id'] %></td>
                   </tr>
                   <tr class="hidden">
