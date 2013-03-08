@@ -16,6 +16,7 @@ class Action < ActiveRecord::Base
   attr_accessible :desc, :type, :content, :case_file_id
   belongs_to :user
   belongs_to :case_file
+  belongs_to :incident_monitor
 
   validates :user_id, presence: true
   validates :desc, presence: true

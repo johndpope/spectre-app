@@ -47,4 +47,13 @@ FactoryGirl.define do
     participants "Acme Trading"
     user
   end
+
+  factory :incident_monitor do
+    type "LayeringOnTheBid"
+    desc Hash["name", "Layering on the bid",
+              "info", "Playaz be layerin'"].to_json()
+    settings Hash["number-of-new-bids", 4,
+                  "number-of-cancels", 4,
+                  "length-of-monitoring-window", 5].to_json()
+  end
 end

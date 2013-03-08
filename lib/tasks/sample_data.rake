@@ -229,5 +229,15 @@ namespace :db do
       content: "Generate action",
       case_file_id: case_file.id)
 
+    IncidentMonitor.create!(
+      type: "LayeringOnTheBid",
+      desc: { "name" => "Layering on the bid",
+              "info" => "Playaz be layerin'" }.to_json(),
+      settings: {
+        "number-of-new-bids" => 4,
+        "number-of-cancels" => 4,
+        "length-of-monitoring-window" => 5
+      }.to_json
+    )
   end
 end
