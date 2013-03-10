@@ -1,5 +1,5 @@
 class IncidentMonitor < ActiveRecord::Base
-  attr_accessible :desc, :settings, :type
+  attr_accessible :settings, :type, :desc, :active
   has_many :actions
 
   validates :type, presence: true

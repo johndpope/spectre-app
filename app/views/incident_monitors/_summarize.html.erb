@@ -1,0 +1,38 @@
+<li>
+  <h4>
+    <%= desc[:name] %> | 
+    <% if active %>
+      <span style="color:YellowGreen">Active</span>
+    <% else %>
+      <span style="color:Red">Inactive</span>
+    <% end %>
+  </h4>
+  <table class="table summary">
+    <tbody>
+    <tr>
+      <td>Description</td>
+      <td>Current Settings</td>
+    </tr>
+    <tr>
+      <td>
+        <span class="content">
+        <div class="span5_5" style="margin-left:0px;">
+          <div class="well-small">
+            <%= desc[:info]%>
+          </div>
+        </div>
+      </td>
+      <td><%= render "setting", settings: settings %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+      <span class="pull-right">
+        <%= link_to "Edit Settings", incident_monitor_path(incident_monitor),
+              class: "btn btn-primary btn-small" %>
+      </span>
+      </td>
+    </tr>
+  </tbody>
+  </table>
+</li>

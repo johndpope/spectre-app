@@ -1,0 +1,14 @@
+<% provide(:title, 'Incident Monitors') %>
+<h1>Incident Monitors</h1>
+<% if @incident_monitors.empty? %>
+  <h4>None Found</h4>
+<% else %>
+  <div class="row">
+    <div class="span12">
+      <ol class="actions">
+        <%= render @incident_monitors, locals: { edit: false } %>
+      </ol>
+    </div>
+  </div>
+<% end %>
+

@@ -1,0 +1,2 @@
+class LayeringOnTheBid < IncidentMonitor
+end

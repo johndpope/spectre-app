@@ -1,0 +1,10 @@
+<% if not locals[:edit] %>
+  <%= render "incident_monitors/summarize",
+        incident_monitor: layering_on_the_bid,
+        desc: JSON.parse(layering_on_the_bid.desc, symbolize_names: true),
+        settings: JSON.parse(layering_on_the_bid.settings,
+                             symbolize_names: true),
+        active: layering_on_the_bid.active %>
+<% else %>
+  <h1>bid layering editing form</h1>
+<% end %>

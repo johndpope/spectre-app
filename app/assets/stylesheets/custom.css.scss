@@ -297,6 +297,11 @@ a:hover {
 .span5 {
   width: 380px;
 }
+
+.span5_5 {
+  width: 420px;
+}
+
 .span4 {
   width: 300px;
 }
@@ -6025,6 +6030,11 @@ footer ul li {
      border-top: none; 
      width: 50%;
  }
+
+.settings th, .settings td { 
+   border-top: none; 
+   width: 40px;
+}
 
 
 .form-horizontal-actions .control-label {

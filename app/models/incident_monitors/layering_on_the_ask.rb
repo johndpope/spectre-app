@@ -1,0 +1,2 @@
+class LayeringOnTheAsk < IncidentMonitor
+end

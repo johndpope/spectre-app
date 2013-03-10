@@ -1,9 +1,14 @@
 SpectreApp::Application.routes.draw do
+  get "incident_monitors/index"
+
+  get "incident_monitors/show"
+
   get "actions/activity"
 
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :case_files, only: [:index, :show, :update]
+  resources :incident_monitors, only: [:index, :show]
 
   root to: 'static_pages#home'
 

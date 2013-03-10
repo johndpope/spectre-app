@@ -1,0 +1,10 @@
+  <table class="table settings table-bordered table-striped table-hover">
+    <tbody>
+    <% settings.each do |k, v| %>
+    <tr>
+      <td><%= k.to_s.gsub('-', ' ').capitalize %></td>
+      <td><%= v %></td>
+    </tr>
+    <% end %>
+    </tbody>
+  </table>
