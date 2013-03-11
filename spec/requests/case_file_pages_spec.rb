@@ -7,7 +7,7 @@ describe "CaseFilePages" do
   describe "index" do
 
     let(:user) { FactoryGirl.create(:user) }
-    let!(:case_file) { FactoryGirl.create(:layering, user: user) }
+    let!(:case_file) { FactoryGirl.create(:bid_layering_case, user: user) }
 
     before do
       sign_in user
@@ -18,7 +18,7 @@ describe "CaseFilePages" do
     it { should have_selector('h1', text: 'All Open Cases') }
     
     it { should have_selector('td', text: 'Case Id:') }
-    it { should have_selector('td', text: 'Incident Type: Layering') }
+    it { should have_selector('td', text: 'Incident: Layering on the bid') }
     it { should have_selector('td', text: 'Incident Participants: Acme') }
     it { should have_selector('td', text: 'Case Officer:') }
     it { should have_selector('td', text: 'Detection Time:') }
@@ -51,8 +51,8 @@ describe "CaseFilePages" do
 
     let(:user1) { FactoryGirl.create(:user) }
     let(:user2) { FactoryGirl.create(:user) }
-    let!(:case_file1) { FactoryGirl.create(:layering, user: user1) }
-    let!(:case_file2) { FactoryGirl.create(:layering, user: user2) }
+    let!(:case_file1) { FactoryGirl.create(:bid_layering_case, user: user1) }
+    let!(:case_file2) { FactoryGirl.create(:bid_layering_case, user: user2) }
 
     before do
       sign_in user1

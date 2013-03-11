@@ -1,0 +1,2 @@
+class BidLayeringMonitor < IncidentMonitor
+end

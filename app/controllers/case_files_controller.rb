@@ -10,6 +10,7 @@ class CaseFilesController < ApplicationController
     incident = params["incident"]
     new_case = user.case_files.new(
                  type: incident["incident-type"],
+                 name: incident["name"],
                  content: incident["events"].to_json,
                  detection_time: incident["detection-time"],
                  participants: incident["participants"])

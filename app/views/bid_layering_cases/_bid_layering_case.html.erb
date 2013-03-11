@@ -1,7 +1,8 @@
 <% if locals[:summarize] %>
-  <%= render "case_files/summarize", case_file: layering,
-                                     content: JSON.parse(layering.content,
-                                              symbolize_names: true) %>
+  <%= render "case_files/summarize", case_file: bid_layering_case,
+                                     content: JSON.parse(
+                                                bid_layering_case.content,
+                                                symbolize_names: true) %>
 <% else %>
   <div class = "span12">
   <script type="text/javascript" charset="utf-8">

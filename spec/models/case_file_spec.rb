@@ -19,7 +19,7 @@ require 'spec_helper'
 describe CaseFile do
 
   let(:user) { FactoryGirl.create(:user) }
-  let(:case_file) { FactoryGirl.create(:layering, user: user) }
+  let(:case_file) { FactoryGirl.create(:bid_layering_case, user: user) }
 
   subject { case_file }
 
@@ -28,6 +28,7 @@ describe CaseFile do
   it { should respond_to(:detection_time) }
   it { should respond_to(:user_id) }
   it { should respond_to(:open) }
+  it { should respond_to(:name) }
   it { should be_valid }
 
   describe "when type is not present" do
@@ -47,6 +48,12 @@ describe CaseFile do
 
   describe "when user id time is not present" do
     before { case_file.user_id = nil }
+    it { should_not be_valid }
+  end
+
+
+  describe "when name is not present" do
+    before { case_file.name = nil }
     it { should_not be_valid }
   end
 end

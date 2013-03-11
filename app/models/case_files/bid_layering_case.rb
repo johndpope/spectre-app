@@ -14,5 +14,5 @@
 #  participants   :string(255)
 #
 
-class Layering < CaseFile
+class BidLayeringCase < CaseFile
 end

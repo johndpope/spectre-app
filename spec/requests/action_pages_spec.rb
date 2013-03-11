@@ -23,7 +23,7 @@ describe "ActionPages" do
 
     let(:submit) { "Add Comment" }
     let!(:user) { FactoryGirl.create(:user) }
-    let!(:case_file) { FactoryGirl.create(:layering, user: user) }
+    let!(:case_file) { FactoryGirl.create(:bid_layering_case, user: user) }
 
     describe "with blank comment box" do
     

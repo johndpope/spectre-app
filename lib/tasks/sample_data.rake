@@ -27,7 +27,8 @@ namespace :db do
                         password_confirmation: "foobar")
     user.toggle!(:activated)
 
-    layering = { type: "Layering",
+    layering = { type: "BidLayeringCase",
+                 name: "Layering on the bid",
                  detection_time: DateTime.new(2013, 2, 28, 10, 47, 11).iso8601,
                  participants: "Acme Trading",
                  content: [
@@ -218,6 +219,7 @@ namespace :db do
     user = User.first
     case_file = user.case_files.create!(
       type: layering[:type],
+      name: layering[:name],
       content: layering[:content],
       detection_time: layering[:detection_time],
       participants: layering[:participants])

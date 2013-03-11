@@ -18,8 +18,9 @@ FactoryGirl.define do
     user
   end
 
-  factory :layering do
-    type "Layering"
+  factory :bid_layering_case do
+    type "BidLayeringCase"
+    name "Layering on the bid"
     content [
               {
                 "sender-comp-id" => "VENUE_X",

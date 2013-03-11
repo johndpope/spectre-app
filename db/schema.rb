@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130310131745) do
+ActiveRecord::Schema.define(:version => 20130311112818) do
 
   create_table "actions", :force => true do |t|
     t.string   "desc"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20130310131745) do
     t.datetime "detection_time"
     t.boolean  "pending_close",  :default => false
     t.string   "participants"
+    t.string   "name"
   end
 
   add_index "case_files", ["open", "pending_close"], :name => "index_case_files_on_open_and_pending_close"
