@@ -241,18 +241,5 @@ namespace :db do
       }.to_json,
       active: true
     )
-
-    IncidentMonitor.create!(
-      type: "LayeringOnTheAsk",
-      desc: { "name" => "Layering on the ask",
-              "info" => "Playaz be layerin'" }.to_json(),
-      settings: {
-        "number-of-new-asks" => 4,
-        "number-of-cancels" => 4,
-        "ask-prices-must-be-in-increasing-order" => false,
-        "length-of-monitoring-window (secs)" => 5
-      }.to_json,
-      active: false
-    )
   end
 end
