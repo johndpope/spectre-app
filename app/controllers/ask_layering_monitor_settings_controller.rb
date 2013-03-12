@@ -1,20 +1,20 @@
-class BidLayeringMonitorSettingsController < ApplicationController
+class AskLayeringMonitorSettingsController < ApplicationController
   include IncidentMonitorsHelper
 
   def modify
     if params["cancel"] == "Cancel"
       redirect_to incident_monitors_path
     else
-      checked = checked?(params["bid-prices-must-be-in-increasing-order"])
+      checked = checked?(params["ask-prices-must-be-in-increasing-order"])
       settings = {
-        "number-of-new-bids" => params["number-of-new-bids"],
+        "number-of-new-asks" => params["number-of-new-asks"],
         "number-of-cancels" => params["number-of-cancels"],
-        "bid-prices-must-be-in-increasing-order" => checked,
+        "ask-prices-must-be-in-increasing-order" => checked,
         "length-of-monitoring-window" =>
           params["length-of-monitoring-window"]
       }
 
-      monitor_settings = BidLayeringMonitorSetting.new(settings)
+      monitor_settings = AskLayeringMonitorSetting.new(settings)
       settings.merge!(settings) { |k, v| try_to_i(v) }
       if monitor_settings.valid?
         monitor = IncidentMonitor.find(params['monitor_id'])
@@ -26,7 +26,7 @@ class BidLayeringMonitorSettingsController < ApplicationController
           new_action = current_user.actions.new(modify_monitor_settings_action(
                                                   monitor.id, desc))
           new_action.save
-          flash[:success] = "Settings for Layering on the bid modified."
+          flash[:success] = "Settings for Layering on the ask modified."
           redirect_to incident_monitors_path
         end  
       else

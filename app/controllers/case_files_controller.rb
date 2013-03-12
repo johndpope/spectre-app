@@ -9,7 +9,7 @@ class CaseFilesController < ApplicationController
     user = User.find_by_email("punjabi@quotemtf.com")
     incident = params["incident"]
     new_case = user.case_files.new(
-                 type: incident["incident-type"],
+                 type: incident["type"],
                  name: incident["name"],
                  content: incident["events"].to_json,
                  detection_time: incident["detection-time"],

@@ -33,7 +33,9 @@ SpectreApp::Application.routes.draw do
   match 'reopen', to: 'actions#reopen'
 
   match "/incident_monitors/bid_layering_monitor_settings",
-        to: 'bid_layering_monitor_settings#update'
+        to: 'bid_layering_monitor_settings#modify'
+  match "/incident_monitors/ask_layering_monitor_settings",
+        to: 'ask_layering_monitor_settings#modify'
 
 
   # The priority is based upon order of creation:

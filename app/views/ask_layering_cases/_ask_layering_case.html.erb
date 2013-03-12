@@ -1,0 +1,171 @@
+<% if locals[:summarize] %>
+  <%= render "case_files/summarize", case_file: ask_layering_case,
+                                     content: JSON.parse(
+                                                ask_layering_case.content,
+                                       symbolize_names: true) %>
+<% else %>
+  <div class = "span12">
+  <script type="text/javascript" charset="utf-8">
+  $(function() {
+    new Highcharts.Chart({
+      chart: {
+         style: {
+            fontFamily: 'monospace',
+            color: "#f00"
+        },
+        renderTo: "events_chart", backgroundColor: null
+      },
+      title: {
+        style: {
+          color: "#FFF"
+        },
+        text: "Layering Events"
+      },
+      xAxis: {
+        dateTimeLabelFormats: {
+          hour: '%H:%M',
+          second: '%H:%M:%S',
+          millisecond: '%H:%M:%S',
+          day: '%e. %b',
+          week: '%e. %b',
+          month: '%b \'%y',
+          year: '%Y'
+        },
+        type: "datetime",
+        title: {
+          text: "Time",
+        },
+        labels: {
+            step: 3
+        }
+      },
+      yAxis: {
+        lineWidth: 0,
+        gridLineWidth: 0.5,
+        gridLineDashStyle: 'dot',
+        minorGridLineWidth: 0,
+        lineColor: 'transparent',
+        title: {
+          text: "Price"
+        }
+      },
+      credits: {
+        enabled: false
+      },
+      series : [{
+        name: "<%= @case_file["participants"] %> activity",
+        pointInterval: <%= 1.second * 1000 %>,
+        pointStart: Date.UTC(2013, 2, 28, 10, 47, 3),
+        data: [ [ <%=  Time.zone.parse("20130228-10:47:03").to_i  *
+                          1000 %>, 1.01 ],
+                [ <%=  Time.zone.parse("20130228-10:47:04").to_i  *
+                          1000 %>, 1.02 ],
+                [ <%=  Time.zone.parse("20130228-10:47:05").to_i  *
+                          1000 %>, 1.03 ] ],
+        lineWidth : 0,
+        marker : {
+          enabled : true,
+          radius : 4,
+          symbol: 'triangle'
+        },
+      }]
+    });
+  });
+</script>
+<div id="events_chart" style="width:940px; height:425px;"></div>
+  </div>
+  <div class = "span12">
+    <% if content %>
+    <div class="accordion" id="events">
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse"
+          data-parent="#events" href="#event_list" id="toggle"
+          style="font-weight:bold">
+            Hide Events
+          </a>
+        </div>
+        <div id="event_list" class="accordion-body collapse in">
+          <div class="accordion-inner">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Participant</th>
+                  <th>Order State</th>
+                  <th>Side</th>
+                  <th>Size</th>
+                  <th>Symbol</th>
+                  <th>Price</th>
+                  <th>Transact Time</th>
+                  <th>Client Order Id</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% content.each do |o| %>
+                  <tr class="main">
+                    <td>
+                      <span class = "expand" style="font-weight:bold">
+                        <a href='#' onclick="return false;">+</a></span>
+                    </td>
+                    <td>
+                      <%= o[:'customer-name'] %>
+                    </td>
+                    <td><%= o[:'order-status'] %></td>
+                    <td><%= o[:'side'] %></td>
+
+                    <% if o[:'order-status'] == "new" %>
+                      <td><%= o[:'order-qty'] %></td>
+                    <% elsif o[:'order-status'] == "canceled" %>
+                      <td>
+                        <%= "#{ o[:'order-qty'] - o[:'cumulative-qty'] }" %>
+                      </td>
+                    <% elsif ['filled', 'partial-fill'].include?(
+                                                          o[:'order-status']) %>
+                      <td><%= "#{ o[:'last-share'] }" %></td>
+                    <% end %>
+
+                    <td><%= o[:'symbol'] %></td>
+
+                    <% if ['new', 'canceled'].include? o[:'order-status'] %>
+                      <td><%= o[:'price'] %></td>
+                    <% elsif ['filled', 'partial-fill'].include?(
+                                                          o[:'order-status']) %>
+                      <td><%= o[:'last-price'] %></td>
+                    <% end %>
+                  
+                    <td><%= Time.zone.parse(o[:'transact-time']) %></td>
+                    <td><%= o[:'client-order-id'] %></td>
+                  </tr>
+                  <tr class="hidden">
+                    <td colspan="2" style="vertical-align:middle">
+                      Order Details
+                    </td>
+                    <td colspan="5">
+                      <table class="table table-bordered table-striped
+                                    table-hover">
+                        <tbody>
+                          <% o.each do |k, v| %>
+                          <tr>
+                            <td><%= k.to_s.gsub('-', ' ').capitalize %></td>
+                            <td><%= v.to_s %></td>
+                          </tr>
+                          <% end %>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% else %>
+      <div class="well-small">
+        <span style="color:red">No Events Found</span>
+      </div>
+    <% end %>
+  </div>
+<% end %>

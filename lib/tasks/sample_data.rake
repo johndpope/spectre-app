@@ -216,7 +216,7 @@ namespace :db do
                 ].to_json()
               }
 
-    user = User.first
+    user = User.find_by_email("punjabi@quotemtf.com")
     case_file = user.case_files.create!(
       type: layering[:type],
       name: layering[:name],
@@ -240,6 +240,20 @@ namespace :db do
         "number-of-new-bids" => 4,
         "number-of-cancels" => 4,
         "bid-prices-must-be-in-increasing-order" => false,
+        "length-of-monitoring-window" => 5
+      }.to_json,
+      active: true
+    )
+
+    IncidentMonitor.create!(
+      type: "AskLayeringMonitor",
+      desc: { "name" => "Layering on the ask",
+              "info" => "Layering incidents are partitioned by participant and symbol"
+            }.to_json(),
+      settings: {
+        "number-of-new-asks" => 4,
+        "number-of-cancels" => 4,
+        "ask-prices-must-be-in-decreasing-order" => false,
         "length-of-monitoring-window" => 5
       }.to_json,
       active: true

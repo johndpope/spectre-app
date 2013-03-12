@@ -6,5 +6,8 @@
                              symbolize_names: true),
         active: ask_layering_monitor.active %>
 <% else %>
-  <h1>ask layering monitor editing form</h1>
+  <%= render "incident_monitors/ask_layering",
+        incident_monitor: ask_layering_monitor,
+        desc: JSON.parse(ask_layering_monitor.desc, symbolize_names: true),
+        settings: JSON.parse(ask_layering_monitor.settings) %>
 <% end %>

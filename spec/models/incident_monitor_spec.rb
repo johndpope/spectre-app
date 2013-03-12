@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe IncidentMonitor do
 
-  let(:incident_monitor) { FactoryGirl.create(:incident_monitor) }
+  let(:incident_monitor) { FactoryGirl.create(:bid_layering_monitor) }
   
   subject { incident_monitor }
 

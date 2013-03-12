@@ -4,7 +4,7 @@ class IncidentMonitorsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, :with => :monitor_not_found
 
   def index
-    @incident_monitors = IncidentMonitor.all(:order => 'active DESC, type')
+    @incident_monitors = IncidentMonitor.all(:order => 'active DESC, id')
   end
 
   def show
