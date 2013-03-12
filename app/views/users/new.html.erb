@@ -4,7 +4,7 @@
     <h1>Sign Up</h1>
     <div class="form-horizontal well">
       <%= render 'shared/num_errors' %>
-      <%= form_for(@user) do |f| %>
+      <%= form_for @user do |f| %>
       <%= render 'fields', f: f %>
         <div class="control-group">
           <div class="controls">

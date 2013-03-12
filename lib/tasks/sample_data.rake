@@ -232,14 +232,15 @@ namespace :db do
       case_file_id: case_file.id)
 
     IncidentMonitor.create!(
-      type: "LayeringOnTheBid",
+      type: "BidLayeringMonitor",
       desc: { "name" => "Layering on the bid",
-              "info" => "Playaz be layerin'" }.to_json(),
+              "info" => "Layering incidents are partitioned by participant and symbol"
+            }.to_json(),
       settings: {
         "number-of-new-bids" => 4,
         "number-of-cancels" => 4,
         "bid-prices-must-be-in-increasing-order" => false,
-        "length-of-monitoring-window (secs)" => 5
+        "length-of-monitoring-window" => 5
       }.to_json,
       active: true
     )

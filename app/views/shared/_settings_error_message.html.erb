@@ -1,0 +1,7 @@
+<% if errors %>
+  <% if errors.has_key?(field) %>
+    <span class="text-error"><%= errors[field].first %></span>
+  <% end %>
+<% end %>
+
+

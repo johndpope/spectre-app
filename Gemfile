@@ -11,6 +11,8 @@ gem 'pg'
 gem 'mongrel'
 gem 'json'
 gem 'lazy_high_charts'
+gem 'active_attr'
+gem 'client_side_validations'
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'

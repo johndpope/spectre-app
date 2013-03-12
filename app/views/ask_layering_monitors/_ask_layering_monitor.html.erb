@@ -1,10 +1,10 @@
 <% if not locals[:edit] %>
   <%= render "incident_monitors/summarize",
-        incident_monitor: layering_on_the_ask,
-        desc: JSON.parse(layering_on_the_ask.desc, symbolize_names: true),
-        settings: JSON.parse(layering_on_the_ask.settings,
+        incident_monitor: ask_layering_monitor,
+        desc: JSON.parse(ask_layering_monitor.desc, symbolize_names: true),
+        settings: JSON.parse(ask_layering_monitor.settings,
                              symbolize_names: true),
-        active: layering_on_the_ask.active %>
+        active: ask_layering_monitor.active %>
 <% else %>
-  <h1>ask layering editing form</h1>
+  <h1>ask layering monitor editing form</h1>
 <% end %>

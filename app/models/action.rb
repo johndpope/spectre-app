@@ -13,7 +13,7 @@
 #
 
 class Action < ActiveRecord::Base
-  attr_accessible :desc, :type, :content, :case_file_id
+  attr_accessible :desc, :type, :content, :case_file_id, :incident_monitor_id
   belongs_to :user
   belongs_to :case_file
   belongs_to :incident_monitor

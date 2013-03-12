@@ -1,0 +1,2 @@
+class ModifyMonitorSetting < Action
+end

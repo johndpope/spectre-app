@@ -32,6 +32,9 @@ SpectreApp::Application.routes.draw do
   match 'reject_close', to: 'actions#reject_close'
   match 'reopen', to: 'actions#reopen'
 
+  match "/incident_monitors/bid_layering_monitor_settings",
+        to: 'bid_layering_monitor_settings#update'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
