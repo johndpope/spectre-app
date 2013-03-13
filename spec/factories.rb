@@ -46,6 +46,7 @@ FactoryGirl.define do
             ].to_json()
     detection_time Time.now.utc.iso8601
     participants "Acme Trading"
+    symbol "SANp"
     user
   end
 
@@ -77,6 +78,7 @@ FactoryGirl.define do
             ].to_json()
     detection_time Time.now.utc.iso8601
     participants "Acme Trading"
+    symbol "SANp"
     user
   end
 

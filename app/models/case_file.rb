@@ -16,7 +16,7 @@
 
 class CaseFile < ActiveRecord::Base
   attr_accessible :type, :content, :detection_time, :open, :user_id,
-                  :pending_close, :participants, :name
+                  :pending_close, :participants, :name, :symbol
   belongs_to :user
   has_many :actions
 
@@ -26,6 +26,7 @@ class CaseFile < ActiveRecord::Base
   validates :user_id, presence: true
   validates :participants, presence: true
   validates :name, presence: true
+  validates :symbol, presence: true
 
   default_scope order: 'case_files.created_at DESC'
 end

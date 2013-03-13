@@ -9,7 +9,7 @@
 <% end %>
 <br>
 <strong>Incident</strong>: <%= case_file.name %><br>
-<strong>Symbol</strong>: <%= content.first[:'symbol'] %><br>
+<strong>Symbol</strong>: <%= case_file.symbol %><br>
 <strong>Incident Participants</strong>: <%= case_file.participants %><br>
 <strong>Case Officer</strong>: <%= User.find(case_file.user_id).name %><br>
 <strong>Detection Time</strong>: <%= case_file.detection_time %><br>

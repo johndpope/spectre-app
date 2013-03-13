@@ -20,6 +20,7 @@ describe "CaseFilePages" do
     it { should have_selector('td', text: 'Case Id:') }
     it { should have_selector('td', text: 'Incident: Layering on the bid') }
     it { should have_selector('td', text: 'Incident Participants: Acme') }
+    it { should have_selector('td', text: 'Symbol: SANp') }
     it { should have_selector('td', text: 'Case Officer:') }
     it { should have_selector('td', text: 'Detection Time:') }
 

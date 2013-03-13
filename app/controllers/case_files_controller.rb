@@ -13,7 +13,8 @@ class CaseFilesController < ApplicationController
                  name: incident["name"],
                  content: incident["events"].to_json,
                  detection_time: incident["detection-time"],
-                 participants: incident["participants"])
+                 participants: incident["participants"],
+                 symbol: incident["symbol"])
     new_case.save
     
     new_action = user.actions.new(

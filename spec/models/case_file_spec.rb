@@ -29,6 +29,7 @@ describe CaseFile do
   it { should respond_to(:user_id) }
   it { should respond_to(:open) }
   it { should respond_to(:name) }
+  it { should respond_to(:symbol) }
   it { should be_valid }
 
   describe "when type is not present" do
@@ -51,9 +52,13 @@ describe CaseFile do
     it { should_not be_valid }
   end
 
-
   describe "when name is not present" do
     before { case_file.name = nil }
+    it { should_not be_valid }
+  end
+
+  describe "when symbol is not present" do
+    before { case_file.symbol = nil }
     it { should_not be_valid }
   end
 end

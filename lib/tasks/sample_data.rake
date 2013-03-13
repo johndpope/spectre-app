@@ -27,10 +27,12 @@ namespace :db do
                         password_confirmation: "foobar")
     user.toggle!(:activated)
 
+    user = User.find_by_email("punjabi@quotemtf.com")
     layering = { type: "BidLayeringCase",
                  name: "Layering on the bid",
                  detection_time: DateTime.new(2013, 2, 28, 10, 47, 11).iso8601,
                  participants: "Acme Trading",
+                 symbol: "SANp",
                  content: [
                    {
                     "sender-comp-id" => "VENUE_X",
@@ -216,13 +218,137 @@ namespace :db do
                 ].to_json()
               }
 
-    user = User.find_by_email("punjabi@quotemtf.com")
     case_file = user.case_files.create!(
       type: layering[:type],
       name: layering[:name],
       content: layering[:content],
       detection_time: layering[:detection_time],
-      participants: layering[:participants])
+      participants: layering[:participants],
+      symbol: layering[:symbol])
+
+    user.actions.create!(
+      type: "Generate",
+      desc: "Spectre generated case #{case_file.id} and assigned it to " +
+            "#{ user.name }",
+      content: "Generate action",
+      case_file_id: case_file.id)
+
+    low_trade_to_cancel = { 
+      type: "LowTradeToCancelRatioCase",
+      name: "Low trade-to-cancel ratio",
+      detection_time: DateTime.new(2013, 2, 28, 10, 47, 11).iso8601,
+      participants: "Acme Trading",
+      symbol: "SANp",
+      content: {
+        fills: 5,
+        cancels: 40,
+        ratio: 0.125,
+        symbol: "SANp"
+       }.to_json()
+    }
+
+    case_file = user.case_files.create!(
+      type: low_trade_to_cancel[:type],
+      name: low_trade_to_cancel[:name],
+      content: low_trade_to_cancel[:content],
+      detection_time: low_trade_to_cancel[:detection_time],
+      participants: low_trade_to_cancel[:participants],
+      symbol: low_trade_to_cancel[:symbol])
+
+    user.actions.create!(
+      type: "Generate",
+      desc: "Spectre generated case #{case_file.id} and assigned it to " +
+            "#{ user.name }",
+      content: "Generate action",
+      case_file_id: case_file.id)
+
+    wash_trading = { 
+      type: "WashTradingCase",
+      name: "Wash trading",
+      detection_time: DateTime.new(2013, 2, 28, 10, 47, 11).iso8601,
+      participants: "Acme Trading",
+      symbol: "SANp",
+      content: [
+        {
+          "sender-comp-id" => "VENUE_X",
+          "target-sub-id" => "CUSTOMER_X",
+          "leaves-qty" => 0,
+          "liquidity-flag" => "added",
+          "last-share" => 100,
+          "price" => 1.04,
+          "avg-price" => 1.04,
+          "transact-time" => "20130228-10:47:07",
+          "order-status" => "filled",
+          "last-price" => 1.04,
+          "side" => "sell",
+          "order-qty" => 100,
+          "symbol" => "SANp",
+          "order-type" => "limit",
+          "customer-name" => "Acme Trading",
+          "order-id" => "2503",
+          "cumulative-qty" => 100,
+          "client-order-id" => "10471028479",
+          "target-comp-id" => "CUSTOMER"
+        },
+        {
+          "sender-comp-id" => "VENUE_X",
+          "target-sub-id" => "CUSTOMER_X",
+          "leaves-qty" => 0,
+          "liquidity-flag" => "removed",
+          "last-share" => 100,
+          "price" => 1.04,
+          "avg-price" => 1.04,
+          "transact-time" => "20130228-10:47:07",
+          "order-status" => "filled",
+          "last-price" => 1.04,
+          "side" => "sell",
+          "order-qty" => 100,
+          "symbol" => "SANp",
+          "order-type" => "limit",
+          "customer-name" => "Acme Trading",
+          "order-id" => "2504",
+          "cumulative-qty" => 100,
+          "client-order-id" => "10471028480",
+          "target-comp-id" => "CUSTOMER"
+        }
+      ].to_json()
+    }
+
+    case_file = user.case_files.create!(
+      type: wash_trading[:type],
+      name: wash_trading[:name],
+      content: wash_trading[:content],
+      detection_time: wash_trading[:detection_time],
+      participants: wash_trading[:participants],
+      symbol: wash_trading[:symbol])
+
+    user.actions.create!(
+      type: "Generate",
+      desc: "Spectre generated case #{case_file.id} and assigned it to " +
+            "#{ user.name }",
+      content: "Generate action",
+      case_file_id: case_file.id)
+
+    large_unfilled_order = {
+      type: "LargeUnfilledOrderCase",
+      name: "Large unfilled order",
+      detection_time: DateTime.new(2013, 2, 28, 10, 47, 11).iso8601,
+      participants: "Acme Trading",
+      symbol: "SANp",
+      content: {
+        "order-size" => 11000,
+        "avg-order-size" => 100,
+        symbol: "SANp"
+       }.to_json()
+    }
+
+    case_file = user.case_files.create!(
+      type: large_unfilled_order[:type],
+      name: large_unfilled_order[:name],
+      content: large_unfilled_order[:content],
+      detection_time: large_unfilled_order[:detection_time],
+      participants: large_unfilled_order[:participants],
+      symbol: large_unfilled_order[:symbol])
 
     user.actions.create!(
       type: "Generate",

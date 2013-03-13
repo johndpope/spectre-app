@@ -1,0 +1,6 @@
+<% if locals[:summarize] %>
+  <%= render "case_files/summarize", case_file: wash_trading_case,
+                                     content: JSON.parse(
+                                       wash_trading_case.content,
+                                       symbolize_names: true) %>
+<% end %>
