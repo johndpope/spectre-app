@@ -239,7 +239,7 @@ namespace :db do
       settings: {
         "number-of-new-bids" => 4,
         "number-of-cancels" => 4,
-        "bid-prices-must-be-in-increasing-order" => false,
+        "bid-prices-must-be-in-increasing-order" => true,
         "length-of-monitoring-window" => 5
       }.to_json,
       active: true
@@ -254,6 +254,41 @@ namespace :db do
         "number-of-new-asks" => 4,
         "number-of-cancels" => 4,
         "ask-prices-must-be-in-decreasing-order" => false,
+        "length-of-monitoring-window" => 5
+      }.to_json,
+      active: true
+    )
+
+    IncidentMonitor.create!(
+      type: "TradeToCancelMonitor",
+      desc: { "name" => "Low trade-to-cancel ratio",
+              "info" => "Low trade-to-cancel description"
+            }.to_json(),
+      settings: {
+        "alert-when-ratio-is-below" => 30,
+        "length-of-monitoring-window" => 5
+      }.to_json,
+      active: true
+    )
+
+    IncidentMonitor.create!(
+      type: "WashTradingMonitor",
+      desc: { "name" => "Wash trading",
+              "info" => "Wash trading description"
+            }.to_json(),
+      settings: {
+        "ignore-internalized-trades" => true
+      }.to_json,
+      active: true
+    )
+
+    IncidentMonitor.create!(
+      type: "LargeUnfilledOrderMonitor",
+      desc: { "name" => "Large unfilled order",
+              "info" => "Large unfilled order description"
+            }.to_json(),
+      settings: {
+        "size-multiplier" => 10,
         "length-of-monitoring-window" => 5
       }.to_json,
       active: true
