@@ -386,7 +386,7 @@ namespace :db do
     )
 
     IncidentMonitor.create!(
-      type: "TradeToCancelMonitor",
+      type: "TradeToCancelRatioMonitor",
       desc: { "name" => "Low trade-to-cancel ratio",
               "info" => "Low trade-to-cancel description"
             }.to_json(),

@@ -1,0 +1,2 @@
+class TradeToCancelRatioMonitor < IncidentMonitor
+end

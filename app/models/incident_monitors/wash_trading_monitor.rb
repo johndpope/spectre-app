@@ -1,0 +1,2 @@
+class WashTradingMonitor < IncidentMonitor
+end

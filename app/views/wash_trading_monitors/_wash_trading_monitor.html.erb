@@ -1,0 +1,15 @@
+<% if not locals[:edit] %>
+  <%= render "incident_monitors/summarize",
+        incident_monitor: wash_trading_monitor,
+        desc: JSON.parse(wash_trading_monitor.desc,
+                         symbolize_names: true),
+        settings: JSON.parse(wash_trading_monitor.settings,
+                             symbolize_names: true),
+        active: wash_trading_monitor.active %>
+<% else %>
+  <%= render "incident_monitors/wash_trading",
+        incident_monitor: wash_trading_monitor,
+        desc: JSON.parse(wash_trading_monitor.desc,
+                         symbolize_names: true),
+        settings: JSON.parse(wash_trading_monitor.settings) %>
+<% end %>
