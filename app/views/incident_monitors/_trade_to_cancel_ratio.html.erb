@@ -1,1 +1,50 @@
-<h1>trade_to_cancel_ratio</h1>
+<% provide(:title, 'Trade to cancel ratio monitor settings') %>
+<div class="row">
+  <div class="span11">
+    <h3>Edit monitor settings for <i><%= desc[:name] %></i></h3>
+    <div class="form-horizontal-settings well">
+      <%= form_tag "trade_to_cancel_ratio_monitor_settings" do %>
+
+        <div class="control-group">
+          <%= label_tag "alert-when-ratio-is-below",
+                        "Alert when ratio is below (pct):",
+                        class: "control-label" %>
+          <div class="controls">
+            <%= text_field_tag "alert-when-ratio-is-below",
+              populate_field("alert-when-ratio-is-below",
+                             params[:render_new_settings],
+                             settings,
+                             params[:new_settings]),
+                             class: "input-xlarge" %>
+            <%= render 'shared/settings_error_message',
+                errors: params[:errors],
+                field: "alert-when-ratio-is-below" %>
+          </div>
+        </div>
+        <div class="control-group">
+          <%= label_tag "length-of-monitoring-window",
+                        "Length of monitoring window (secs)",
+                        class: "control-label" %>
+          <div class="controls">
+            <%= text_field_tag "length-of-monitoring-window",
+                  populate_field("length-of-monitoring-window",
+                                 params[:render_new_settings],
+                                 settings,
+                                 params[:new_settings]),
+                  class: "input-xlarge" %>
+            <%= render 'shared/settings_error_message',
+                errors: params[:errors],
+                field: "length-of-monitoring-window" %>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <%= hidden_field_tag 'monitor_id', incident_monitor.id %>
+            <%= submit_tag "Save", class: "btn btn-danger", name: "modify" %>
+            <%= submit_tag "Cancel", class: "btn btn-primary", name: "cancel" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

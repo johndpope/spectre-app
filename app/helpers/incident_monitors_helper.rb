@@ -1,8 +1,10 @@
 module IncidentMonitorsHelper
 
-  def time_unit(field)
+  def add_unit(field)
     if field == 'Length of monitoring window'
-      'Length of monitoring window (secs)'
+      field + ' (secs)'
+    elsif field == 'Alert when ratio is below'
+      field + ' (pct)'
     else
       field
     end
