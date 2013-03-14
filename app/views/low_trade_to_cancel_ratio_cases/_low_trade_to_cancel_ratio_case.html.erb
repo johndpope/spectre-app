@@ -3,4 +3,37 @@
                                      content: JSON.parse(
                                        low_trade_to_cancel_ratio_case.content,
                                        symbolize_names: true) %>
+<% else %>
+  <div class = "span12">
+    <div id="events_chart" style="width:940px; height:425px;">
+      <h1>GRAPH GOES HERE</h1>
+    </div>
+  </div>
+  <div class = "span12">
+    <% if content %>
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Fills</th>
+            <th>Cancels</th>
+            <th>Ratio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= content[:'symbol'] %></td>
+            <td><%= content[:'fills'] %></td>
+            <td><%= content[:'cancels'] %></td>
+            <td><%= content[:'ratio'].to_f * 100 %>%</td>
+          </tr>
+        </tbody>
+      </table>
+    <% else %>
+      <div class="well-small">
+        <span style="color:red">No Events Found</span>
+      </div>
+    <% end %>
+  </div>
+  <div class = "span12" style="height:25px;"></div>
 <% end %>
