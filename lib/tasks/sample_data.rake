@@ -301,7 +301,7 @@ namespace :db do
           "transact-time" => "20130228-10:47:07",
           "order-status" => "filled",
           "last-price" => 1.04,
-          "side" => "sell",
+          "side" => "buy",
           "order-qty" => 100,
           "symbol" => "SANp",
           "order-type" => "limit",
