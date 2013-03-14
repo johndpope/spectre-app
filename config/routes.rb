@@ -36,6 +36,8 @@ SpectreApp::Application.routes.draw do
         to: 'bid_layering_monitor_settings#modify'
   match "/incident_monitors/ask_layering_monitor_settings",
         to: 'ask_layering_monitor_settings#modify'
+  match "/incident_monitors/large_unfilled_order_monitor_settings",
+        to: 'large_unfilled_order_monitor_settings#modify'
   match "/incident_monitors/wash_trading_monitor_settings",
         to: 'wash_trading_monitor_settings#modify'
 

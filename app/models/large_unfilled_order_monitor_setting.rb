@@ -1,16 +1,10 @@
-class BidLayeringMonitorSetting
+class LargeUnfilledOrderMonitorSetting
   include ActiveAttr::Model
 
-  attribute 'number-of-new-bids'
-  attribute 'number-of-cancels'
-  attribute 'bid-prices-must-be-in-increasing-order'
+  attribute 'size-multiplier'
   attribute 'length-of-monitoring-window'
 
-  validates 'number-of-new-bids',
-            presence: true,
-            numericality: { only_integer: true, greater_than_or_equal_to: 0,
-                            less_than_or_equal_to: 100 }
-  validates 'number-of-cancels',
+  validates 'size-multiplier',
             presence: true,
             numericality: { only_integer: true, greater_than_or_equal_to: 1,
                             less_than_or_equal_to: 100 }

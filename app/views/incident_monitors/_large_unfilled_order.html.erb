@@ -1,1 +1,50 @@
-<h1>trade_to_cancel_ratio</h1>
+<% provide(:title, 'Large unfilled order monitor settings') %>
+<div class="row">
+  <div class="span11">
+    <h3>Edit monitor settings for <i><%= desc[:name] %></i></h3>
+    <div class="form-horizontal-settings well">
+      <%= form_tag "large_unfilled_order_monitor_settings" do %>
+
+        <div class="control-group">
+          <%= label_tag "size-multiplier",
+                        "Size multiplier:",
+                        class: "control-label" %>
+          <div class="controls">
+            <%= text_field_tag "size-multiplier",
+              populate_field("size-multiplier",
+                             params[:render_new_settings],
+                             settings,
+                             params[:new_settings]),
+                             class: "input-xlarge" %>
+            <%= render 'shared/settings_error_message',
+                errors: params[:errors],
+                field: "size-multiplier" %>
+          </div>
+        </div>
+        <div class="control-group">
+          <%= label_tag "length-of-monitoring-window",
+                        "Length of monitoring window (secs)",
+                        class: "control-label" %>
+          <div class="controls">
+            <%= text_field_tag "length-of-monitoring-window",
+                  populate_field("length-of-monitoring-window",
+                                 params[:render_new_settings],
+                                 settings,
+                                 params[:new_settings]),
+                  class: "input-xlarge" %>
+            <%= render 'shared/settings_error_message',
+                errors: params[:errors],
+                field: "length-of-monitoring-window" %>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <%= hidden_field_tag 'monitor_id', incident_monitor.id %>
+            <%= submit_tag "Save", class: "btn btn-danger", name: "modify" %>
+            <%= submit_tag "Cancel", class: "btn btn-primary", name: "cancel" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
