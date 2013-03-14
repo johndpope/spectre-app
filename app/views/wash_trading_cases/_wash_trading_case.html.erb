@@ -4,17 +4,11 @@
                                        wash_trading_case.content,
                                        symbolize_names: true) %>
 <% else %>
+  <div class = "span12" style="height:10px;"></div>
   <div class = "span12">
     <% if content %>
     <div class="accordion" id="events">
       <div class="accordion-group">
-        <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse"
-          data-parent="#events" href="#event_list" id="toggle"
-          style="font-weight:bold">
-            Hide Events
-          </a>
-        </div>
         <div id="event_list" class="accordion-body collapse in">
           <div class="accordion-inner">
             <table class="table table-bordered">
@@ -84,6 +78,8 @@
                           <% end %>
                         </tbody>
                       </table>
+                    </td>
+                    <td colspan="3" style="vertical-align:middle;border-left:0">
                     </td>
                   </tr>
                 <% end %>

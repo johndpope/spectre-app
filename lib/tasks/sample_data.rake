@@ -336,9 +336,27 @@ namespace :db do
       participants: "Acme Trading",
       symbol: "SANp",
       content: {
-        "order-size" => 11000,
-        "avg-order-size" => 100,
-        symbol: "SANp"
+        "order" => {
+          "sender-comp-id" => "VENUE_X",
+          "target-sub-id" => "CUSTOMER_X",
+          "leaves-qty" => 0,
+          "last-share" => 0,
+          "price" => 1.0,
+          "avg-price" => 0.0,
+          "transact-time" => "20130228-10:47:11",
+          "order-status" => "canceled",
+          "last-price" => 0.0,
+          "side" => "buy",
+          "order-qty" => 1000000,
+          "symbol" => "SANp",
+          "order-type" => "limit",
+          "customer-name" => "Acme Trading",
+          "order-id" => "2499",
+          "cumulative-qty" => 0,
+          "client-order-id" => "10471028480",
+          "target-comp-id" => "CUSTOMER"
+        },
+        "avg-order-size" => 100
        }.to_json()
     }
 
