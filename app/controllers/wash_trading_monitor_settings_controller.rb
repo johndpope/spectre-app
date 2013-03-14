@@ -1,20 +1,16 @@
-class AskLayeringMonitorSettingsController < ApplicationController
+class WashTradingMonitorSettingsController < ApplicationController
   include IncidentMonitorsHelper
 
   def modify
     if params["cancel"] == "Cancel"
       redirect_to incident_monitors_path
     else
-      checked = checked?(params["ask-prices-must-be-in-increasing-order"])
+      checked = checked?(params["ignore-internalized-trades"])
       settings = {
-        "number-of-new-asks" => params["number-of-new-asks"],
-        "number-of-cancels" => params["number-of-cancels"],
-        "ask-prices-must-be-in-increasing-order" => checked,
-        "length-of-monitoring-window" =>
-          params["length-of-monitoring-window"]
+        "ignore-internalized-trades" => checked
       }
 
-      monitor_settings = AskLayeringMonitorSetting.new(settings)
+      monitor_settings = WashTradingMonitorSetting.new(settings)
       settings.merge!(settings) { |k, v| try_to_i(v) }
       if monitor_settings.valid?
         monitor = IncidentMonitor.find(params['monitor_id'])
@@ -26,7 +22,7 @@ class AskLayeringMonitorSettingsController < ApplicationController
           new_action = current_user.actions.new(modify_monitor_settings_action(
                                                   monitor.id, desc))
           new_action.save
-          flash[:success] = "Settings for Layering on the ask modified."
+          flash[:success] = "Settings for Wash trading modified."
           redirect_to incident_monitors_path
         end  
       else

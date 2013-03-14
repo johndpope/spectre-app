@@ -32,4 +32,12 @@ module IncidentMonitorsHelper
       val
     end
   end
+
+  def checked?(value)
+    value == 'true' ? true : false
+  end
+
+  def try_to_i(str, default = str)
+    str =~ /^-?\d+$/ ? str.to_i : str
+  end
 end

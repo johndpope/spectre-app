@@ -1,1 +1,35 @@
-<h1>wash_trading</h1>
+<% provide(:title, 'Wash trading monitor settings') %>
+<div class="row">
+  <div class="span11">
+    <h3>Edit monitor settings for <i><%= desc[:name] %></i></h3>
+    <div class="form-horizontal-settings well">
+      <%= form_tag "wash_trading_monitor_settings" do %>
+
+        <div class="control-group">
+          <%= label_tag "ignore-internalized-trades",
+                        "Ignore internalized trades",
+                        class: "control-label" %>
+          <div class="controls">
+            <%= check_box_tag "ignore-internalized-trades",
+                  'true',
+                  to_boolean(populate_field("ignore-internalized-trades",
+                    params[:render_new_settings],
+                    settings,
+                    params[:new_settings])),
+                  class: "input-xlarge" %>
+            <%= render 'shared/settings_error_message',
+                errors: params[:errors],
+                field: "ignore-internalized-trades" %>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <%= hidden_field_tag 'monitor_id', incident_monitor.id %>
+            <%= submit_tag "Save", class: "btn btn-danger", name: "modify" %>
+            <%= submit_tag "Cancel", class: "btn btn-primary", name: "cancel" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
