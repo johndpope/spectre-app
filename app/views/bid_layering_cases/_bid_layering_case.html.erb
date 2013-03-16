@@ -25,6 +25,9 @@
           rotation: -45,
           y: 40,
           x: -25,
+          style: {
+            color: '#CCC',
+          },
           formatter: function() {
                        var d = new Date(this.value);
                        return ('0' + d.getUTCHours()).slice(-2) + ':' +
@@ -44,6 +47,11 @@
         lineColor: 'transparent',
         title: {
           text: "Price"
+        },
+        labels: {
+          style: {
+            color: '#CCC',
+          }
         }
       },
       tooltip: {

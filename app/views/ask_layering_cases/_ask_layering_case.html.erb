@@ -14,7 +14,7 @@
         style: {
           color: "#FFF"
         },
-        text: "Incident Events"
+        text: "Layering Events"
       },
       xAxis: {
         type: "datetime",
@@ -25,6 +25,9 @@
           rotation: -45,
           y: 40,
           x: -25,
+          style: {
+            color: '#CCC',
+          },
           formatter: function() {
                        var d = new Date(this.value);
                        return ('0' + d.getUTCHours()).slice(-2) + ':' +
@@ -32,8 +35,7 @@
                               ('0' + d.getSeconds()).slice(-2) + '.' +
                               ('00' + d.getMilliseconds()).slice(-3)
                        
-          }
-
+          },
         }
       },
       yAxis: {
@@ -44,6 +46,11 @@
         lineColor: 'transparent',
         title: {
           text: "Price"
+        },
+        labels: {
+          style: {
+            color: '#CCC',
+          }
         }
       },
       tooltip: {

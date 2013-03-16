@@ -243,7 +243,8 @@ namespace :db do
         fills: 5,
         cancels: 40,
         ratio: 0.125,
-        symbol: "SANp"
+        symbol: "SANp",
+        threshold: 0.3
        }.to_json()
     }
 
