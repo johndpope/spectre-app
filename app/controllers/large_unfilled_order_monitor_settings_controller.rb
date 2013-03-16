@@ -1,5 +1,6 @@
 class LargeUnfilledOrderMonitorSettingsController < ApplicationController
   include IncidentMonitorsHelper
+  before_filter :signed_in_user, only: [:modify]
 
   def modify
     if params["cancel"] == "Cancel"
