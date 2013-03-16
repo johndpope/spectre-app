@@ -32,7 +32,7 @@
         },
         xAxis: {
           categories: [
-            'Monitoring Period'
+            'Events'
           ],
           labels: {
             style: {
@@ -49,6 +49,23 @@
           title: {
             text: "Number of events"
           },
+          plotLines: [{
+            color: '#FFF',
+            width: 1,
+            value: <%= (content[:'threshold'] *
+                       (content[:'cancels'] + content[:'fills'])).to_i %>,
+            dashStyle: 'dot',
+            zIndex: 99,
+            label: {
+              text: 'Monitor threshold: ' +
+                    "<%= content[:'threshold'] * 100 %>%",
+              rotation: 0,
+              y: 40,
+              style: {
+                color: '#FFF',
+              }
+            }
+          }],
           labels: {
             style: {
               color: '#FFF',
@@ -59,13 +76,15 @@
           name: 'Cancels',
           data: [<%= content[:'cancels'] %>],
           stack: 'Events',
-          color: '#ff3333'
+          color: '#ff3333',
+          legendIndex: 2
         },
         {
           name: 'Trades',
           data: [<%= content[:'fills'] %>],
           stack: 'Events',
-          color: '#86c440'
+          color: '#86c440',
+          legendIndex: 1
         }],
       })
     });</script>
