@@ -38,21 +38,21 @@
           </div>
         </div>
         <div class="control-group">
-          <%= label_tag "ask-prices-must-be-in-increasing-order",
-                        "Ask prices must be in increasing order",
+          <%= label_tag "ask-prices-must-be-in-decreasing-order",
+                        "Ask prices must be in decreasing order",
                         class: "control-label" %>
           <div class="controls">
-            <%= check_box_tag "ask-prices-must-be-in-increasing-order",
+            <%= check_box_tag "ask-prices-must-be-in-decreasing-order",
                   'true',
                   to_boolean(populate_field(
-                    "ask-prices-must-be-in-increasing-order",
+                    "ask-prices-must-be-in-decreasing-order",
                     params[:render_new_settings],
                     settings,
                     params[:new_settings])),
                   class: "input-xlarge" %>
             <%= render 'shared/settings_error_message',
                 errors: params[:errors],
-                field: "ask-prices-must-be-in-increasing-order" %>
+                field: "ask-prices-must-be-in-decreasing-order" %>
           </div>
         </div>
         <div class="control-group">

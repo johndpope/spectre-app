@@ -1,18 +1,21 @@
-<li>
-  <h4>
-    <%= desc[:name] %> | 
+  <tr class="main">
+  <td>
+    <span class = "expand">
+      <a href='#' onclick="return false;"><%= desc[:name] %></a>
+    </span>
+  </td>
+  <td>
     <% if active %>
       <span style="color:YellowGreen">Active</span>
     <% else %>
       <span style="color:Red">Inactive</span>
     <% end %>
-  </h4>
-  <table class="table summary">
+  </td>
+</tr>
+<tr class="hidden">
+  <td colspan="2">
+    <table class="table summary">
     <tbody>
-    <tr>
-      <td>Description</td>
-      <td>Current Settings</td>
-    </tr>
     <tr>
       <td>
         <span class="content">
@@ -35,4 +38,6 @@
     </tr>
   </tbody>
   </table>
-</li>
+  </td>
+</tr>
+  

@@ -1,3 +1,7 @@
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag "monitor_settings.js" %>
+<% end %>
+
 <% provide(:title, 'Incident Monitors') %>
 <h1>Incident Monitors</h1>
 <% if @incident_monitors.empty? %>
@@ -5,9 +9,17 @@
 <% else %>
   <div class="row">
     <div class="span12">
-      <ol class="actions">
-        <%= render @incident_monitors, locals: { edit: false } %>
-      </ol>
+      <table class="table monitors-list">
+        <thead>
+          <tr>
+            <th style="width:20%">Monitor</th>
+            <th style="width:80%">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render @incident_monitors, locals: { edit: false } %>
+        </tbody>
+      </table>
     </div>
   </div>
 <% end %>
