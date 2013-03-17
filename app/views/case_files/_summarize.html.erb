@@ -1,29 +1,25 @@
-<li>
-  <table class="table summary">
-    <tbody>
-      <tr>
-        <td>
-          <%= render "case_profile", case_file: case_file, content: content %>
-        </td>
-        <td>
-          <div class="well">
-            <% if case_file.actions.first  %>
-              <%= render "actions/action", action: case_file.actions.first %>
-            <% else %>
-              <strong>No Actions Found</strong>
-            <% end %>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          <span class="pull-right">
-            <%= link_to "View Case", case_file_path(case_file),
-                class: "btn btn-primary btn-small" %>
-          </span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</li>
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag "case_manager.js" %>
+<% end %>
+
+<tr>
+  <td><%= case_file.id %></td>
+  <td>
+    <% if case_file.open and case_file.pending_close %>
+      <span style="color:GoldenRod">Awaiting close confirmation</span>
+    <% elsif case_file.open %>
+      <span style="color:YellowGreen">Open</span>
+    <% else %>
+      <span style="color:Red">Closed</span>
+    <% end %>
+  </td>
+  <td><%= case_file.name %></td>
+  <td><%= case_file.symbol %></td>
+  <td><%= case_file.participants %></td>
+  <td><%= case_file.detection_time %></td>
+  <td><%= User.find(case_file.user_id).name %></td>
+  <td class="view-button">
+    <%= link_to "View", case_file_path(case_file),
+        "id" => "popover", "data-content" => "#{ render "actions/action", action: case_file.actions.first }", "data-placement" => "right", "data-original-title" => "Last Action", class:"label" %>
+  </td>
+</tr>
