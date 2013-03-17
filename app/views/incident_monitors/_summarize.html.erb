@@ -1,20 +1,29 @@
-  <tr class="main">
-  <td>
-    <span class = "expand">
-      <a href='#' onclick="return false;"><%= desc[:name] %></a>
-    </span>
-  </td>
-  <td>
-    <% if active %>
-      <span style="color:YellowGreen">Active</span>
-    <% else %>
-      <span style="color:Red">Inactive</span>
-    <% end %>
-  </td>
+<tr>
+<div class="accordian-group">
+  <div class="accordian-heading">
+    <div class="span3" style="margin-left:0">
+      <td>
+    <%= link_to desc[:name], "#" + incident_monitor.id.to_s,
+        "data-toggle" => "collapse", "data-parent" => "monitors",
+        class: "accordian-toggle" %>
+      </td>
+      </div>
+      <div>
+        <td>
+        <% if active %>
+          <span style="color:YellowGreen">Active</span>
+        <% else %>
+          <span style="color:Red">Inactive</span>
+        <% end %>
+      </td>
+      </div>
+  </div>
 </tr>
-<tr class="hidden">
+<tr>
   <td colspan="2">
-    <table class="table summary">
+  <div id="<%= incident_monitor.id.to_s %>" class="accordian-body collapse">
+    <div class="accordian-inner">
+          <table class="table summary no-hover">
     <tbody>
     <tr>
       <td>
@@ -30,7 +39,7 @@
     <tr>
       <td></td>
       <td>
-      <span class="pull-right">
+      <span class="pull-right" style="margin-top:-20px">
         <%= link_to "Edit Settings", incident_monitor_path(incident_monitor),
               class: "btn btn-primary btn-small" %>
       </span>
@@ -38,6 +47,9 @@
     </tr>
   </tbody>
   </table>
-  </td>
+    </div>
+  </div>
+</div>
+</td>
 </tr>
   

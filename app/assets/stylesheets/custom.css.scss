@@ -1809,6 +1809,15 @@ table {
   background-color: #3a3f44;
 }
 
+.monitor-hover tbody > tr:nth-child(odd):hover > td {
+  background-color: #3a3f44;
+}
+
+.no-hover tbody > tr:nth-child(odd):hover > td,
+.no-hover tbody > tr:nth-child(even):hover > td {
+  background-color: transparent; 
+}
+
 tr.main:hover td { 
   background: #3a3f44;
 }
