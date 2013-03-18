@@ -1,25 +1,29 @@
 <span class="content">
-  <% if ['Generate'].include? action.type %>
-    <%= action.desc %>.
-    <blockquote></blockquote>
-  <% else %>
-    <%= action.user.name %> <%= action.desc %>.
-    <% if ['Comment', 'Transfer', 'RequestClose', 'Close'].include?(
-        action.type) %>
-      <blockquote>
-        Comment: <%= action.content.gsub("\n",'<br />').html_safe %>
-      </blockquote>
-    <% elsif ['RejectClose', 'Reopen'].include? action.type %>
-      <blockquote>
-        Reason: <%= action.content.gsub("\n",'<br />').html_safe %>
-      </blockquote>
-    <% else %>
+  <% if action %>
+    <% if ['Generate'].include? action.type %>
+      <%= action.desc %>.
       <blockquote></blockquote>
+    <% else %>
+      <%= action.user.name %> <%= action.desc %>.
+      <% if ['Comment', 'Transfer', 'RequestClose', 'Close'].include?(
+          action.type) %>
+        <blockquote>
+          Comment: <%= action.content.gsub("\n",'<br />').html_safe %>
+        </blockquote>
+      <% elsif ['RejectClose', 'Reopen'].include? action.type %>
+        <blockquote>
+          Reason: <%= action.content.gsub("\n",'<br />').html_safe %>
+        </blockquote>
+      <% else %>
+        <blockquote></blockquote>
+      <% end %>
     <% end %>
+    <span class="timestamp">
+      Occured <%= time_ago_in_words(action.created_at) %> ago.
+    </span>
+  <% else %>
+    No Actions Found
   <% end %>
-  <span class="timestamp">
-    Occured <%= time_ago_in_words(action.created_at) %> ago.
-  </span>
 </span>
 
 

@@ -6,7 +6,7 @@ class CaseFilesController < ApplicationController
 
   # This should be called only by the incident listener app.
   def create
-    user = User.find_by_email("punjabi@quotemtf.com")
+    user = User.find_by_email("nitin@spectredemo.com")
     incident = params["incident"]
     new_case = user.case_files.new(
                  type: incident["type"],

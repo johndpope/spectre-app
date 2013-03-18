@@ -9,13 +9,13 @@ namespace :db do
     admin.toggle!(:activated)
 
     user = User.create!(name: "Nitin Punjabi",
-                        email: "punjabi@quotemtf.com",
+                        email: "nitin@spectredemo.com",
                         password: "foobar",
                         password_confirmation: "foobar")
     user.toggle!(:activated)
 
-    admin = User.create!(name: "Sam Jones",
-                         email: "jones@yourcompany.com",
+    admin = User.create!(name: "Walter White",
+                         email: "walter@spectredemo.com",
                          password: "foobar",
                          password_confirmation: "foobar")
     admin.toggle!(:admin)
@@ -602,7 +602,15 @@ namespace :db do
     IncidentMonitor.create!(
       type: "BidLayeringMonitor",
       desc: { "name" => "Layering on the bid",
-              "info" => "Layering incidents are partitioned by participant and symbol"
+              "info" => "Submitting multiple orders on the buy side of the " +
+                        "book to create a false sense of demand, which helps " +
+                        "the participant execute a trade on the sell side " +
+                        "(the true intention). Following the execution, the " +
+                        "buy orders are rapidly removed. This monitor looks " +
+                        "for a sequence of zero or more bids, followed by a sell " +
+                        "execution, followed by one or more bid " +
+                        "cancellations. Layering incidents are partitioned " +
+                        "by participant and symbol."
             }.to_json(),
       settings: {
         "number-of-new-bids" => 4,
@@ -616,7 +624,15 @@ namespace :db do
     IncidentMonitor.create!(
       type: "AskLayeringMonitor",
       desc: { "name" => "Layering on the ask",
-              "info" => "Layering incidents are partitioned by participant and symbol"
+              "info" => "Submitting multiple orders on the sell side of the " +
+                        "book to create a false sense of supply, which helps " +
+                        "the participant execute a trade on the buy side " +
+                        "(the true intention). Following the execution, the " +
+                        "sell orders are rapidly removed. This monitor looks " +
+                        "for a sequence of zero or more asks, followed by a buy " +
+                        "execution, followed by one or more ask " +
+                        "cancellations. Layering incidents are partitioned " +
+                        "by participant and symbol."
             }.to_json(),
       settings: {
         "number-of-new-asks" => 4,
@@ -630,11 +646,15 @@ namespace :db do
     IncidentMonitor.create!(
       type: "TradeToCancelRatioMonitor",
       desc: { "name" => "Low trade-to-cancel ratio",
-              "info" => "Low trade-to-cancel description"
+              "info" => "This monitor looks for any incident where, within a " +
+                        "specified time, a participant's number of trades vs " +
+                        "its number of cancels on a symbol drop below a " +
+                        "specified threshold. Layering incidents are partitioned " +
+                        "by participant and symbol."
             }.to_json(),
       settings: {
-        "alert-when-ratio-is-below" => 30,
-        "length-of-monitoring-window" => 5
+        "alert-when-ratio-is-below" => 5,
+        "length-of-monitoring-window" => 60
       }.to_json,
       active: true
     )
@@ -642,7 +662,10 @@ namespace :db do
     IncidentMonitor.create!(
       type: "WashTradingMonitor",
       desc: { "name" => "Wash trading",
-              "info" => "Wash trading description"
+              "info" => "This monitor looks for any incident where a " +
+                        "participant trades with itself without prior " +
+                        "intention to internalize. Layering incidents are partitioned " +
+                        "by participant and symbol."
             }.to_json(),
       settings: {
         "ignore-internalized-trades" => true
@@ -653,7 +676,12 @@ namespace :db do
     IncidentMonitor.create!(
       type: "LargeUnfilledOrderMonitor",
       desc: { "name" => "Large unfilled order",
-              "info" => "Large unfilled order description"
+              "info" => "This monitor looks for any incident where a " +
+                        "participant submits a large order, and then cancels " +
+                        "it within a specified time with the remaining " +
+                        "unfilled shares N times larger than the average " +
+                        "order size for the symbol. Layering incidents are partitioned " +
+                        "by participant and symbol."
             }.to_json(),
       settings: {
         "size-multiplier" => 10,

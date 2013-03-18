@@ -17,15 +17,15 @@ describe "CaseFilePages" do
     it { should have_selector('title', text: 'Open Cases') }
     it { should have_selector('h1', text: 'All Open Cases') }
     
-    it { should have_selector('td', text: 'Case Id:') }
-    it { should have_selector('td', text: 'Incident: Layering on the bid') }
-    it { should have_selector('td', text: 'Incident Participants: Acme') }
-    it { should have_selector('td', text: 'Symbol: SANp') }
-    it { should have_selector('td', text: 'Case Officer:') }
-    it { should have_selector('td', text: 'Detection Time:') }
 
-    it { should have_selector('strong', text: 'No Actions Found') }
-    it { should have_link('View Case') }
+    it { should have_selector('td', text: case_file.id.to_s) }
+    it { should have_selector('td', text: 'Layering on the bid') }
+    it { should have_selector('td', text: 'Acme') }
+    it { should have_selector('td', text: 'SANp') }
+    it { should have_selector('td', text: user.name) }
+
+    it { should have_selector('a', :'data-content' => 'No Actions Found' ) }
+    it { should have_link('View') }
 
     describe "when someone takes action on a case" do
       let!(:action) { user.actions.create!(type: "Open",
@@ -34,7 +34,7 @@ describe "CaseFilePages" do
                                            case_file_id: case_file.id) }
 
       before { visit case_files_path }
-      it { should have_selector('strong', text: 'Last Action') }
+      it { should have_selector('a', :'data-original-title' => 'No Actions Found' ) }
     end
 
     describe "when there are no open cases" do
@@ -141,9 +141,9 @@ describe "CaseFilePages" do
             visit my_cases_path
           end
 
-          it { should have_content('transferred') }
-          it { should have_content('Status: Open') }
-          it { should have_content("Case Officer: #{ user2.name }") }
+          it { should have_selector('a', :'data-content' => 'transferred' ) }
+          it { should have_selector('td', text: 'Open') }
+          it { should have_selector('td', text: user2.name) }
 
           describe "and correct available actions" do
             before { visit case_file_path(case_file1) }
@@ -175,9 +175,9 @@ describe "CaseFilePages" do
             visit my_cases_path
           end
 
-          it { should have_content('requested close') }
-          it { should have_content('Status: Awaiting close confirmation') }
-          it { should have_content("Case Officer: #{ user2.name }") }
+          it { should have_selector('a', :'data-content' => 'requested close' ) }
+          it { should have_selector('td', text: 'Awaiting close confirmation') }
+          it { should have_selector('td', text: user2.name) }
 
           describe "and correct available actions" do
             before { visit case_file_path(case_file1) }
@@ -191,9 +191,9 @@ describe "CaseFilePages" do
               before { click_button reject_button }
             
               it { should have_content('Case restored') }
-              it { should have_content('rejected close') }
-              it { should have_content('Status: Open') }
-              it { should have_content("Case Officer: #{ user2.name }") }
+              it { should have_selector('a', :'data-content' => 'rejected close' ) }
+              it { should have_selector('td', text: 'Open') }
+              it { should have_selector('td', text: user2.name) }
             end
 
             describe "and if the close is confirmed" do
@@ -204,7 +204,7 @@ describe "CaseFilePages" do
               describe "the case should be in the archive" do
                 before { visit closed_cases_path }
 
-                it { should have_content('Status: Closed') }
+                it { should have_selector('td', text: 'Closed') }
               end
             end
           end
