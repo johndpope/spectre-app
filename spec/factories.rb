@@ -87,18 +87,20 @@ FactoryGirl.define do
   factory :bid_layering_monitor do
     type "BidLayeringMonitor"
     desc Hash["name", "Layering on the bid",
-              "info", "Layering on the bid"].to_json()
+              "info", "Layering on the bid description"].to_json
     settings Hash["number-of-new-bids", 4,
                   "number-of-cancels", 4,
-                  "length-of-monitoring-window", 5].to_json()
+                  "length-of-monitoring-window", 5].to_json
+    active true
   end
 
-    factory :ask_layering_monitor do
-    type "AskLayeringMonitor"
-    desc Hash["name", "Layering on the ask",
-              "info", "Layering on the ask"].to_json()
-    settings Hash["number-of-new-asks", 4,
+  factory :ask_layering_monitor do
+    type "BidLayeringMonitor"
+    desc Hash["name", "Layering on the bid",
+              "info", "Layering on the bid description"].to_json
+    settings Hash["number-of-new-bids", 4,
                   "number-of-cancels", 4,
-                  "length-of-monitoring-window", 5].to_json()
+                  "length-of-monitoring-window", 5].to_json
+    active true
   end
 end

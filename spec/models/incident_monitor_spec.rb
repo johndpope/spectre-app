@@ -9,7 +9,8 @@ describe IncidentMonitor do
               "info" => "Layering on the bid" }.to_json,
       settings: { "number-of-new-bids" => 4,
                   "number-of-cancels" => 4,
-                  "length-of-monitoring-window" => 5 }.to_json)
+                  "length-of-monitoring-window" => 5 }.to_json,
+      active: true)
   end
   
   subject { @incident_monitor }
@@ -17,6 +18,7 @@ describe IncidentMonitor do
   it { should respond_to(:type) }
   it { should respond_to(:desc) }
   it { should respond_to(:settings) }
+  it { should respond_to(:active) }
   it { should be_valid }
 
   describe "when type is not present" do
@@ -41,6 +43,16 @@ describe IncidentMonitor do
 
   describe "when settings is not present" do
     before { @incident_monitor.settings = nil }
+    it { should_not be_valid }
+  end
+
+  describe "when active state is not present" do
+    before { @incident_monitor.active = nil }
+    it { should_not be_valid }
+  end
+
+  describe "when active state is something other than boolean" do
+    before { @incident_monitor.active = "neither" }
     it { should_not be_valid }
   end
 end
