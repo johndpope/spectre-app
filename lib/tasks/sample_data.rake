@@ -2,7 +2,7 @@ namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
     admin = User.create!(name: "Oliver Szep",
-                         email: "szep@quotemtf.com",
+                         email: "szep@spectredemo.com",
                          password: "foobar",
                          password_confirmation: "foobar")
     admin.toggle!(:admin)
@@ -22,12 +22,12 @@ namespace :db do
     admin.toggle!(:activated)
 
     user = User.create!(name: "Julie Anderson",
-                        email: "anderson@yourcompany.com",
+                        email: "anderson@spectredemo.com",
                         password: "foobar",
                         password_confirmation: "foobar")
     user.toggle!(:activated)
 
-    user = User.find_by_email("punjabi@quotemtf.com")
+    user = User.find_by_email("nitin@spectredemo.com")
     layer_bid= { type: "BidLayeringCase",
                  name: "Layering on the bid",
                  detection_time: DateTime.new(2013, 2, 28, 10, 47, 11).iso8601,
