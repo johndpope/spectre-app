@@ -37,15 +37,15 @@
         <!--CLOSE CONFIRMATION-->
         <div class="tab-pane" id="confirm_close">
           <div class="span5">
-            <%= form_for @case_action, url: { controller: "actions",
-                                    action: "confirm_close" },
-                                    html: { style: "margin-top:10px" } do |f| %>
-              <%= render partial: "comment_box",
-                         locals: { label: "Closing Comment" } %>
+            <%= form_for @case_action, url: { controller: 'actions',
+                                    action: 'confirm_close' },
+                                    html: { style: 'margin-top:10px' } do |f| %>
+              <%= render partial: 'comment_box',
+                         locals: { label: 'Closing Comment' } %>
               <%= hidden_field_tag 'type', 'Close'  %>
               <%= hidden_field_tag 'case_file_id', @case_file.id  %>
-              <%= f.submit "Confirm Close", class: "btn btn-danger",
-                                            style:"margin-top:-15px" %>
+              <%= f.submit "Confirm Close", class: 'btn btn-danger',
+                                            style:'margin-top:-15px' %>
             <% end %>
             </form>
           </div>
@@ -54,15 +54,15 @@
         <!--CLOSE REQUEST REJECTION-->
         <div class="tab-pane" id="reject_close">
           <div class="span5">
-            <%= form_for @case_action, url: { controller: "actions",
-                                    action: "reject_close" },
-                                    html: { style: "margin-top:10px" } do |f| %>
-              <%= render partial: "comment_box",
-                         locals: { label: "Reason for Rejection" } %>
+            <%= form_for @case_action, url: { controller: 'actions',
+                                    action: 'reject_close' },
+                                    html: { style: 'margin-top:10px' } do |f| %>
+              <%= render partial: 'comment_box',
+                         locals: { label: 'Reason for Rejection' } %>
               <%= hidden_field_tag 'type', 'RejectClose'  %>
               <%= hidden_field_tag 'case_file_id', @case_file.id  %>
-              <%= f.submit "Restore Case to Open Status",
-                           class: "btn btn-warning", style:"margin-top:-15px" %>
+              <%= f.submit 'Restore Case to Open Status',
+                           class: 'btn btn-warning', style:'margin-top:-15px' %>
             <% end %>
             </form>
           </div>
@@ -74,14 +74,14 @@
         <!--COMMENT ON CASE-->
         <div class="tab-pane" id="comment">
           <div class="span5">
-            <%= form_for @case_action, url: { controller: "actions",
-                                    action: "comment" },
-                                    html: { style: "margin-top:10px" } do |f| %>
-              <%= render partial: "comment_box", locals: { label: "Comment" } %>
-              <%= hidden_field_tag 'type', "Comment" %>
+            <%= form_for @case_action, url: { controller: 'actions',
+                                    action: 'comment' },
+                                    html: { style: 'margin-top:10px' } do |f| %>
+              <%= render partial: 'comment_box', locals: { label: 'Comment' } %>
+              <%= hidden_field_tag 'type', 'Comment' %>
               <%= hidden_field_tag 'case_file_id', @case_file.id  %>
-              <%= f.submit "Add Comment", class: "btn btn-primary",
-                                          style:"margin-top:-15px" %>
+              <%= f.submit 'Add Comment', class: 'btn btn-primary',
+                                          style:'margin-top:-15px' %>
             <% end %>
           </div>
         </div>
@@ -89,9 +89,9 @@
         <!--TRANSFER CASE-->
         <div class="tab-pane" id="transfer">
           <div class="span5">
-            <%= form_for @case_action, url: { controller: "actions",
-                                    action: "transfer" }, 
-                                    html: { style: "margin-top:10px" } do |f| %>
+            <%= form_for @case_action, url: { controller: 'actions',
+                                    action: 'transfer' }, 
+                                    html: { style: 'margin-top:10px' } do |f| %>
               <div class="control-group">
                 <label class="control-label" for="select01">
                   Transfer Case to:
@@ -104,11 +104,11 @@
                   </select>
                 </div>
               </div>
-              <%= render partial: "comment_box", locals: { label: "Comment" } %>
+              <%= render partial: 'comment_box', locals: { label: 'Comment' } %>
               <%= hidden_field_tag 'type', 'Transfer'  %>
               <%= hidden_field_tag 'case_file_id', @case_file.id  %>
-              <%= f.submit "Transfer", class: "btn btn-info",
-                                       style:"margin-top:-15px" %>
+              <%= f.submit 'Transfer', class: 'btn btn-info',
+                                       style:'margin-top:-15px' %>
               <% end %>
             </form>
           </div>
@@ -117,9 +117,9 @@
         <!--REQUEST CLOSE CONFIRMATION ON CASE-->
         <div class="tab-pane" id="request_close">
           <div class="span5">
-            <%= form_for @case_action, url: { controller: "actions",
-                                    action: "request_close" },
-                                    html: { style: "margin-top:10px" } do |f| %>
+            <%= form_for @case_action, url: { controller: 'actions',
+                                    action: 'request_close' },
+                                    html: { style: 'margin-top:10px' } do |f| %>
               <div class="control-group">
                 <label class="control-label" for="select01">
                   Confirm Close With:
@@ -132,12 +132,12 @@
                   </select>
                 </div>
               </div>
-              <%= render partial: "comment_box",
-                         locals: { label: "Closing Comment" } %>
+              <%= render partial: 'comment_box',
+                         locals: { label: 'Closing Comment' } %>
               <%= hidden_field_tag 'type', 'RequestClose'  %>
               <%= hidden_field_tag 'case_file_id', @case_file.id  %>
-              <%= f.submit "Request Close Confirmation",
-                            class: "btn btn-warning",style:"margin-top:-15px" %>
+              <%= f.submit 'Request Close Confirmation',
+                            class: 'btn btn-warning',style:'margin-top:-15px' %>
               <% end %>
             </form>
           </div>
@@ -150,14 +150,14 @@
       <!--REOPEN CASE-->
       <div class="tab-pane" id="reopen">
         <div class="span5">
-          <%= form_for @case_action, url: { controller: "actions",
-                                    action: "reopen" },
-                                    html: { style: "margin-top:10px" } do |f| %>
-            <%= render partial: "comment_box", locals: { label: "Reason" } %>
+          <%= form_for @case_action, url: { controller: 'actions',
+                                    action: 'reopen' },
+                                    html: { style: 'margin-top:10px' } do |f| %>
+            <%= render partial: 'comment_box', locals: { label: 'Reason' } %>
             <%= hidden_field_tag 'type', 'Reopen'  %>
             <%= hidden_field_tag 'case_file_id', @case_file.id  %>
-            <%= f.submit "Reopen Case", class: "btn btn-success",
-                                        style:"margin-top:-15px" %>
+            <%= f.submit 'Reopen Case', class: 'btn btn-success',
+                                        style:'margin-top:-15px' %>
           <% end %>
           </form>
         </div>

@@ -1,8 +1,5 @@
 <% if locals[:summarize] %>
-  <%= render "case_files/summarize", case_file: ask_layering_case,
-                                     content: JSON.parse(
-                                                ask_layering_case.content,
-                                       symbolize_names: true) %>
+  <%= render 'case_files/summarize', case_file: ask_layering_case %>
 <% else %>
- <%= render 'shared/layering_chart', content: content %>
+  <%= render 'shared/layering_chart', content: content %>
 <% end %>

@@ -1,5 +1,5 @@
 <% content_for :javascript_includes do %>
-  <%= javascript_include_tag "case_manager.js" %>
+  <%= javascript_include_tag 'case_manager.js' %>
 <% end %>
 
 <tr>
@@ -19,7 +19,9 @@
     <% end %>
   </td>
   <td class="view-button">
-    <%= link_to "View", case_file_path(case_file),
-        "id" => "popover", "data-content" => "#{ render "actions/action", action: case_file.actions.first }", "data-placement" => "right", "data-original-title" => "Last Action", class:"label" %>
+    <%= link_to 'View', case_file_path(case_file),
+        'id' => 'popover', 'data-content' => "#{ render "actions/action",
+         action: case_file.actions.first }", 'data-placement' => 'right', 
+         'data-original-title' => 'Last Action', class:'label' %>
   </td>
 </tr>

@@ -1,15 +1,12 @@
 <% if not locals[:edit] %>
   <%= render "incident_monitors/summarize",
         incident_monitor: trade_to_cancel_ratio_monitor,
-        desc: JSON.parse(trade_to_cancel_ratio_monitor.desc,
-                         symbolize_names: true),
-        settings: JSON.parse(trade_to_cancel_ratio_monitor.settings,
-                             symbolize_names: true),
+        desc: JSON.parse(trade_to_cancel_ratio_monitor.desc),
+        settings: JSON.parse(trade_to_cancel_ratio_monitor.settings),
         active: trade_to_cancel_ratio_monitor.active %>
 <% else %>
   <%= render "incident_monitors/trade_to_cancel_ratio",
         incident_monitor: trade_to_cancel_ratio_monitor,
-        desc: JSON.parse(trade_to_cancel_ratio_monitor.desc,
-                         symbolize_names: true),
+        desc: JSON.parse(trade_to_cancel_ratio_monitor.desc),
         settings: JSON.parse(trade_to_cancel_ratio_monitor.settings) %>
 <% end %>

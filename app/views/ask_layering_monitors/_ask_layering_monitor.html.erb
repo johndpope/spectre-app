@@ -1,13 +1,12 @@
 <% if not locals[:edit] %>
-  <%= render "incident_monitors/summarize",
+  <%= render 'incident_monitors/summarize',
         incident_monitor: ask_layering_monitor,
-        desc: JSON.parse(ask_layering_monitor.desc, symbolize_names: true),
-        settings: JSON.parse(ask_layering_monitor.settings,
-                             symbolize_names: true),
+        desc: JSON.parse(ask_layering_monitor.desc),
+        settings: JSON.parse(ask_layering_monitor.settings),
         active: ask_layering_monitor.active %>
 <% else %>
-  <%= render "incident_monitors/ask_layering",
+  <%= render 'incident_monitors/ask_layering',
         incident_monitor: ask_layering_monitor,
-        desc: JSON.parse(ask_layering_monitor.desc, symbolize_names: true),
+        desc: JSON.parse(ask_layering_monitor.desc),
         settings: JSON.parse(ask_layering_monitor.settings) %>
 <% end %>

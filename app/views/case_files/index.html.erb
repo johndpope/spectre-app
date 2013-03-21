@@ -6,31 +6,6 @@
   <h1>All Open Cases</h1>
 <% end %>
 
-<% if @case_files.empty? %>
-  <h4>None Found</h4>
-<% else %>
-  <div class="row" style="margin-top:25px">
-    <div class="span11">
-      <%= will_paginate %>
-      <table class="table table-borderless table-striped table-hover">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Incident</th>
-            <th>Symbol</th>
-            <th>Participants</th>
-            <th>Detection Time</th>
-            <th>Case Officer</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <%= render @case_files, locals: { summarize: true } %>
-        </tbody>
-      </table>
-      <%= will_paginate %>
-    </div>
-  </div>
-<% end %>
+<%= render 'shared/case_listing' %>
 
 

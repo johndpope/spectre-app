@@ -1,13 +1,12 @@
 <% if not locals[:edit] %>
-  <%= render "incident_monitors/summarize",
+  <%= render 'incident_monitors/summarize',
         incident_monitor: bid_layering_monitor,
-        desc: JSON.parse(bid_layering_monitor.desc, symbolize_names: true),
-        settings: JSON.parse(bid_layering_monitor.settings,
-                             symbolize_names: true),
+        desc: JSON.parse(bid_layering_monitor.desc),
+        settings: JSON.parse(bid_layering_monitor.settings),
         active: bid_layering_monitor.active %>
 <% else %>
-  <%= render "incident_monitors/bid_layering",
+  <%= render 'incident_monitors/bid_layering',
         incident_monitor: bid_layering_monitor,
-        desc: JSON.parse(bid_layering_monitor.desc, symbolize_names: true),
+        desc: JSON.parse(bid_layering_monitor.desc),
         settings: JSON.parse(bid_layering_monitor.settings) %>
 <% end %>

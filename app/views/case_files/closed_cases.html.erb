@@ -1,29 +1,4 @@
 <% provide(:title, 'Case Archive') %>
 <h1>Case Archive</h1>
 
-<% if @case_files.empty? %>
-  <h4>None Found</h4>
-<% else %>
-  <div class="row" style="margin-top:25px">
-    <div class="span11">
-      <%= will_paginate %>
-      <table class="table table-borderless table-striped table-hover">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Status</th>
-            <th>Incident</th>
-            <th>Symbol</th>
-            <th>Participants</th>
-            <th>Detection Time</th>
-            <th>Case Officer</th>
-          </tr>
-        </thead>
-        <tbody>
-          <%= render @case_files, locals: { summarize: true } %>
-        </tbody>
-      </table>
-      <%= will_paginate %>
-    </div>
-  </div>
-<% end %>
+<%= render 'shared/case_listing' %>
