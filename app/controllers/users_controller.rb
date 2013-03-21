@@ -21,11 +21,11 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       @user.actions.create!(
-        type: "SignUp",
-        desc: "signed up for Spectre and is waiting for account approval",
-        content: "SignUp action")
-      flash[:success] = "Welcome to Spectre. Your account will be activated
-                         by your administrator within two hours."
+        type: 'SignUp',
+        desc: 'signed up for Spectre and is waiting for account approval',
+        content: 'SignUp action')
+      flash[:success] = 'Welcome to Spectre. Your account will be activated
+                         by your administrator within two hours.'
       redirect_to signin_path
     else
       render 'new'
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(params[:user])
-      flash[:success] = "Profile Updated"
+      flash[:success] = 'Profile Updated'
       sign_in @user
       redirect_to @user
     else
@@ -51,15 +51,15 @@ class UsersController < ApplicationController
 
     if target_user.activated?
       current_user.actions.create!(
-        type: "Activate",
+        type: 'Activate',
         desc: "activated the account belonging to #{target_user.name}",
-        content: "Activate action")
+        content: 'Activate action')
       flash[:success] = "Account for #{target_user.name} activated."
     elsif !target_user.activated?
       current_user.actions.create!(
-        type: "Deactivate",
+        type: 'Deactivate',
         desc: "deactivated the account belonging to #{target_user.name}",
-        content: "Deactivate action")
+        content: 'Deactivate action')
       flash[:success] = "Account for #{target_user.name} Deactivated."
     end
 

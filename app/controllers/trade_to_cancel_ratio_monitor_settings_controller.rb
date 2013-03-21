@@ -4,13 +4,13 @@ class TradeToCancelRatioMonitorSettingsController < ApplicationController
   before_filter :admin_user, only: [:show]
 
   def modify
-    if params["cancel"] == "Cancel"
+    if params['cancel'] == 'Cancel'
       redirect_to incident_monitors_path
     else
       settings = {
-        "alert-when-ratio-is-below" => params["alert-when-ratio-is-below"],
-        "length-of-monitoring-window" =>
-          params["length-of-monitoring-window"]
+        'alert-when-ratio-is-below' => params['alert-when-ratio-is-below'],
+        'length-of-monitoring-window' =>
+          params['length-of-monitoring-window']
       }
 
       monitor_settings = TradeToCancelRatioMonitorSetting.new(settings)

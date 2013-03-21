@@ -12,6 +12,8 @@
 #  detection_time :datetime
 #  pending_close  :boolean          default(FALSE)
 #  participants   :string(255)
+#  name           :string(255)
+#  symbol         :string(255)
 #
 
 class AskLayeringCase < CaseFile

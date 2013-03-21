@@ -6,22 +6,22 @@ class CaseFilesController < ApplicationController
 
   # This should be called only by the incident listener app.
   def create
-    user = User.find_by_email("nitin@spectredemo.com")
-    incident = params["incident"]
+    user = User.find_by_email('nitin@spectredemo.com')
+    incident = params['incident']
     new_case = user.case_files.new(
-                 type: incident["type"],
-                 name: incident["name"],
-                 content: incident["events"].to_json,
-                 detection_time: incident["detection-time"],
-                 participants: incident["participants"],
-                 symbol: incident["symbol"])
+                 type: incident['type'],
+                 name: incident['name'],
+                 content: incident['events'].to_json,
+                 detection_time: incident['detection-time'],
+                 participants: incident['participants'],
+                 symbol: incident['symbol'])
     new_case.save
     
     new_action = user.actions.new(
-      type: "Generate",
-      desc: "Spectre generated case #{ new_case.id } and assigned it to "\
-             "#{ user.name }",
-      content: "Generate action",
+      type: 'Generate',
+      desc: "Spectre generated case #{ new_case.id } and assigned it to " +
+            "#{ user.name }",
+      content: 'Generate action',
       case_file_id: new_case.id)
     new_action.save
 
@@ -42,7 +42,7 @@ class CaseFilesController < ApplicationController
     # If the user is viewing his own case.
     if @case_file.user_id = current_user.id
       @case_action = Action.new
-      @officers = User.select("email").where("id != ? AND activated = ?",
+      @officers = User.select('email').where('id != ? AND activated = ?',
                                              current_user.id, true)
     end
   end

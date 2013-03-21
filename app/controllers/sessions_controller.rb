@@ -13,9 +13,9 @@ class SessionsController < ApplicationController
           user.activated?
       sign_in user
       current_user.actions.create!(
-        type: "SignIn",
-        desc: "signed in",
-        content: "SignIn action")
+        type: 'SignIn',
+        desc: 'signed in',
+        content: 'SignIn action')
       redirect_back_or user
     else
       flash.now[:error] = 'Invalid email/password combination'
@@ -26,9 +26,9 @@ class SessionsController < ApplicationController
   def destroy
     if signed_in?
       current_user.actions.create!(
-        type: "SignOut",
-        desc: "signed out",
-        content: "SignOut action")
+        type: 'SignOut',
+        desc: 'signed out',
+        content: 'SignOut action')
     end
     sign_out
     redirect_to root_url

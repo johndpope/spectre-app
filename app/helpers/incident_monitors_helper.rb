@@ -13,8 +13,8 @@ module IncidentMonitorsHelper
   def modify_monitor_settings_action(id, monitor_desc)
    {
       desc: "modified incident monitor settings for #{ monitor_desc[:name] }",
-      type: "ModifyMonitorSetting",
-      content: "Modify monitor setting action",
+      type: 'ModifyMonitorSetting',
+      content: 'Modify monitor setting action',
       incident_monitor_id: id,
     }
   end
@@ -48,7 +48,7 @@ module IncidentMonitorsHelper
     if cur_settings.valid?
       monitor = IncidentMonitor.find(monitor_id)
       if new_settings.to_json == monitor.settings
-        redirect_to incident_monitors_path, notice: "No modifications."
+        redirect_to incident_monitors_path, notice: 'No modifications.'
       else
         monitor.update_attributes(settings: new_settings.to_json)
         desc = JSON.parse(monitor.desc, symbolize_names: true)

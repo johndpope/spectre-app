@@ -4,12 +4,12 @@ class WashTradingMonitorSettingsController < ApplicationController
   before_filter :admin_user, only: [:show]
 
   def modify
-    if params["cancel"] == "Cancel"
+    if params['cancel'] == 'Cancel'
       redirect_to incident_monitors_path
     else
-      checked = checked?(params["ignore-internalized-trades"])
+      checked = checked?(params['ignore-internalized-trades'])
       settings = {
-        "ignore-internalized-trades" => checked
+        'ignore-internalized-trades' => checked
       }
 
       monitor_settings = WashTradingMonitorSetting.new(settings)

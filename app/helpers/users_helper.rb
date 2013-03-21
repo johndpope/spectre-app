@@ -2,7 +2,7 @@ module UsersHelper
 
   # Returns the error message
   def full_title(page_title)
-    base_title = "Spectre"
+    base_title = 'Spectre'
     if page_title.empty?
       base_title
     else

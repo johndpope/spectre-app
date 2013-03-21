@@ -11,8 +11,8 @@ module ActionsHelper
     { type: params[:type],
       desc: "transferred case #{ params[:case_file_id] } to " +
             "#{ User.find_by_email(params[:officer]).name }",
-      content: action_comment(params[:content], "No transfer " +
-                                                "comment provided."),
+      content: action_comment(params[:content], 'No transfer ' +
+                                                'comment provided.'),
       case_file_id: params[:case_file_id] }
   end
 
@@ -20,14 +20,14 @@ module ActionsHelper
     { type: params[:type],
       desc: "requested close confirmation on case #{ params[:case_file_id] } " +
             "from #{ User.find_by_email(params[:officer]).name }",
-      content: action_comment(params[:content], "No closing comment provided."),
+      content: action_comment(params[:content], 'No closing comment provided.'),
       case_file_id: params[:case_file_id] }
   end
 
   def confirm_close_action(params)
     { type: params[:type],
       desc: 'confirmed close on case ' + params[:case_file_id],
-      content: action_comment(params[:content], "No closing comment provided."),
+      content: action_comment(params[:content], 'No closing comment provided.'),
       case_file_id: params[:case_file_id] }
   end
 
@@ -35,7 +35,7 @@ module ActionsHelper
     { type: params[:type],
       desc: 'rejected close confirmation on case ' + params[:case_file_id],
       content: action_comment(params[:content],
-                              "No rejection reason provided."),
+                              'No rejection reason provided.'),
       case_file_id: params[:case_file_id] }
   end
 
@@ -43,7 +43,7 @@ module ActionsHelper
     { type: params[:type],
       desc: 'reopened case ' + params[:case_file_id],
       content: action_comment(params[:content],
-                              "No reason for reopening provided."),
+                              'No reason for reopening provided.'),
       case_file_id: params[:case_file_id] }
   end
 
