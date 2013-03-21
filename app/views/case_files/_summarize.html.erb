@@ -4,6 +4,11 @@
 
 <tr>
   <td><%= case_file.id %></td>
+  <td><%= case_file.name %></td>
+  <td><%= case_file.symbol %></td>
+  <td><%= case_file.participants %></td>
+  <td><%= case_file.detection_time %></td>
+  <td><%= User.find(case_file.user_id).name %></td>
   <td>
     <% if case_file.open and case_file.pending_close %>
       <span style="color:GoldenRod">Awaiting close confirmation</span>
@@ -13,11 +18,6 @@
       <span style="color:Red">Closed</span>
     <% end %>
   </td>
-  <td><%= case_file.name %></td>
-  <td><%= case_file.symbol %></td>
-  <td><%= case_file.participants %></td>
-  <td><%= case_file.detection_time %></td>
-  <td><%= User.find(case_file.user_id).name %></td>
   <td class="view-button">
     <%= link_to "View", case_file_path(case_file),
         "id" => "popover", "data-content" => "#{ render "actions/action", action: case_file.actions.first }", "data-placement" => "right", "data-original-title" => "Last Action", class:"label" %>
