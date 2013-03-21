@@ -1,8 +1,5 @@
 <% if locals[:summarize] %>
-  <%= render "case_files/summarize", case_file: large_unfilled_order_case,
-                                     content: JSON.parse(
-                                              large_unfilled_order_case.content,
-                                              symbolize_names: true) %>
+  <%= render 'case_files/summarize', case_file: large_unfilled_order_case %>
 <% else %>
   <div class = "span12">
     <script type="text/javascript"> $(function() {
@@ -49,8 +46,9 @@
         },
         series: [{
           name: 'Size',
-          data: [<%= content[:'avg-order-size'] %>,
-                 <%= "#{ content[:'order'][:'order-qty'] - content[:'order'][:'cumulative-qty'] }" %>]
+          data: [<%= content['avg-order-size'] %>,
+                 <%= "#{ content['order']['order-qty'] } - " +
+                     "#{content['order']['cumulative-qty'] }" %>]
         }]
       })
     });</script>
@@ -58,7 +56,7 @@
   </div>
   <div class = "span12">
     <% if content %>
-    Average order size: <%= content[:'avg-order-size'] %>
+    Average order size: <%= content['avg-order-size'] %>
     <div class="accordion" id="events">
       <div class="accordion-group">
         <div id="event_list" class="accordion-body collapse in">
@@ -78,39 +76,39 @@
                 </tr>
               </thead>
               <tbody>
-                <% o = content[:'order'] %>
+                <% o = content['order'] %>
                   <tr class="main">
                     <td>
                       <span class = "expand" style="font-weight:bold">
                         <a href='#' onclick="return false;">+</a></span>
                     </td>
                     <td>
-                      <%= o[:'customer-name'] %>
+                      <%= o['customer-name'] %>
                     </td>
-                    <td><%= o[:'order-status'] %></td>
-                    <td><%= o[:'side'] %></td>
+                    <td><%= o['order-status'] %></td>
+                    <td><%= o['side'] %></td>
 
-                    <% if o[:'order-status'] == "new" %>
-                      <td><%= o[:'order-qty'] %></td>
-                    <% elsif o[:'order-status'] == "canceled" %>
+                    <% if o['order-status'] == "new" %>
+                      <td><%= o['order-qty'] %></td>
+                    <% elsif o['order-status'] == "canceled" %>
                       <td>
-                        <%= "#{ o[:'order-qty'] - o[:'cumulative-qty'] }" %>
+                        <%= "#{ o['order-qty'] - o['cumulative-qty'] }" %>
                       </td>
                     <% elsif ['filled', 'partial-fill'].include?(
-                                                          o[:'order-status']) %>
-                      <td><%= "#{ o[:'last-share'] }" %></td>
+                                                          o['order-status']) %>
+                      <td><%= "#{ o['last-share'] }" %></td>
                     <% end %>
 
-                    <td><%= o[:'symbol'] %></td>
+                    <td><%= o['symbol'] %></td>
 
-                    <% if ['new', 'canceled'].include? o[:'order-status'] %>
-                      <td><%= o[:'price'] %></td>
+                    <% if ['new', 'canceled'].include? o['order-status'] %>
+                      <td><%= o['price'] %></td>
                     <% elsif ['filled', 'partial-fill'].include?(
-                                                          o[:'order-status']) %>
-                      <td><%= o[:'last-price'] %></td>
+                                                          o['order-status']) %>
+                      <td><%= o['last-price'] %></td>
                     <% end %>
-                    <td><%= Time.zone.parse(o[:'transact-time']) %></td>
-                    <td><%= o[:'client-order-id'] %></td>
+                    <td><%= Time.zone.parse(o['transact-time']) %></td>
+                    <td><%= o['client-order-id'] %></td>
                   </tr>
                   <tr class="hidden">
                     <td colspan="2" style="vertical-align:middle">

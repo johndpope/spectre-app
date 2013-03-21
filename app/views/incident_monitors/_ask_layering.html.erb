@@ -1,83 +1,77 @@
 <% provide(:title, 'Layering on the ask monitor settings') %>
 <div class="row">
   <div class="span11">
-    <h3>Edit monitor settings for <i><%= desc[:name] %></i></h3>
+    <h3>Edit monitor settings for <i><%= desc['name'] %></i></h3>
     <div class="form-horizontal-settings well">
-      <%= form_tag "ask_layering_monitor_settings" do %>
+      <%= form_tag 'ask_layering_monitor_settings' do %>
 
         <div class="control-group">
-          <%= label_tag "number-of-new-asks",
-                        "Number of new asks:",
-                        class: "control-label" %>
+          <%= label_tag 'number-of-new-asks',
+                        'Number of new asks:',
+                        class: 'control-label' %>
           <div class="controls">
-            <%= text_field_tag "number-of-new-asks",
-              populate_field("number-of-new-asks",
+            <%= text_field_tag 'number-of-new-asks',
+              populate_field('number-of-new-asks',
                              params[:render_new_settings],
                              settings,
                              params[:new_settings]),
-                             class: "input-xlarge" %>
+                             class: 'input-xlarge' %>
             <%= render 'shared/settings_error_message',
                 errors: params[:errors],
-                field: "number-of-new-asks" %>
+                field: 'number-of-new-asks' %>
           </div>
         </div>
         <div class="control-group">
-          <%= label_tag "number-of-cancels",
-                        "Number of cancels:",
-                        class: "control-label" %>
+          <%= label_tag 'number-of-cancels',
+                        'Number of cancels:',
+                        class: 'control-label' %>
           <div class="controls">
-            <%= text_field_tag "number-of-cancels",
-              populate_field("number-of-cancels",
+            <%= text_field_tag 'number-of-cancels',
+              populate_field('number-of-cancels',
                              params[:render_new_settings],
                              settings,
                              params[:new_settings]),
-                                 class: "input-xlarge" %>
+                                 class: 'input-xlarge' %>
             <%= render 'shared/settings_error_message',
                 errors: params[:errors],
-                field: "number-of-cancels" %>
+                field: 'number-of-cancels' %>
           </div>
         </div>
         <div class="control-group">
-          <%= label_tag "ask-prices-must-be-in-decreasing-order",
-                        "Ask prices must be in decreasing order",
-                        class: "control-label" %>
+          <%= label_tag 'ask-prices-must-be-in-decreasing-order',
+                        'Ask prices must be in decreasing order',
+                        class: 'control-label' %>
           <div class="controls">
-            <%= check_box_tag "ask-prices-must-be-in-decreasing-order",
+            <%= check_box_tag 'ask-prices-must-be-in-decreasing-order',
                   'true',
                   to_boolean(populate_field(
-                    "ask-prices-must-be-in-decreasing-order",
+                    'ask-prices-must-be-in-decreasing-order',
                     params[:render_new_settings],
                     settings,
                     params[:new_settings])),
-                  class: "input-xlarge" %>
+                  class: 'input-xlarge' %>
             <%= render 'shared/settings_error_message',
                 errors: params[:errors],
-                field: "ask-prices-must-be-in-decreasing-order" %>
+                field: 'ask-prices-must-be-in-decreasing-order' %>
           </div>
         </div>
         <div class="control-group">
-          <%= label_tag "length-of-monitoring-window",
-                        "Length of monitoring window (secs)",
-                        class: "control-label" %>
+          <%= label_tag 'length-of-monitoring-window',
+                        'Length of monitoring window (secs)',
+                        class: 'control-label' %>
           <div class="controls">
-            <%= text_field_tag "length-of-monitoring-window",
-                  populate_field("length-of-monitoring-window",
+            <%= text_field_tag 'length-of-monitoring-window',
+                  populate_field('length-of-monitoring-window',
                                  params[:render_new_settings],
                                  settings,
                                  params[:new_settings]),
-                  class: "input-xlarge" %>
+                  class: 'input-xlarge' %>
             <%= render 'shared/settings_error_message',
                 errors: params[:errors],
-                field: "length-of-monitoring-window" %>
+                field: 'length-of-monitoring-window' %>
           </div>
         </div>
-        <div class="control-group">
-          <div class="controls">
-            <%= hidden_field_tag 'monitor_id', incident_monitor.id %>
-            <%= submit_tag "Save", class: "btn btn-danger", name: "modify" %>
-            <%= submit_tag "Cancel", class: "btn btn-primary", name: "cancel" %>
-          </div>
-        </div>
+        <%= render 'shared/save_cancel_button', id: incident_monitor.id %>
       <% end %>
     </div>
   </div>

@@ -36,7 +36,7 @@ class CaseFilesController < ApplicationController
   def show
     @case_file = CaseFile.find(params[:id])
     @actions = @case_file.actions.paginate(page: params[:page])
-    @case_content = JSON.parse(@case_file.content, symbolize_names: true)
+    @case_content = JSON.parse(@case_file.content)
     @case_officer = User.find(@case_file.user_id)
 
     # If the user is viewing his own case.

@@ -81,19 +81,20 @@
         enabled: false
       },
       series : [{
-        pointStart: <%= content.first[:'event-timestamp'] %>,
+        pointStart: <%= content.first['event-timestamp'] %>,
         data: [
           <% content.each do |o| %>
-            {x: <%= o[:'event-timestamp'] %>,
-             y: <%= ['filled', 'partial-fill'].include?(o[:'order-status']) ?
-                    o[:'last-price'] : o[:'price']  %>,
-             participant: "<%= o[:'customer-name'] %>",
-             order_status: "<%= o[:'order-status'] %>".charAt(0).toUpperCase() +
-                           "<%= o[:'order-status'] %>".slice(1) +
-                           " <%= o[:'side'] %>",
-             symbol: "<%= o[:'symbol'] %>",
+            {x: <%= o['event-timestamp'] %>,
+             y: <%= ['filled', 'partial-fill'].include?(o['order-status']) ?
+                    o['last-price'] : o['price']  %>,
+             participant: "<%= o['customer-name'] %>",
+             order_status: "<%= o['order-status'] %>".charAt(0).toUpperCase() +
+                           "<%= o['order-status'] %>".slice(1) +
+                           " <%= o['side'] %>",
+             symbol: "<%= o['symbol'] %>",
              marker: {
-              symbol: ("url(" + "/assets/" + "<%= o[:'order-status'] %>" + "_" + "<%= o[:'side'] %>.png" + ")") }},
+              symbol: ("url(" + "/assets/" + "<%= o['order-status'] %>" + "_" +
+                       "<%= o['side'] %>.png" + ")") }},
           <% end %>
           ],
         lineWidth : 0,
@@ -142,32 +143,32 @@
                         <a href='#' onclick="return false;">+</a></span>
                     </td>
                     <td>
-                      <%= o[:'customer-name'] %>
+                      <%= o['customer-name'] %>
                     </td>
-                    <td><%= o[:'order-status'] %></td>
-                    <td><%= o[:'side'] %></td>
+                    <td><%= o['order-status'] %></td>
+                    <td><%= o['side'] %></td>
 
-                    <% if o[:'order-status'] == "new" %>
-                      <td><%= o[:'order-qty'] %></td>
-                    <% elsif o[:'order-status'] == "canceled" %>
+                    <% if o['order-status'] == "new" %>
+                      <td><%= o['order-qty'] %></td>
+                    <% elsif o['order-status'] == "canceled" %>
                       <td>
-                        <%= "#{ o[:'order-qty'] - o[:'cumulative-qty'] }" %>
+                        <%= "#{ o['order-qty'] - o['cumulative-qty'] }" %>
                       </td>
                     <% elsif ['filled', 'partial-fill'].include?(
-                                                          o[:'order-status']) %>
-                      <td><%= "#{ o[:'last-share'] }" %></td>
+                                                          o['order-status']) %>
+                      <td><%= "#{ o['last-share'] }" %></td>
                     <% end %>
 
-                    <td><%= o[:'symbol'] %></td>
+                    <td><%= o['symbol'] %></td>
 
-                    <% if ['new', 'canceled'].include? o[:'order-status'] %>
-                      <td><%= o[:'price'] %></td>
+                    <% if ['new', 'canceled'].include? o['order-status'] %>
+                      <td><%= o['price'] %></td>
                     <% elsif ['filled', 'partial-fill'].include?(
-                                                          o[:'order-status']) %>
-                      <td><%= o[:'last-price'] %></td>
+                                                          o['order-status']) %>
+                      <td><%= o['last-price'] %></td>
                     <% end %>
-                    <td><%= convert_timestamp(o[:'event-timestamp']) %></td>
-                    <td><%= o[:'client-order-id'] %></td>
+                    <td><%= convert_timestamp(o['event-timestamp']) %></td>
+                    <td><%= o['client-order-id'] %></td>
                   </tr>
                   <tr class="hidden">
                     <td colspan="2" style="vertical-align:middle">

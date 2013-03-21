@@ -1,7 +1,7 @@
 <header class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <%= link_to "SPECTRE", root_path, class: "brand" %>
+      <%= link_to 'SPECTRE', root_path, class: 'brand' %>
         <nav>
           <% if signed_in? %>
             <ul class="nav pull-left">
@@ -10,29 +10,29 @@
                 Open Cases<b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><%= link_to "My Cases", my_cases_path %></li>
+                  <li><%= link_to 'My Cases', my_cases_path %></li>
                   <li class="divider"></li>
-                  <li><%= link_to "All Cases", case_files_path %></li>
+                  <li><%= link_to 'All Cases', case_files_path %></li>
                 </ul>
               </li>
               <li>
-                <%= link_to "Incident Monitors", incident_monitors_path %>
+                <%= link_to 'Incident Monitors', incident_monitors_path %>
               </li>
             </ul>
             <ul class="nav pull-right">
-              <li><%= link_to "Users", users_path %></li>
-              <li><%= link_to "Case Archive", closed_cases_path %></li>
+              <li><%= link_to 'Users', users_path %></li>
+              <li><%= link_to 'Case Archive', closed_cases_path %></li>
               <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Account<b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><%= link_to "Profile", current_user %></li>
-                <li><%= link_to "Settings", edit_user_path(current_user) %></li>
+                <li><%= link_to 'Profile', current_user %></li>
+                <li><%= link_to 'Settings', edit_user_path(current_user) %></li>
                 <li class="divider"></li>
                 <li>
-                  <%= link_to "Sign Out", signout_path,
-                    method: "delete" %>
+                  <%= link_to 'Sign Out', signout_path,
+                    method: 'delete' %>
                 </li>
               </ul>
             </li>

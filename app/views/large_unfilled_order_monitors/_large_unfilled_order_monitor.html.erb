@@ -1,11 +1,11 @@
 <% if not locals[:edit] %>
-  <%= render "incident_monitors/summarize",
+  <%= render 'incident_monitors/summarize',
         incident_monitor: large_unfilled_order_monitor,
         desc: JSON.parse(large_unfilled_order_monitor.desc),
         settings: JSON.parse(large_unfilled_order_monitor.settings),
         active: large_unfilled_order_monitor.active %>
 <% else %>
-  <%= render "incident_monitors/large_unfilled_order",
+  <%= render 'incident_monitors/large_unfilled_order',
         incident_monitor: large_unfilled_order_monitor,
         desc: JSON.parse(large_unfilled_order_monitor.desc),
         settings: JSON.parse(large_unfilled_order_monitor.settings) %>

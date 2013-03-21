@@ -1,8 +1,6 @@
 <% if locals[:summarize] %>
-  <%= render "case_files/summarize", case_file: low_trade_to_cancel_ratio_case,
-                                     content: JSON.parse(
-                                       low_trade_to_cancel_ratio_case.content,
-                                       symbolize_names: true) %>
+  <%= render 'case_files/summarize',
+             case_file: low_trade_to_cancel_ratio_case %>
 <% else %>
   <div class = "span12">
     <script type="text/javascript"> $(function() {
@@ -52,13 +50,13 @@
           plotLines: [{
             color: '#FFF',
             width: 1,
-            value: <%= (content[:'threshold'] *
-                       (content[:'cancels'] + content[:'fills'])).to_i %>,
+            value: <%= (content['threshold'] *
+                       (content['cancels'] + content['fills'])).to_i %>,
             dashStyle: 'dot',
             zIndex: 99,
             label: {
               text: 'Monitor threshold: ' +
-                    "<%= content[:'threshold'] * 100 %>%",
+                    "<%= content['threshold'] * 100 %>%",
               rotation: 0,
               y: 40,
               style: {
@@ -74,14 +72,14 @@
         },
         series: [{
           name: 'Cancels',
-          data: [<%= content[:'cancels'] %>],
+          data: [<%= content['cancels'] %>],
           stack: 'Events',
           color: '#ff3333',
           legendIndex: 2
         },
         {
           name: 'Trades',
-          data: [<%= content[:'fills'] %>],
+          data: [<%= content['fills'] %>],
           stack: 'Events',
           color: '#86c440',
           legendIndex: 1
@@ -103,10 +101,10 @@
         </thead>
         <tbody>
           <tr>
-            <td><%= content[:'symbol'] %></td>
-            <td><%= content[:'fills'] %></td>
-            <td><%= content[:'cancels'] %></td>
-            <td><%= content[:'ratio'].to_f * 100 %>%</td>
+            <td><%= content['symbol'] %></td>
+            <td><%= content['fills'] %></td>
+            <td><%= content['cancels'] %></td>
+            <td><%= content['ratio'].to_f * 100 %>%</td>
           </tr>
         </tbody>
       </table>
