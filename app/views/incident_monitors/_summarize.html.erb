@@ -39,10 +39,12 @@
     <tr>
       <td></td>
       <td>
-      <span class="pull-right" style="margin-top:-20px">
-        <%= link_to "Edit Settings", incident_monitor_path(incident_monitor),
-              class: "btn btn-primary btn-small" %>
-      </span>
+        <% if current_user.admin? %>
+          <span class="pull-right" style="margin-top:-20px">
+          <%= link_to "Edit Settings", incident_monitor_path(incident_monitor),
+                class: "btn btn-primary btn-small" %>
+          </span>
+        <% end %>
       </td>
     </tr>
   </tbody>

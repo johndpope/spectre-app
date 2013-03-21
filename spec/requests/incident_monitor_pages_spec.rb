@@ -29,9 +29,29 @@ describe "IncidentMonitors" do
       it { should have_selector('td', text: 'Number of new bids') }
       it { should have_selector('td', text: '4') }
 
-      it { should have_link('Edit Settings') }
+      it { should_not have_link('Edit Settings') }
 
-      describe "and the monitor edit settings button is clicked" do
+      describe "and a non-admin tries to visit the edit page" do
+        before { visit incident_monitor_path(monitor.id) }
+
+        it { should have_selector('title', text: 'Incident Monitors') }
+        it { should have_selector('h1', text: 'Incident Monitors') }
+
+        it { should have_link(JSON.parse(monitor.desc)["name"]) }
+        it { should have_selector('a', :'data-parent' => 'monitors' ) }
+   
+        it { should have_selector('td', text: 'Active') }
+      end
+
+      describe "and an admin clicks monitor the edit settings button" do
+
+        let(:user) { FactoryGirl.create(:admin) }
+
+        before do
+          sign_in user
+          visit incident_monitors_path
+        end
+
         before { click_link 'Edit Settings' }
 
         it { should have_selector('h3', text: 'Edit monitor settings for') }

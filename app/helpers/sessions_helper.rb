@@ -33,6 +33,12 @@ module SessionsHelper
     cookies.delete(:remember_token)
   end
 
+  def admin_user
+    unless current_user.admin?
+      redirect_to incident_monitors_path
+    end
+  end
+
   def redirect_back_or(default)
     redirect_to(session[:return_to] || default)
     session.delete(:return_to)

@@ -1,5 +1,6 @@
 class IncidentMonitorsController < ApplicationController
   before_filter :signed_in_user, only: [:index, :show]
+  before_filter :admin_user, only: [:show]
 
   rescue_from ActiveRecord::RecordNotFound, :with => :monitor_not_found
 

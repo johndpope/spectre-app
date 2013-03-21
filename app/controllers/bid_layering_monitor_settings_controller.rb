@@ -1,6 +1,7 @@
 class BidLayeringMonitorSettingsController < ApplicationController
   include IncidentMonitorsHelper
   before_filter :signed_in_user, only: [:modify]
+  before_filter :admin_user, only: [:show]
 
   def modify
     if params["cancel"] == "Cancel"
