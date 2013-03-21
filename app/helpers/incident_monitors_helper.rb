@@ -42,4 +42,27 @@ module IncidentMonitorsHelper
   def try_to_i(str, default = str)
     str =~ /^-?\d+$/ ? str.to_i : str
   end
+
+  def save_monitor_settings(monitor_id, cur_settings, new_settings)
+    new_settings.merge!(new_settings) { |k, v| try_to_i(v) }
+    if cur_settings.valid?
+      monitor = IncidentMonitor.find(monitor_id)
+      if new_settings.to_json == monitor.settings
+        redirect_to incident_monitors_path, notice: "No modifications."
+      else
+        monitor.update_attributes(settings: new_settings.to_json)
+        desc = JSON.parse(monitor.desc, symbolize_names: true)
+        new_action = current_user.actions.new(modify_monitor_settings_action(
+                                                monitor.id, desc))
+        new_action.save
+        flash[:success] = "Settings for #{ desc[:'name'] } modified."
+        redirect_to incident_monitors_path
+      end  
+    else
+      redirect_to incident_monitor_path(params['monitor_id'],
+        errors: cur_settings.errors.messages,
+        new_settings: new_settings,
+        render_new_settings: true)
+    end
+  end
 end
