@@ -155,7 +155,8 @@ FactoryGirl.define do
                  "cancels", 40,
                  "ratio", 0.125,
                  "symbol", "SANp",
-                 "threshold", 0.3].to_json()
+                 "threshold", 0.3,
+                 "monitoring-window", 5].to_json()
     detection_time Time.now.utc.iso8601
     participants "Acme Trading"
     symbol "SANp"

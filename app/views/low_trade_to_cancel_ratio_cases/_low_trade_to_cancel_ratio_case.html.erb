@@ -97,6 +97,7 @@
             <th>Trades</th>
             <th>Cancels</th>
             <th>Ratio</th>
+            <th>Monitoring Window</th>
           </tr>
         </thead>
         <tbody>
@@ -105,6 +106,7 @@
             <td><%= content['fills'] %></td>
             <td><%= content['cancels'] %></td>
             <td><%= content['ratio'].to_f * 100 %>%</td>
+            <td><%= pluralize(content['monitoring-window'], 'second') %></td>
           </tr>
         </tbody>
       </table>

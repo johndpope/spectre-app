@@ -2,7 +2,7 @@ namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
     admin = User.create!(name: "Oliver Szep",
-                         email: "szep@spectredemo.com",
+                         email: "oliver@spectredemo.com",
                          password: "foobar",
                          password_confirmation: "foobar")
     admin.toggle!(:admin)
@@ -12,6 +12,7 @@ namespace :db do
                         email: "nitin@spectredemo.com",
                         password: "foobar",
                         password_confirmation: "foobar")
+    user.toggle!(:admin)
     user.toggle!(:activated)
 
     admin = User.create!(name: "Walter White",
@@ -463,11 +464,12 @@ namespace :db do
       participants: "Acme Trading",
       symbol: "SANp",
       content: {
-        fills: 5,
-        cancels: 40,
-        ratio: 0.125,
-        symbol: "SANp",
-        threshold: 0.3
+        "fills" => 5,
+        "cancels" => 40,
+        "ratio" => 0.125,
+        "symbol" => "SANp",
+        "threshold" => 0.3,
+        "monitoring-window" => "5"
        }.to_json()
     }
 

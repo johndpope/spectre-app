@@ -304,6 +304,7 @@ describe "CaseFilePages" do
       it { should have_selector('th', text: 'Trades') }
       it { should have_selector('th', text: 'Cancels') }
       it { should have_selector('th', text: 'Ratio') }
+      it { should have_selector('th', text: 'Monitoring Window') }
     end
 
     describe "and large unfilled order case content" do
