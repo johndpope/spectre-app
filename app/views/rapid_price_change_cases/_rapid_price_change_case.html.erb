@@ -1,5 +1,278 @@
 <% if locals[:summarize] %>
-  <h1>Rapid Price Change Summary</h1>
+  <%= render 'case_files/summarize', case_file: rapid_price_change_case %>
 <% else %>
-  <h1>Rapid Price Change Case View</h1>
+  <div class = "span12">
+  <script type="text/javascript"> $(function() {
+    new Highcharts.Chart({
+      chart: {
+        renderTo: "events_chart", backgroundColor: null,
+      },
+      title: {
+        style: {
+          color: "#FFF"
+        },
+        text: "Rapid Price Change"
+      },
+      xAxis: {
+        type: "datetime",
+        title: {
+          text: "Time",
+        },
+        labels: {
+          rotation: -45,
+          y: 40,
+          x: -25,
+          style: {
+            color: '#CCC',
+          },
+          formatter: function() {
+                       var d = new Date(this.value);
+                       return ('0' + d.getUTCHours()).slice(-2) + ':' +
+                              ('0' + d.getMinutes()).slice(-2) + ':' +
+                              ('0' + d.getSeconds()).slice(-2) + '.' +
+                              ('00' + d.getMilliseconds()).slice(-3)
+                       
+          },
+        }
+      },
+      yAxis: {
+        lineWidth: 0,
+        gridLineWidth: 0.5,
+        gridLineDashStyle: 'dot',
+        minorGridLineWidth: 0,
+        lineColor: 'transparent',
+        title: {
+          text: "Price"
+        },
+        labels: {
+          style: {
+            color: '#CCC',
+          }
+        },
+         plotBands: [{
+          <% if content.first['last-price'] <= content.last['last-price'] %>
+             from: <%= content.first['last-price'] %>,
+             to: <%= content.first['last-price'] + 
+                     (content.last['last-price'] - 
+                      content.first['last-price']) * 0.2 %>,
+             label: {
+                 text: "▲ " + <%= (content.last['last-price'] - 
+                                   content.first['last-price']).to_s %> +
+                       " (" +
+                       <%= ((content.last['last-price'] -
+                             content.first['last-price']) /
+                             content.first['last-price'] *
+                             100).round(2).to_s %> +
+                       "%)",
+                 align: 'center',
+                 style: {
+                     color: '#007A3D'
+                 }
+             },
+             zIndex: 1,
+             color: {
+                 linearGradient: {
+                     x1: 0, y1: 1,
+                     x2: 1, y2: 1
+                 },
+                 stops: [ [0, '#272b30' ],
+                          [0.5, '#ADEBAD'] ,
+                          [0.8, '#64DF85'] ,
+                          [1, '#007C21'] 
+                 ]
+             }
+          <% else %>
+             from: <%= content.first['last-price'] %>,
+             to: <%= content.first['last-price'] -
+                     (content.first['last-price'] - 
+                      content.last['last-price']) * 0.2 %>,
+             label: {
+                 text: "▼ " + <%= (content.first['last-price'] - 
+                                   content.last['last-price']).to_s %> +
+                       " (" +
+                       <%= ((content.first['last-price'] -
+                             content.last['last-price']) /
+                             content.first['last-price'] *
+                             100).round(2).to_s %> +
+                       "%)",
+                 align: 'center',
+                 style: {
+                     color: '#FF1800'
+                 }
+             },
+             zIndex: 1,
+             color: {
+                 linearGradient: {
+                     x1: 0, y1: 1,
+                     x2: 1, y2: 1
+                 },
+                 stops: [ [0, '#272b30' ],
+                          [0.5, '#FFC4B7'] ,
+                          [0.8, '#FF7462'] ,
+                          [1, '#A61000'] 
+                 ]
+             }
+
+          <% end %>
+              }]
+
+
+      },
+      tooltip: {
+        useHTML: true,
+        crosshairs: [{
+          color: '#5D5D5D',
+          dashStyle: 'dash',
+          width: 2
+        }, {
+          color: '#5D5D5D',
+          dashStyle: 'dash',
+          width: 2
+        }],
+        formatter: function() {
+             var d = new Date(this.x);
+                     return '<span style="font-weight:bold;color:#039">' +
+                          this.point.participant +
+                          '</span><br/><span style="color:#666;">' +
+                          this.point.order_status + ' | ' + this.point.symbol +
+                          '<br/>' +
+             'Price: ' + this.y +
+             '<br/>' +
+             'Time: ' + ('0' + d.getUTCHours()).slice(-2) + ':' +
+                        ('0' + d.getMinutes()).slice(-2) + ':' +
+                        ('0' + d.getSeconds()).slice(-2) + '.' +
+                        ('00' + d.getMilliseconds()).slice(-3) +
+              '</span>'
+         }
+      },
+      legend: {
+        enabled: false
+      },
+      credits: {
+        enabled: false
+      },
+      series : [{
+        pointStart: <%= content.first['event-timestamp'] %>,
+        data: [
+          <% content.each do |o| %>
+            {x: <%= o['event-timestamp'] %>,
+             y: <%= ['filled', 'partial-fill'].include?(o['order-status']) ?
+                    o['last-price'] : o['price']  %>,
+             participant: "<%= o['customer-name'] %>",
+             order_status: "<%= o['order-status'] %>".charAt(0).toUpperCase() +
+                           "<%= o['order-status'] %>".slice(1) +
+                           " <%= o['side'] %>",
+             symbol: "<%= o['symbol'] %>",
+             marker: {
+              symbol: ("url(" + "/assets/" + "<%= o['order-status'] %>" + "_" +
+                       "<%= o['side'] %>.png" + ")") }},
+          <% end %>
+          ],
+        lineWidth : 0,
+        marker : {
+          enabled : true,
+          radius : 4,
+          symbol: 'circle'
+        },
+      }],
+
+    });
+  });</script>
+  <div id="events_chart" style="width:940px; height:425px;"></div>
+  </div>
+  <div class = "span12">
+    <% if content %>
+    <div class="accordion" id="events">
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse"
+          data-parent="#events" href="#event_list" id="toggle"
+          style="font-weight:bold">
+            Hide Events
+          </a>
+        </div>
+        <div id="event_list" class="accordion-body collapse in">
+          <div class="accordion-inner">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Participant</th>
+                  <th>Order State</th>
+                  <th>Side</th>
+                  <th>Size</th>
+                  <th>Symbol</th>
+                  <th>Price</th>
+                  <th>Event Time</th>
+                  <th>Client Order Id</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% content.each do |o| %>
+                  <tr class="main">
+                    <td>
+                      <span class = "expand" style="font-weight:bold">
+                        <a href='#' onclick="return false;">+</a></span>
+                    </td>
+                    <td>
+                      <%= o['customer-name'] %>
+                    </td>
+                    <td><%= o['order-status'] %></td>
+                    <td><%= o['side'] %></td>
+
+                    <% if o['order-status'] == "new" %>
+                      <td><%= o['order-qty'] %></td>
+                    <% elsif o['order-status'] == "canceled" %>
+                      <td>
+                        <%= "#{ o['order-qty'] - o['cumulative-qty'] }" %>
+                      </td>
+                    <% elsif ['filled', 'partial-fill'].include?(
+                                                          o['order-status']) %>
+                      <td><%= "#{ o['last-share'] }" %></td>
+                    <% end %>
+
+                    <td><%= o['symbol'] %></td>
+
+                    <% if ['new', 'canceled'].include? o['order-status'] %>
+                      <td><%= o['price'] %></td>
+                    <% elsif ['filled', 'partial-fill'].include?(
+                                                          o['order-status']) %>
+                      <td><%= o['last-price'] %></td>
+                    <% end %>
+                    <td><%= convert_timestamp(o['event-timestamp']) %></td>
+                    <td><%= o['client-order-id'] %></td>
+                  </tr>
+                  <tr class="hidden">
+                    <td colspan="2" style="vertical-align:middle">
+                      Order Details
+                    </td>
+                    <td colspan="5">
+                      <table class="table table-bordered table-striped
+                                    table-hover">
+                        <tbody>
+                          <% o.each do |k, v| %>
+                          <tr>
+                            <td><%= k.to_s.gsub('-', ' ').capitalize %></td>
+                            <td><%= v.to_s %></td>
+                          </tr>
+                          <% end %>
+                        </tbody>
+                      </table>
+                    </td>
+                    <td colspan="2" style="vertical-align:middle;border-left:0">
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% else %>
+      <div class="well-small">
+        <span style="color:red">No Events Found</span>
+      </div>
+    <% end %>
+  </div>
 <% end %>
