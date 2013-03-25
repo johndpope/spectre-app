@@ -1,0 +1,12 @@
+<% if not locals[:edit] %>
+  <%= render 'incident_monitors/summarize',
+        incident_monitor: rapid_price_change_monitor,
+        desc: JSON.parse(rapid_price_change_monitor.desc),
+        settings: JSON.parse(rapid_price_change_monitor.settings),
+        active: rapid_price_change_monitor.active %>
+<% else %>
+  <%= render 'incident_monitors/rapid_price_change',
+        incident_monitor: rapid_price_change_monitor,
+        desc: JSON.parse(rapid_price_change_monitor.desc),
+        settings: JSON.parse(rapid_price_change_monitor.settings) %>
+<% end %>

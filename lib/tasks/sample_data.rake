@@ -601,6 +601,94 @@ namespace :db do
       content: "Generate action",
       case_file_id: case_file.id)
 
+    rapid_price_change = { 
+                 type: "RapidPriceChangeCase",
+                 name: "Rapid price change",
+                 detection_time: DateTime.new(2013, 2, 28, 10, 47, 11).iso8601,
+                 participants: "Acme Trading",
+                 symbol: "SANp",
+                 content: [
+                   {
+                    "sender-comp-id" => "VENUE_X",
+                    "target-sub-id" => "CUSTOMER_X",
+                    "leaves-qty" => 100,
+                    "last-share" => 0,
+                    "price" => 1.0,
+                    "avg-price" => 0.0,
+                    "transact-time" => "20130228-10:47:03",
+                    "event-timestamp" => 1362044823000,
+                    "order-status" => "filled",
+                    "last-price" => 1.0,
+                    "side" => "buy",
+                    "order-qty" => 100,
+                    "symbol" => "SANp",
+                    "order-type" => "limit",
+                    "customer-name" => "Acme Trading",
+                    "order-id" => "2499",
+                    "cumulative-qty" => 0,
+                    "client-order-id" => "10471028480",
+                    "target-comp-id" => "CUSTOMER"
+                  },
+                  {
+                    "sender-comp-id" => "VENUE_X",
+                    "target-sub-id" => "CUSTOMER_X",
+                    "leaves-qty" => 100,
+                    "last-share" => 0,
+                    "price" => 1.50,
+                    "avg-price" => 0.0,
+                    "transact-time" => "20130228-10:47:04",
+                    "event-timestamp" => 1362044824000,
+                    "order-status" => "filled",
+                    "last-price" => 1.50,
+                    "side" => "buy",
+                    "order-qty" => 100,
+                    "symbol" => "SANp",
+                    "order-type" => "limit",
+                    "customer-name" => "Acme Trading",
+                    "order-id" => "2500",
+                    "cumulative-qty" => 0,
+                    "client-order-id" => "10471028481",
+                    "target-comp-id" => "CUSTOMER"
+                  },
+                  {
+                    "sender-comp-id" => "VENUE_X",
+                    "target-sub-id" => "CUSTOMER_X",
+                    "leaves-qty" => 100,
+                    "last-share" => 0,
+                    "price" => 1.50,
+                    "avg-price" => 0.0,
+                    "transact-time" => "20130228-10:47:05",
+                    "event-timestamp" => 1362044825000,
+                    "order-status" => "filled",
+                    "last-price" => 1.50,
+                    "side" => "sell",
+                    "order-qty" => 100,
+                    "symbol" => "SANp",
+                    "order-type" => "limit",
+                    "customer-name" => "Acme Trading",
+                    "order-id" => "2501",
+                    "cumulative-qty" => 0,
+                    "client-order-id" => "10471028482",
+                    "target-comp-id" => "CUSTOMER"
+                  }
+                ].to_json()
+              }
+
+    case_file = user.case_files.create!(
+      type: rapid_price_change[:type],
+      name: rapid_price_change[:name],
+      content: rapid_price_change[:content],
+      detection_time: rapid_price_change[:detection_time],
+      participants: rapid_price_change[:participants],
+      symbol: rapid_price_change[:symbol])
+
+    user.actions.create!(
+      type: "Generate",
+      desc: "Spectre generated case #{case_file.id} and assigned it to " +
+            "#{ user.name }",
+      content: "Generate action",
+      case_file_id: case_file.id)
+
     IncidentMonitor.create!(
       type: "BidLayeringMonitor",
       desc: { "name" => "Layering on the bid",
@@ -662,12 +750,28 @@ namespace :db do
     )
 
     IncidentMonitor.create!(
+      type: "RapidPriceChangeMonitor",
+      desc: { "name" => "Rapid price change",
+              "info" => "This monitor looks for any incident where a trade's " +
+                        "price deviates a certain percentage beyond the " +
+                        "price of the previous trade. Rapid price change " +
+                        "incidents are partitioned by participant and symbol."
+            }.to_json(),
+      settings: {
+        "trade-price-equal-to-or-less-than-25" => 10,
+        "trade-price-between-25-and-150" => 5,
+        "trade-price-equal-to-or-over-150" => 3,
+      }.to_json,
+      active: true
+    )
+
+    IncidentMonitor.create!(
       type: "WashTradingMonitor",
       desc: { "name" => "Wash trading",
               "info" => "This monitor looks for any incident where a " +
                         "participant trades with itself without prior " +
-                        "intention to internalize. Layering incidents are partitioned " +
-                        "by participant and symbol."
+                        "intention to internalize. Layering incidents are " +
+                        "partitioned by participant and symbol."
             }.to_json(),
       settings: {
         "ignore-internalized-trades" => true

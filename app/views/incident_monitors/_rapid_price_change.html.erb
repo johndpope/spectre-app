@@ -1,0 +1,60 @@
+<% provide(:title, 'Rapid price change monitor settings') %>
+<div class="row">
+  <div class="span11">
+    <h3>Edit monitor settings for <i><%= desc['name'] %></i></h3>
+    <div class="form-horizontal-settings well">
+      <%= form_tag 'rapid_price_change_monitor_settings' do %>
+
+        <div class="control-group">
+          <%= label_tag 'trade-price-equal-to-or-less-than-25',
+                        'Trade price equal to or less than 25:',
+                        class: 'control-label' %>
+          <div class="controls">
+            <%= text_field_tag 'trade-price-equal-to-or-less-than-25',
+              populate_field('trade-price-equal-to-or-less-than-25',
+                             params[:render_new_settings],
+                             settings,
+                             params[:new_settings]),
+                             class: 'input-xlarge' %>
+            <%= render 'shared/settings_error_message',
+                errors: params[:errors],
+                field: 'trade-price-equal-to-or-less-than-25' %>
+          </div>
+        </div>
+        <div class="control-group">
+          <%= label_tag 'trade-price-between-25-and-150',
+                        'Trade price between 25 and 150:',
+                        class: 'control-label' %>
+          <div class="controls">
+            <%= text_field_tag 'trade-price-between-25-and-150',
+              populate_field('trade-price-between-25-and-150',
+                             params[:render_new_settings],
+                             settings,
+                             params[:new_settings]),
+                                 class: 'input-xlarge' %>
+            <%= render 'shared/settings_error_message',
+                errors: params[:errors],
+                field: 'trade-price-between-25-and-150' %>
+          </div>
+        </div>
+        <div class="control-group">
+          <%= label_tag 'trade-price-equal-to-or-over-150',
+                        'Trade price equal to or over 150:',
+                        class: 'control-label' %>
+          <div class="controls">
+            <%= text_field_tag 'trade-price-equal-to-or-over-150',
+                  populate_field('trade-price-equal-to-or-over-150',
+                                 params[:render_new_settings],
+                                 settings,
+                                 params[:new_settings]),
+                  class: 'input-xlarge' %>
+            <%= render 'shared/settings_error_message',
+                errors: params[:errors],
+                field: 'trade-price-equal-to-or-over-150' %>
+          </div>
+        </div>
+        <%= render 'shared/save_cancel_button', id: incident_monitor.id %>
+      <% end %>
+    </div>
+  </div>
+</div>

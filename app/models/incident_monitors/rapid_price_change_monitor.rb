@@ -1,0 +1,2 @@
+class RapidPriceChangeMonitor < IncidentMonitor
+end

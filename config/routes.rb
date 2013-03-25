@@ -42,6 +42,8 @@ SpectreApp::Application.routes.draw do
         to: 'wash_trading_monitor_settings#modify'
   match "/incident_monitors/large_unfilled_order_monitor_settings",
         to: 'large_unfilled_order_monitor_settings#modify'
+    match "/incident_monitors/rapid_price_change_monitor_settings",
+        to: 'rapid_price_change_monitor_settings#modify'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
