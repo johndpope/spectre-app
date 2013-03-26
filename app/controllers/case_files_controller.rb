@@ -6,7 +6,7 @@ class CaseFilesController < ApplicationController
 
   # This should be called only by the incident listener app.
   def create
-    user = User.find_by_email('nitin@spectredemo.com')
+    user = User.find_by_email('punjabi@quotemtf.com')
     incident = params['incident']
     new_case = user.case_files.new(
                  type: incident['type'],
@@ -24,6 +24,7 @@ class CaseFilesController < ApplicationController
       content: 'Generate action',
       case_file_id: new_case.id)
     new_action.save
+    UserMailer.case_generated(user, new_case).deliver
 
     render nothing: true, status: :ok
   end

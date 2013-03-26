@@ -215,6 +215,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  actionmailer
   active_attr
   annotate (= 2.5.0)
   bcrypt-ruby (= 3.0.1)

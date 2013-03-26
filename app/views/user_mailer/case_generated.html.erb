@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Hello, <%= @user.name %></h1>
+    <p>
+      Spectre has detected a <i><%= @case.name %></i> incident and assigned the case to you.
+    </p>
+    <p>
+      View your case at <%= @url %>/case_files/<%= @case.id %>.
+    </p>
+  </body>
+</html>

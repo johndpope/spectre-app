@@ -9,7 +9,7 @@ namespace :db do
     admin.toggle!(:activated)
 
     user = User.create!(name: "Nitin Punjabi",
-                        email: "nitin@spectredemo.com",
+                        email: "punjabi@quotemtf.com",
                         password: "foobar",
                         password_confirmation: "foobar")
     user.toggle!(:admin)
@@ -28,7 +28,7 @@ namespace :db do
                         password_confirmation: "foobar")
     user.toggle!(:activated)
 
-    user = User.find_by_email("nitin@spectredemo.com")
+    user = User.find_by_email("punjabi@quotemtf.com")
     layer_bid= { type: "BidLayeringCase",
                  name: "Layering on the bid",
                  detection_time: DateTime.new(2013, 2, 28, 10, 47, 11).iso8601,
